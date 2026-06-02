@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@import "./components/button.css";
+
+:root {
+  --padding-margin-mobile: 1rem;
+  --primary-from: #9f64a6;
+  --primary-to: #2e64ae;
+  --primary: linear-gradient(
+          201.03deg,
+          var(--primary-from) -0.45%,
+          var(--primary-to) 99.55%
+  );
+  --font-family: Quicksand;
+  --font-size: calc(15px + 0.390625vw);
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+.burger{
+    width: 50%;
+    right: -50%;
+    transition: right 0.3s ease-in-out;
+}
+
+.burger.show{
+    right: 0;
+}
+
+#header > *{
+    background-color: transparent;
+    anchor-name: hello;
+    transition: all 0.3s ease-in-out;
+}
+
+#header.transformed > *{
+    background-color: white;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.about > *{
+    position: relative;
+}
+
+.about.title{
+    transform: translate(-100%,0%);
+}
+.about.title.show{
+    transform: none;
+}
+.about.description{
+    transform: translate(100%,0%)
+}
+.about.description.show{
+    transform: none;
+}
