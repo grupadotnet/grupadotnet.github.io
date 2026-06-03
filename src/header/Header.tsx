@@ -53,7 +53,7 @@ export function Header() {
             <div id={"header"} className={`relative sticky-top ${colortheme ? 'transformed': ''}`} ref={HeaderInViewRef}>
                 <div className={" fixed h-29 flex top-0 left-0 right-0 items-center"}>
                     <nav className={"flex font(--font-family) w-7/8  items-center place-content-between m-auto"}>
-                        <a href="#HELLO">
+                        <a href="/">
                             <img src={width > 1100 ? LogoSVG[1] : LogoSVG[0]} alt={"logo"} className={"max-w-5xl h-24"} />
                         </a>
                         <div className={"flex items-center"}>
