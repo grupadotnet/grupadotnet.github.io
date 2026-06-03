@@ -5,8 +5,8 @@ import Logo_with_text from "../assets/icons/Logo_KNPiMI_with_text.svg"
 import Logo_White_with_text from "../assets/icons/Logo_KNPiMI_white_with_text.svg"
 import Burger from "../assets/icons/hamburger-icon-gradient.svg"
 import Burger_White from "../assets/icons/hamburger-icon.svg"
-import {Button} from "./button.tsx";
-import {useWindowSize} from "./useWindowSize.tsx";
+import {Button} from "../components/button/button.tsx";
+import {useWindowSize} from "../components/useWindowSize.tsx";
 import {useRef, useState} from "react";
 import {useOnInView} from "react-intersection-observer";
 
