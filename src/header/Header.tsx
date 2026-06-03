@@ -52,17 +52,15 @@ export function Header() {
     return (
             <div id={"header"} className={`relative sticky-top ${colortheme ? 'transformed': ''}`} ref={HeaderInViewRef}>
                 <div className={" fixed h-29 flex top-0 left-0 right-0 items-center"}>
-                    <nav className={"flex font(--font-family) w-7/8  items-center place-content-between m-auto"}>
+                    <nav className={"flex font(--font-family) w-7/8 items-center place-content-between m-auto"}>
                         <a href="/">
                             <img src={width > 1100 ? LogoSVG[1] : LogoSVG[0]} alt={"logo"} className={"max-w-5xl h-24"} />
                         </a>
-                        <div className={"flex items-center"}>
                         { width > 768 ?
-                            pointers.map((pointer, i) =>
-                                <Button key={pointer} target={pointer} text={names[i]}/>
-                            ) : <div className={"cursor-pointer"} onClick={BurgerShow}><img src={BurgerSVG} alt={"Menu"}/></div>
+                            <div className={"flex items-center"}>
+                               {pointers.map((pointer, i) => <Button key={pointer} target={pointer} text={names[i]}/>)}
+                            </div> : <div className={"cursor-pointer"} onClick={BurgerShow}><img src={BurgerSVG} alt={"Menu"}/></div>
                         }
-                        </div>
                     </nav>
                 </div>
                 <div className={"flex fixed top-29 flex-col items-center burger"} ref={BurgerRef}>
