@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "./components/button.css";
+@import "components/button/button.css";
 
 :root {
   --padding-margin-mobile: 1rem;
@@ -16,6 +16,10 @@
 
 html{
     scroll-behavior: smooth;
+}
+
+#root{
+    background-color: var(--primary);
 }
 
 .burger{
