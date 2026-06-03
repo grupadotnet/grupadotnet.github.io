@@ -26,13 +26,13 @@ export default function Hello() {
         },150)
 
         return () => clearInterval(typewriterInterval)
-    },[])
+    },[text.length])
 
 
 
     return(
         <>
-            <div className={"h-[100vh] w-full flex"} id={"HELLO"}>
+            <div className={"h-screen w-full flex"} id={"HELLO"}>
                 <p className={"text-[clamp(3rem,7vw,8rem)] mt-[35vh] w-7/8 m-auto text-balance text-white font-extralight"}>
 
                     <span className={"helloText"}>{text.slice(0,id)}</span><span className={"text-transparent"}>{text.slice(id,text.length)}</span>
