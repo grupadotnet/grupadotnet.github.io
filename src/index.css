@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @import "components/button/button.css";
+@import "header/Header.css";
+@import "hello/Hello.css";
+@import "about/About.css";
 
 :root {
   --padding-margin-mobile: 1rem;
@@ -19,42 +22,7 @@ html{
 }
 
 #root{
-    background-color: var(--primary);
+    background: var(--primary);
+    background-attachment: fixed;
 }
 
-.burger{
-    width: 50%;
-    right: -50%;
-    transition: right 0.3s ease-in-out;
-}
-
-.burger.show{
-    right: 0;
-}
-
-#header > *{
-    background-color: transparent;
-    anchor-name: hello;
-    transition: all 0.3s ease-in-out;
-}
-
-#header.transformed > *{
-    background-color: white;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-.about > *{
-    position: relative;
-}
-
-.about.title{
-    transform: translate(-100%,0%);
-}
-.about.title.show{
-    transform: none;
-}
-.about.description{
-    transform: translate(100%,0%)
-}
-.about.description.show{
-    transform: none;
-}

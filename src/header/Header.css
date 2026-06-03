@@ -1,0 +1,21 @@
+.burger{
+    width: 50%;
+    right: -50%;
+    transition: right 0.3s ease-in-out;
+}
+
+.burger.show{
+    right: 0;
+}
+
+#header > *{
+    z-index: 67;
+    background-color: transparent;
+    anchor-name: hello;
+    transition: all 0.3s ease-in-out;
+}
+
+#header.transformed > *{
+    background-color: white;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}

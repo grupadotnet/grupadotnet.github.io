@@ -1,28 +1,41 @@
 import {useEffect, useState} from "react";
 
+const PHRASES = [
+    "POZNAJ NASZE KOŁO NAUKOWE!",
+    "ZBUDUJ Z NAMI COŚ NIESAMOWITEGO.",
+    "ROZWIJAJ Z NAMI SWOJE PASJE!"
+];
+
 export default function Hello() {
-    const [textInvisible, setTextInvisible] = useState<string>("POZNAJ NASZE KOŁO NAUKOWE!")
-    const [textVisible, setTextVisible] = useState<string>("")
+    const [text] = useState(() => {
+        const randomIndex = Math.floor(Math.random() * PHRASES.length);
+        return PHRASES[randomIndex];
+    });
+    const [id, setId] = useState<number>(0)
 
-    function handleTypewriterStep(){
-        setTextVisible(()=>textVisible.concat(textInvisible.charAt(0)))
-        setTextInvisible(()=> textVisible.substring(2))
-    }
+    useEffect(()=>{
+        const typewriterInterval = setInterval(()=>{
+            setId((prevId)=> {
+            if(prevId >= text.length) {
+                clearInterval(typewriterInterval);
+                return prevId
+            }
+            console.log(prevId + 1)
+            return prevId + 1
+            })
+        },150)
 
-    useEffect(() => {
-        const typewritterInterval = setInterval(() => {
-            if(textInvisible.length == 0) clearInterval(typewritterInterval)
-            handleTypewriterStep();
-        },100)
+        return () => clearInterval(typewriterInterval)
+    },[])
 
-    })
+
 
     return(
         <>
-            <div className={"from-(--primary-from) to-(--primary-to) bg-linear-[201.03deg] h-[100vh] w-full flex"} id={"HELLO"}>
+            <div className={"h-[100vh] w-full flex"} id={"HELLO"}>
                 <p className={"text-[clamp(1rem,7vw,8rem)] mt-[35vh] w-7/8 m-auto text-balance text-white font-extralight"}>
 
-                    <span>{textVisible}</span><span>{textInvisible}</span>
+                    <span className={"helloText"}>{text.slice(0,id)}</span><span className={"text-transparent"}>{text.slice(id,text.length)}</span>
 
                 </p>
             </div>
