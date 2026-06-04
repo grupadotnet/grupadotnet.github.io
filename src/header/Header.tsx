@@ -52,14 +52,14 @@ export function Header() {
     return (
             <div id={"header"} className={`relative sticky-top ${colortheme ? 'transformed': ''}`} ref={HeaderInViewRef}>
                 <div className={" fixed h-29 flex top-0 left-0 right-0 items-center"}>
-                    <nav className={"flex font(--font-family) w-7/8 items-center place-content-between m-auto"}>
+                    <nav className={`flex font(--font-family) ${width > 768 ? "w-7/8" : "w-11/12"} items-center place-content-between m-auto`}>
                         <a href="/">
                             <img src={width > 1100 ? LogoSVG[1] : LogoSVG[0]} alt={"logo"} className={"max-w-5xl h-24"} />
                         </a>
                         { width > 768 ?
                             <div className={"flex items-center"}>
                                {pointers.map((pointer, i) => <Button key={pointer} target={pointer} text={names[i]}/>)}
-                            </div> : <div className={"cursor-pointer"} onClick={BurgerShow}><img src={BurgerSVG} alt={"Menu"}/></div>
+                            </div> : <div className={"cursor-pointer flex size-20 items-center justify-center"} onClick={BurgerShow}><img className={"max-w-5xl h-8"} src={BurgerSVG} alt={"Menu"}/></div>
                         }
                     </nav>
                 </div>
