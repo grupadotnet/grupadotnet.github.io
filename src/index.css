@@ -15,6 +15,7 @@
   );
   --font-family: Quicksand;
   --font-size: calc(15px + 0.390625vw);
+  --blink: blink 0.5s infinite ease-in-out alternate;
 }
 
 html{
@@ -24,5 +25,16 @@ html{
 #root{
     background: var(--primary);
     background-attachment: fixed;
+}
+
+@keyframes blink{
+    from{
+
+        opacity: 1;
+    }
+    to{
+
+        opacity: 0;
+    }
 }
 
