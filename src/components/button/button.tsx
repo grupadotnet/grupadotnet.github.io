@@ -1,7 +1,8 @@
+import type {ReactNode} from "react";
 
-export function Button({text, target}: { text?:string, target?: string }) {
+export function Button({children, target}: {children:ReactNode ,target?: string }) {
     return (
-        <a className={"m-5 button"} href={target}>{text}</a>
+        <a className={"m-5 button"} href={target}>{children}</a>
     )
 }
 

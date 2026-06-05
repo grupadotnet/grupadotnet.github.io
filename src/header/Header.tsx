@@ -58,14 +58,14 @@ export function Header() {
                         </a>
                         { width > 768 ?
                             <div className={"flex items-center"}>
-                               {pointers.map((pointer, i) => <Button key={pointer} target={pointer} text={names[i]}/>)}
+                                {pointers.map((pointer, i) => <Button key={pointer} target={pointer}>{names[i]}</Button>)}
                             </div> : <div className={"cursor-pointer flex size-20 items-center justify-center"} onClick={BurgerShow}><img className={"max-w-5xl h-8"} src={BurgerSVG} alt={"Menu"}/></div>
                         }
                     </nav>
                 </div>
                 <div className={"flex fixed top-29 flex-col items-center burger"} ref={BurgerRef}>
                     {width <= 768 && pointers.map((pointer, i) =>
-                    <Button key={pointer} target={pointer} text={names[i]}/>)}
+                    <Button key={pointer} target={pointer}>{names[i]}</Button>)}
                 </div>
 
             </div>
