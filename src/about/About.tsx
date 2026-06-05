@@ -17,7 +17,7 @@ export default function About() {
 
     return (
         <div className="about bg-white overflow-hidden">
-            <section className={"flex items-center h-200 w-7/8 m-auto text-lg"} ref={AboutRef}>
+            <section className={"flex items-center h-[50vh] justify-center text-center w-7/8 m-auto text-lg"} ref={AboutRef}>
                 <p className={"text-3xl w-1/4 title"} id={"O_NAS"}>O NAS</p>
                 <p className={"text-justify w-3/4 description"}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
