@@ -1,14 +1,1 @@
-.helloText::after{
-    content: "|";
-    animation: blink-cursor 0.5s infinite alternate ease-in-out;
-}
-@keyframes blink-cursor {
-    from{
 
-        opacity: 1;
-    }
-    to{
-
-        opacity: 0;
-        }
-}
