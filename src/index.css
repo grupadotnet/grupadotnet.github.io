@@ -3,6 +3,7 @@
 @import "header/Header.css";
 @import "hello/Hello.css";
 @import "about/About.css";
+@import "sections/Sections.css";
 
 :root {
   --padding-margin-mobile: 1rem;

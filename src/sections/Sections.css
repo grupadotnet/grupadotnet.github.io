@@ -1,0 +1,26 @@
+
+.section-title>span{
+    position: relative;
+    background-image: var(--primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.section-title>span::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px; /* Thickness of the underline */
+    bottom: -2px; /* Position right below the text */
+    left: 0;
+    background: var(--primary);
+
+    /* Animation setup: start at 0 width (scaled down) */
+    transform: scaleX(0);
+    transform-origin: bottom center;
+    transition: transform 0.3s ease-in-out;
+}
+.section-title>span:hover::before{
+    transform: scaleX(1);
+}
