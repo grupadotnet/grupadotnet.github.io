@@ -1,3 +1,7 @@
+#header.no-transition {
+    transition: none;
+}
+
 .burger{
     width: 50vw;
     right: -50%;

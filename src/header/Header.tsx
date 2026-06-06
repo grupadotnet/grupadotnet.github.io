@@ -7,7 +7,7 @@ import Burger from "../assets/icons/hamburger-icon-gradient.svg"
 import Burger_White from "../assets/icons/hamburger-icon.svg"
 import {Button} from "../components/button/button.tsx";
 import {useWindowSize} from "../components/useWindowSize.tsx";
-import {useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {useOnInView} from "react-intersection-observer";
 
 export function Header() {
@@ -19,38 +19,36 @@ export function Header() {
     })
 
     const { width } = useWindowSize();
-    const [colortheme,setColorTheme] = useState<boolean>(false);
-    const [isInView, setIsInView] = useState<boolean>(false);
-
-    const BurgerRef = useRef<HTMLDivElement>(null);
+    const [ColorScheme,setColorScheme] = useState<boolean>(true);
+    const [isInView, setIsInView] = useState<boolean>(true);
+    const [burgerShow, setburgerShow] = useState<boolean>(false);
+    const [isloading,setIsLoading] = useState<boolean>(true);
 
     const BurgerShow = ()=>{
-        if(!BurgerRef.current) return
-        BurgerRef.current.classList.toggle("show");
+        setburgerShow((prev)=>!prev)
         if(!isInView){
-            setColorTheme(()=>!colortheme);
+            setColorScheme((prev)=>!prev);
         }
     }
-
-
+    const handleHeaderInView = useCallback((inView:boolean)=>{
+        setIsInView(!inView)
+        setColorScheme(!inView)
+    },[])
     const HeaderInViewRef = useOnInView(
-            (inView) => {
-                console.log(!inView)
-                setIsInView(!inView)
-                setColorTheme(!inView)
-            },
+            handleHeaderInView,
         {
             threshold: 0.2,
             rootMargin: "200px 0px 0px 0px"
-        }
 
+        }
     );
 
-    const LogoSVG = colortheme ? [Logo,Logo_with_text]: [Logo_White,Logo_White_with_text];
-    const BurgerSVG = colortheme ? Burger : Burger_White;
+
+    const LogoSVG = ColorScheme ? [Logo,Logo_with_text]: [Logo_White,Logo_White_with_text];
+    const BurgerSVG = ColorScheme ? Burger : Burger_White;
 
     return (
-            <div id={"header"} className={`relative sticky-top ${colortheme ? 'transformed': ''}`} ref={HeaderInViewRef}>
+            <div id={"header"} className={`relative sticky-top ${ColorScheme ? 'transformed': ''} ${isloading ? "no-transition" : ""}`} ref={HeaderInViewRef}>
                 <div className={" fixed h-29 flex top-0 left-0 right-0 items-center"}>
                     <nav className={`flex font(--font-family) ${width > 768 ? "w-7/8" : "w-11/12"} items-center place-content-between m-auto`}>
                         <a href="/">
@@ -63,7 +61,7 @@ export function Header() {
                         }
                     </nav>
                 </div>
-                <div className={"flex fixed top-29 flex-col items-center burger"} ref={BurgerRef}>
+                <div className={`flex fixed top-29 flex-col items-center burger ${burgerShow ? "show":""}`}>
                     {width <= 768 && pointers.map((pointer, i) =>
                     <Button key={pointer} target={pointer}>{names[i]}</Button>)}
                 </div>
