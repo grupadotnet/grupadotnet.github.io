@@ -8,7 +8,8 @@ export default defineConfig({
     // Allows Vite to accept connections over the Tailscale network interface
     host:true,
     allowedHosts: [
-      'moozek-laptop.taile71b45.ts.net' // Include if not using Tailscale HTTPS
+      'moozek-laptop.taile71b45.ts.net',
+      'moozek-pc.taile71b45.ts.net'// Include if not using Tailscale HTTPS
     ]
   }
 })
