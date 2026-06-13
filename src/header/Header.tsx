@@ -7,7 +7,7 @@ import Burger from "../assets/icons/hamburger-icon-gradient.svg"
 import Burger_White from "../assets/icons/hamburger-icon.svg"
 import {Button} from "../components/button/button.tsx";
 import {useWindowSize} from "../components/useWindowSize.tsx";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useState} from "react";
 import {useOnInView} from "react-intersection-observer";
 
 export function Header() {
@@ -18,11 +18,11 @@ export function Header() {
         return name
     })
 
+
     const { width } = useWindowSize();
     const [ColorScheme,setColorScheme] = useState<boolean>(true);
     const [isInView, setIsInView] = useState<boolean>(true);
     const [burgerShow, setburgerShow] = useState<boolean>(false);
-    const [isloading,setIsLoading] = useState<boolean>(true);
 
     const BurgerShow = ()=>{
         setburgerShow((prev)=>!prev)
@@ -48,11 +48,11 @@ export function Header() {
     const BurgerSVG = ColorScheme ? Burger : Burger_White;
 
     return (
-            <div id={"header"} className={`relative sticky-top ${ColorScheme ? 'transformed': ''} ${isloading ? "no-transition" : ""}`} ref={HeaderInViewRef}>
+            <div id={"header"} className={`relative sticky-top ${ColorScheme ? 'opaque': 'transparent'}`} ref={HeaderInViewRef}>
                 <div className={" fixed h-29 flex top-0 left-0 right-0 items-center"}>
                     <nav className={`flex font(--font-family) ${width > 768 ? "w-7/8" : "w-11/12"} items-center place-content-between m-auto`}>
                         <a href="/">
-                            <img src={width > 1100 ? LogoSVG[1] : LogoSVG[0]} alt={"logo"} className={"max-w-5xl h-24"} />
+                            <img srcSet={width > 1100 ? LogoSVG[1] : LogoSVG[0]} alt={"logo"} className={"max-w-5xl h-24"} />
                         </a>
                         { width > 768 ?
                             <div className={"flex items-center"}>

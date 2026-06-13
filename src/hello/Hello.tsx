@@ -37,7 +37,7 @@ export default function Hello() {
             <div className={"h-screen w-full flex"} id={"HELLO"}>
                 <p className={"text-[clamp(3rem,7vw,8rem)] mt-[35vh] w-7/8 m-auto text-balance text-white font-extralight"}>
 
-                    <span className={"helloText after:content-['|']"} ref={VisibleRef}>{text.slice(0,id)}</span><span className={"text-transparent"}>{text.slice(id+1,text.length)}</span>
+                    <span className={"helloText after:content-['|'] font-(family-name:--font-family-monospace) "} ref={VisibleRef}>{text.slice(0,id)}</span><span className={"text-transparent"}>{text.slice(id+1,text.length)}</span>
 
                 </p>
             </div>

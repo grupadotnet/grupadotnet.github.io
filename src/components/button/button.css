@@ -1,4 +1,4 @@
-#header  a.button{
+#header.transparent  a.button{
     position: relative;
     text-decoration: none;
     /* Create the gradient text */
@@ -6,7 +6,7 @@
     display: inline-block; /* Ensures the pseudo-element aligns correctly */
 }
 
-#header  a.button::before{
+#header.transparent  a.button::before{
     content: '';
     position: absolute;
     width: 100%;
@@ -21,12 +21,12 @@
     transition: transform 0.3s ease-in-out;
 }
 
-#header  a.button:hover::before{
+#header.transparent  a.button:hover::before{
     transform: scaleX(1);
 }
 
 
-#header.transformed a.button{
+#header.opaque a.button{
     background-image: var(--primary);
     -webkit-background-clip: text;
     background-clip: text;
@@ -34,7 +34,7 @@
 
 }
 
-#header.transformed a.button::before{
+#header.opaque a.button::before{
     content: '';
     position: absolute;
     width: 100%;
@@ -47,6 +47,6 @@
     transform-origin: bottom center;
     transition: transform 0.3s ease-in-out;
 }
-#header.transformed  a.button:hover::before{
+#header.opaque  a.button:hover::before{
     transform: scaleX(1);
 }
