@@ -9,16 +9,19 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
     "react": "^19.2.6",
+    "react-doctor": "^0.5.5",
     "react-dom": "^19.2.6",
     "react-intersection-observer": "^10.0.3",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
