@@ -41,5 +41,4 @@ jobs:
         run: npm run lint
 
       - name: Run React Doctor Audit
-        run: |
-          npx react-doctor@latest --scope changed --base origin/${{ github.base_ref }}
+        run: npx react-doctor@latest --scope changed --base ${{ github.event.pull_request.base.sha }}
