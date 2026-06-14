@@ -1,43 +1,40 @@
-@import "tailwindcss";
-@import "components/button/button.css";
-@import "header/Header.css";
-@import "hello/Hello.css";
-@import "about/About.css";
-@import "sections/Sections.css";
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import 'tailwindcss';
+@import 'components/button/button.css';
+@import 'header/Header.css';
+@import 'hello/Hello.css';
+@import 'about/About.css';
+@import 'sections/Sections.css';
 
 :root {
   --padding-margin-mobile: 1rem;
   --primary-from: #9f64a6;
   --primary-to: #2e64ae;
   --primary: linear-gradient(
-          201.03deg,
-          var(--primary-from) -0.45%,
-          var(--primary-to) 99.55%
+    201.03deg,
+    var(--primary-from) -0.45%,
+    var(--primary-to) 99.55%
   );
   --font-family: Quicksand;
-  --font-family-monospace: "Space Mono", monospace;
+  --font-family-monospace: 'JetBrains Mono', monospace;
   --font-size: calc(15px + 0.390625vw);
   --blink: blink 0.5s infinite ease-in-out alternate;
 }
 
-html{
-    scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
 }
 
-#root{
-    background: var(--primary);
-    background-attachment: fixed;
+#root {
+  background: var(--primary);
+  background-attachment: fixed;
 }
 
-@keyframes blink{
-    from{
-
-        opacity: 1;
-    }
-    to{
-
-        opacity: 0;
-    }
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
-
