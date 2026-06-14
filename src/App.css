@@ -1,12 +1,12 @@
-.page{
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas: "header" "main" "footer";
+.page {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 'header' 'main' 'footer';
 }
-#header{
-    grid-area: header;
+#header {
+  grid-area: header;
 }
 
-#footer{
-    grid-area: footer;
+#footer {
+  grid-area: footer;
 }
