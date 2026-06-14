@@ -42,5 +42,4 @@ jobs:
 
       - name: Run React Doctor Audit
         run: |
-          git fetch origin main
-          npx react-doctor@latest --scope changed --base origin/main
+          npx react-doctor@latest --scope changed --base ${{ github.base_ref }}
