@@ -2,8 +2,8 @@ name: React PR Quality Check
 
 on:
   pull_request:
-    branches: [ main, master ]
-    types: [ opened, synchronize, reopened ]
+    branches: [main, master]
+    types: [opened, synchronize, reopened]
 
 # Cancels ongoing builds for the same PR if new commits are pushed
 concurrency:
