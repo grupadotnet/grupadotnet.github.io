@@ -22,7 +22,7 @@ export default function Hello() {
           PredictionRef.current?.classList.add('before:animate-(--blink)');
           return prevId;
         }
-        console.log(prevId + 1);
+        //console.log(prevId + 1);
         return prevId + 1;
       });
     }, 125);
