@@ -6,35 +6,47 @@ import Burger from '../assets/icons/hamburger-icon-gradient.svg';
 import Burger_White from '../assets/icons/hamburger-icon.svg';
 import { Button } from '../components/button/button.tsx';
 import { useWindowSize } from '../components/useWindowSize.tsx';
-import { useCallback, useState } from 'react';
-import { useOnInView } from 'react-intersection-observer';
+import { useEffect, useRef, useState } from 'react';
 
+const SCROLL_THRESHOLD = 200;
+const NAMES = ['O NAS', 'SEKCJE', 'PROJEKTY', 'PARTNERZY', 'KONTAKT'];
 export function Header() {
-  const names = ['O NAS', 'SEKCJE', 'PROJEKTY', 'PARTNERZY', 'KONTAKT'];
-  const pointers = names.map((name) => {
+  const pointers = NAMES.map((name) => {
     name = '#' + name.replaceAll(' ', '_');
     return name;
   });
 
   const { width } = useWindowSize();
-  const [ColorScheme, setColorScheme] = useState<boolean>(true);
-  const [isInView, setIsInView] = useState<boolean>(true);
+  const [ColorScheme, setColorScheme] = useState<boolean>(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [burgerShow, setburgerShow] = useState<boolean>(false);
-
-  const BurgerShow = () => {
+  const HeaderRef = useRef<HTMLDivElement>(null);
+  const handleBurgerToggle = () => {
     setburgerShow((prev) => !prev);
-    if (!isInView) {
+
+    const isPastThreshold = window.scrollY > SCROLL_THRESHOLD;
+    if (!isPastThreshold) {
       setColorScheme((prev) => !prev);
     }
   };
-  const handleHeaderInView = useCallback((inView: boolean) => {
-    setIsInView(!inView);
-    setColorScheme(!inView);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 150);
+
+    const handleScroll = () => {
+      const isPastThreshold = window.scrollY > SCROLL_THRESHOLD;
+      setColorScheme(isPastThreshold);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
-  const HeaderInViewRef = useOnInView(handleHeaderInView, {
-    threshold: 0.2,
-    rootMargin: '200px 0px 0px 0px',
-  });
 
   const LogoSVG = ColorScheme
     ? [Logo, Logo_with_text]
@@ -44,8 +56,8 @@ export function Header() {
   return (
     <div
       id={'header'}
-      className={`relative sticky-top ${ColorScheme ? 'opaque' : 'transparent'}`}
-      ref={HeaderInViewRef}
+      className={`relative sticky-top ${ColorScheme ? 'opaque' : 'transparent'} ${isLoaded ? 'animated' : ''}`}
+      ref={HeaderRef}
     >
       <div className={' fixed h-29 flex top-0 left-0 right-0 items-center'}>
         <nav
@@ -62,19 +74,21 @@ export function Header() {
             <div className={'flex items-center'}>
               {pointers.map((pointer, i) => (
                 <Button key={pointer} target={pointer}>
-                  {names[i]}
+                  {NAMES[i]}
                 </Button>
               ))}
             </div>
           ) : (
-            <div
+            <button
               className={
                 'cursor-pointer flex size-20 items-center justify-center'
               }
-              onClick={BurgerShow}
+              tabIndex={0}
+              type="button"
+              onClick={handleBurgerToggle}
             >
               <img className={'max-w-5xl h-8'} src={BurgerSVG} alt={'Menu'} />
-            </div>
+            </button>
           )}
         </nav>
       </div>
@@ -84,7 +98,7 @@ export function Header() {
         {width <= 768 &&
           pointers.map((pointer, i) => (
             <Button key={pointer} target={pointer}>
-              {names[i]}
+              {NAMES[i]}
             </Button>
           ))}
       </div>
