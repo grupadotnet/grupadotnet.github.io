@@ -1,7 +1,0 @@
-#TextPrediction:before {
-  content: '';
-  color: white;
-  border-right: 0.75rem solid;
-  margin: 0 -0.325rem;
-  z-index: 67;
-}
