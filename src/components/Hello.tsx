@@ -2,6 +2,7 @@
 import { RiArrowDownSLine } from '@remixicon/react';
 import { useEffect, useRef, useState } from 'react';
 import i18next from 'i18next';
+import { cn } from '../lib/utils.ts';
 
 const helloAnimStep = (params: { visible: string; invisible: string }) => {
   // Grab the first character from invisible
@@ -14,12 +15,14 @@ const helloAnimStep = (params: { visible: string; invisible: string }) => {
 
 const Typewriter = ({
   // Accept an array of options (with some fallbacks)
+  className = '',
   options = [
     i18next.t('Hello.message.1', 'Poznaj nasze Koło Naukowe!'),
     i18next.t('Hello.message.2', 'Twórz z nami zajebiste projekty!'),
   ],
 }: {
   options?: string[];
+  className?: string;
 }) => {
   const [textState, setTextState] = useState(() => {
     const randomIndex = Math.floor(Math.random() * options.length);
@@ -73,7 +76,9 @@ const Typewriter = ({
         'lg:text-9xl text-6xl ml-[10dvw] text-balance text-white w-2/3'
       }
     >
-      <span>{textState.visible}</span>
+      <span className={cn(className)} id={'hero-section'}>
+        {textState.visible}
+      </span>
       {/* Optional: Render invisible text with 0 opacity to keep layout stable */}
       <span
         className={`border-l-4 border-white text-transparent ${isFinished ? 'animate-caret-blink' : ''}`}

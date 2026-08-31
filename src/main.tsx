@@ -11,9 +11,9 @@ import './i18n';
 
 declare module '@tanstack/react-router' {
   interface StaticDataRouteOption {
-    title?: string;
-    hideInNav?: boolean;
-    order?: number;
+    title: string;
+    hideInNav: boolean;
+    order: number;
     icon?: string;
   }
 

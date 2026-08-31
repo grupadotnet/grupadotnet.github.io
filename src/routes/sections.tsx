@@ -98,7 +98,7 @@ export function Sections() {
               const Icon = section.icon;
 
               return (
-                <Link to={section.path}>
+                <Link to={section.path} key={section.path}>
                   <Card
                     key={index}
                     className="group border-none bg-muted/50 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70"

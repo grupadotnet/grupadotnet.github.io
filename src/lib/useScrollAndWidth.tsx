@@ -1,46 +1,54 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type RefObject } from 'react';
 
 export function useScrollAndWidth(
+  headerRef: RefObject<HTMLElement | null>,
+  targetId: string,
   mobileBreakpoint = 768,
-  scrollThreshold = 300
+  fallbackThreshold = 50
 ) {
-  // 1. Initialize state dynamically by checking the window right away.
-  // We use a callback function () => {} so this logic only runs once on mount.
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window !== 'undefined') {
       return window.innerWidth < mobileBreakpoint;
     }
-    return false; // Fallback for Server-Side Rendering
+    return false;
   });
 
-  const [isScrolled, setIsScrolled] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.scrollY > scrollThreshold;
-    }
-    return false; // Fallback for Server-Side Rendering
-  });
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    // 2. The linter is happy! No synchronous state setters here anymore.
+    const checkOverlap = () => {
+      const header = headerRef.current;
+      if (!header) return;
+
+      const target = document.getElementById(targetId);
+
+      // If we are on a different page and the element doesn't exist, fallback to a standard scroll check
+      if (!target) {
+        setIsScrolled(window.scrollY > fallbackThreshold);
+        return;
+      }
+
+      const headerRect = header.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+
+      setIsScrolled(targetRect.top <= headerRect.bottom);
+    };
 
     const handleResize = () => {
       setIsMobile(window.innerWidth < mobileBreakpoint);
+      checkOverlap();
     };
 
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > scrollThreshold);
-    };
+    checkOverlap();
 
-    // 3. Attach listeners
     window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', checkOverlap, { passive: true });
 
-    // 4. Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', checkOverlap);
     };
-  }, [mobileBreakpoint, scrollThreshold]);
+  }, [headerRef, targetId, mobileBreakpoint, fallbackThreshold]);
 
   return { isMobile, isScrolled } as const;
 }

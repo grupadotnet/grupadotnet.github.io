@@ -12,19 +12,20 @@ import {
   NavigationMenuTrigger,
   // @ts-expect-error: unrepairable
 } from '@/components/ui/navigation-menu';
-import { Link, useLocation } from '@tanstack/react-router';
+import { type AnyRoute, Link, useLocation } from '@tanstack/react-router';
 import { routeTree } from '../routeTree.gen.ts';
 import { useScrollAndWidth } from '../lib/useScrollAndWidth.tsx';
 import { type Theme, useTheme } from './theme-provider.tsx';
 import { RiMoonFill, RiSunFill, RiMenuLine } from '@remixicon/react';
 import { useTranslation } from 'react-i18next';
+import { useRef } from 'react';
 
 // title: string;
 // to: string;
 // isVisible?: boolean;
 // subItems?: navbarItem[];
 
-function getRouteInfo(route: any) {
+function getRouteInfo(route: AnyRoute) {
   const path = route.fullPath || route.path || route.id;
   // Fallback to capitalizing the path if staticData.title is missing
   const title =
@@ -35,9 +36,11 @@ function getRouteInfo(route: any) {
 
 export default function Header() {
   const { t } = useTranslation();
-  const routes = (routeTree.children || []) as any[];
+  const routes = (routeTree.children || []) as AnyRoute[];
 
-  const { isMobile, isScrolled } = useScrollAndWidth(1024);
+  const ref = useRef(null);
+
+  const { isMobile, isScrolled } = useScrollAndWidth(ref, 'hero-section', 1024);
   const location = useLocation().pathname;
   const isIndex = location === '/';
 
@@ -69,7 +72,7 @@ export default function Header() {
   const navRoutes = routes
     .filter((route) => {
       const isDynamic = route.path?.includes('$');
-      const isHidden = route.options?.staticData?.hideInNav === true;
+      const isHidden = route.options?.staticData?.hideInNav;
       return !isDynamic && !isHidden;
     })
     .sort(
@@ -84,6 +87,7 @@ export default function Header() {
   return (
     <header
       className={`z-15 sticky top-0 ${isScrolled || !isIndex ? 'bg-background shadow-lg/10' : 'text-white bg-none'} transition-all ease-in-out shadow-foreground`}
+      ref={ref}
     >
       <nav className="flex items-center justify-between p-4 w-11/12 mx-auto ">
         <Link to={'/'}>
@@ -153,10 +157,9 @@ export default function Header() {
 
                 // 2. Extract and filter children (capped at 1 step deep)
                 const validChildren = (route.children || []).filter(
-                  (child: any) => {
+                  (child: AnyRoute) => {
                     const childDynamic = child.path?.includes('$');
-                    const childHidden =
-                      child.options?.staticData?.hideInNav === true;
+                    const childHidden = child.options?.staticData?.hideInNav;
                     return !childDynamic && !childHidden;
                   }
                 );
@@ -196,7 +199,7 @@ export default function Header() {
                     <NavigationMenuContent>
                       {/* shadcn dropdowns need a container to dictate their width/layout */}
                       <ul className="z-20">
-                        {validChildren.map((child: any, j: number) => {
+                        {validChildren.map((child: AnyRoute, j: number) => {
                           const childInfo = getRouteInfo(child);
 
                           return (

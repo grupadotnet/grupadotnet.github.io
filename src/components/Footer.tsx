@@ -8,8 +8,6 @@ import LogoWM_w from '/svg/PK_WM_CMYK_w.svg';
 // import LogoWM_eng from '/PK_WM.png';
 // import LogoWM_eng_w from '/PK_WM.png';
 
-// @ts-expect-error: unrepairable
-import { Button } from '@/components/ui/button';
 import {
   RiFacebookCircleLine,
   RiInstagramLine,
@@ -20,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card.tsx';
 import { useTheme } from './theme-provider.tsx';
 import { useScrollAndWidth } from '../lib/useScrollAndWidth.tsx';
 import { useTranslation } from 'react-i18next';
+import { useRef } from 'react';
 
 interface Social {
   href: string;
@@ -52,7 +51,7 @@ const socials: Social[] = [
 
 export default function Footer() {
   const { t } = useTranslation();
-  const { isMobile } = useScrollAndWidth(1024);
+  const { isMobile } = useScrollAndWidth(useRef(null), '', 1024);
 
   const footerLogos: Record<string, string[]> = {
     light: [LogoPK, LogoWM],

@@ -21,7 +21,6 @@ import { Route as ProjectsVetlinkRouteImport } from './routes/projects/vetlink'
 import { Route as SectionsCybersecRouteImport } from './routes/sections/cybersec'
 import { Route as SectionsDataChar38aiRouteImport } from './routes/sections/data&ai'
 import { Route as SectionsWebdevRouteImport } from './routes/sections/webdev'
-import { Route as SectionsXdddRouteImport } from './routes/sections/xddd'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -83,11 +82,6 @@ const SectionsWebdevRoute = SectionsWebdevRouteImport.update({
   path: '/webdev',
   getParentRoute: () => SectionsRoute,
 } as any)
-const SectionsXdddRoute = SectionsXdddRouteImport.update({
-  id: '/xddd',
-  path: '/xddd',
-  getParentRoute: () => SectionsRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -102,7 +96,6 @@ export interface FileRoutesByFullPath {
   '/sections/cybersec': typeof SectionsCybersecRoute
   '/sections/data&ai': typeof SectionsDataChar38aiRoute
   '/sections/webdev': typeof SectionsWebdevRoute
-  '/sections/xddd': typeof SectionsXdddRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -117,7 +110,6 @@ export interface FileRoutesByTo {
   '/sections/cybersec': typeof SectionsCybersecRoute
   '/sections/data&ai': typeof SectionsDataChar38aiRoute
   '/sections/webdev': typeof SectionsWebdevRoute
-  '/sections/xddd': typeof SectionsXdddRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -133,7 +125,6 @@ export interface FileRoutesById {
   '/sections/cybersec': typeof SectionsCybersecRoute
   '/sections/data&ai': typeof SectionsDataChar38aiRoute
   '/sections/webdev': typeof SectionsWebdevRoute
-  '/sections/xddd': typeof SectionsXdddRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -150,7 +141,6 @@ export interface FileRouteTypes {
     | '/sections/cybersec'
     | '/sections/data&ai'
     | '/sections/webdev'
-    | '/sections/xddd'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -165,7 +155,6 @@ export interface FileRouteTypes {
     | '/sections/cybersec'
     | '/sections/data&ai'
     | '/sections/webdev'
-    | '/sections/xddd'
   id:
     | '__root__'
     | '/'
@@ -180,7 +169,6 @@ export interface FileRouteTypes {
     | '/sections/cybersec'
     | '/sections/data&ai'
     | '/sections/webdev'
-    | '/sections/xddd'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -278,13 +266,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SectionsWebdevRouteImport
       parentRoute: typeof SectionsRoute
     }
-    '/sections/xddd': {
-      id: '/sections/xddd'
-      path: '/xddd'
-      fullPath: '/sections/xddd'
-      preLoaderRoute: typeof SectionsXdddRouteImport
-      parentRoute: typeof SectionsRoute
-    }
   }
 }
 
@@ -308,14 +289,12 @@ interface SectionsRouteChildren {
   SectionsCybersecRoute: typeof SectionsCybersecRoute
   SectionsDataChar38aiRoute: typeof SectionsDataChar38aiRoute
   SectionsWebdevRoute: typeof SectionsWebdevRoute
-  SectionsXdddRoute: typeof SectionsXdddRoute
 }
 
 const SectionsRouteChildren: SectionsRouteChildren = {
   SectionsCybersecRoute: SectionsCybersecRoute,
   SectionsDataChar38aiRoute: SectionsDataChar38aiRoute,
   SectionsWebdevRoute: SectionsWebdevRoute,
-  SectionsXdddRoute: SectionsXdddRoute,
 }
 
 const SectionsRouteWithChildren = SectionsRoute._addFileChildren(
