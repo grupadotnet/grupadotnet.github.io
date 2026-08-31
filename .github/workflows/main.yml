@@ -5,8 +5,8 @@ on:
     branches: [main, master]
     types: [opened, synchronize, reopened]
 
-  permissions:
-    contents: [read]
+permissions:
+  contents: read
 
 # Cancels ongoing builds for the same PR if new commits are pushed
 concurrency:
