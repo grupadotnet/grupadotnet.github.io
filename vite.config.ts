@@ -27,6 +27,17 @@ export default defineConfig({
     }),
     react(),
     tailwindcss(),
+    {
+      name: 'copy-index-to-404',
+      writeBundle() {
+        // Copies index.html to 404.html after every build
+        const distPath = path.resolve(__dirname, 'dist');
+        fs.copyFileSync(
+          path.join(distPath, 'index.html'),
+          path.join(distPath, '404.html')
+        );
+      },
+    },
   ],
   server: {
     // Allows Vite to accept connections over the Tailscale network interface
