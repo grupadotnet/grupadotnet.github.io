@@ -4,6 +4,11 @@ import Footer from '../components/Footer.tsx';
 
 export const Route = createRootRoute({
   component: RootComponent,
+  staticData: {
+    title: 'root',
+    hideInNav: true,
+    order: -1,
+  },
 });
 
 function RootComponent() {
@@ -15,3 +20,5 @@ function RootComponent() {
     </div>
   );
 }
+
+},

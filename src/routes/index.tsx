@@ -8,6 +8,7 @@ export const Route = createFileRoute('/')({
   staticData: {
     title: 'Home',
     hideInNav: true,
+    order: -1,
   },
 });
 
