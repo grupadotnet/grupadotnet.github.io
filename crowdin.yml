@@ -1,0 +1,6 @@
+project_id: '' # Leave blank if using UI integration
+api_token: ''
+
+files:
+  - source: /src/locale/pl/translation.json
+    translation: /src/locale/%two_letters_code%/translation.json
