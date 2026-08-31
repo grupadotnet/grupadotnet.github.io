@@ -22,4 +22,11 @@ export default defineConfig([
   },
   // Put prettier at the absolute end so it overrides formatting rules safely
   eslintConfigPrettier,
+
+  {
+    files: ['src/components/ui/**/*.tsx', 'components/ui/**/*.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ]);
