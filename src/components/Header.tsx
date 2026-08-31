@@ -18,6 +18,7 @@ import { useScrollAndWidth } from '../lib/useScrollAndWidth.tsx';
 import { type Theme, useTheme } from './theme-provider.tsx';
 import { RiMoonFill, RiSunFill, RiMenuLine } from '@remixicon/react';
 import { useTranslation } from 'react-i18next';
+import { useRef } from 'react';
 
 // title: string;
 // to: string;
@@ -37,7 +38,9 @@ export default function Header() {
   const { t } = useTranslation();
   const routes = (routeTree.children || []) as any[];
 
-  const { isMobile, isScrolled } = useScrollAndWidth(1024);
+  const ref = useRef(null);
+
+  const { isMobile, isScrolled } = useScrollAndWidth(ref, 'hero-section', 1024);
   const location = useLocation().pathname;
   const isIndex = location === '/';
 
@@ -84,6 +87,7 @@ export default function Header() {
   return (
     <header
       className={`z-15 sticky top-0 ${isScrolled || !isIndex ? 'bg-background shadow-lg/10' : 'text-white bg-none'} transition-all ease-in-out shadow-foreground`}
+      ref={ref}
     >
       <nav className="flex items-center justify-between p-4 w-11/12 mx-auto ">
         <Link to={'/'}>

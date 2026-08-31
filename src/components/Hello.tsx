@@ -1,6 +1,6 @@
 'use client';
 import { RiArrowDownSLine } from '@remixicon/react';
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import i18next from 'i18next';
 import { cn } from '../lib/utils.ts';
 
@@ -76,7 +76,9 @@ const Typewriter = ({
         'lg:text-9xl text-6xl ml-[10dvw] text-balance text-white w-2/3'
       }
     >
-      <span className={cn(className)}>{textState.visible}</span>
+      <span className={cn(className)} id={'hero-section'}>
+        {textState.visible}
+      </span>
       {/* Optional: Render invisible text with 0 opacity to keep layout stable */}
       <span
         className={`border-l-4 border-white text-transparent ${isFinished ? 'animate-caret-blink' : ''}`}
