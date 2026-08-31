@@ -1,0 +1,57 @@
+{
+  "About": {
+    "badge": "",
+    "paragraph": "",
+    "title": ""
+  },
+  "Footer": {
+    "copyright": "",
+    "logo": {
+      "alt": ""
+    },
+    "social": {
+      "title": ""
+    }
+  },
+  "Header": {
+    "logo": {
+      "alt": ""
+    },
+    "theme": ""
+  },
+  "Hello": {
+    "message": {
+      "1": "",
+      "2": ""
+    }
+  },
+  "NotFound": {
+    "paragraph": "",
+    "returnButton": "",
+    "title": ""
+  },
+  "Sections": {
+    "badge": "",
+    "paragraph": "",
+    "sectionData": {
+      "cybersec": {
+        "description": ""
+      },
+      "data&ai": {
+        "description": ""
+      },
+      "webdev": {
+        "description": ""
+      }
+    },
+    "title": ""
+  },
+  "underConstruction": "",
+  "weAreCurrentlyBuildingOutThisSectionCheckBackSoon": "",
+  "wip": "",
+  "WorkInProgress": {
+    "badge": "",
+    "description": "",
+    "title": ""
+  }
+}

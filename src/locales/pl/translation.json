@@ -1,0 +1,57 @@
+{
+  "About": {
+    "badge": "Kim jesteśmy",
+    "paragraph": "<0>Koło naukowe programistów i miłośników informatyki działa przy Wydziale Mechanicznym Politechniki Krakowskiej. Zrzesza studentów zainteresowanych szeroko rozumianym programowaniem. Organizujemy cotygodniowe zajęcia programowania z <2>zakresu tworzenia aplikacji internetowych, uczenia maszynowego i analizy danych, cyberbezpieczeństwa oraz programowania niskopoziomowego</2>. Zajmujemy się również projektami, które pozwalają uczestnikom na rozwój umiejętności programistycznych.</0>",
+    "title": "O NAS"
+  },
+  "Footer": {
+    "copyright": "© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na\n        Politechnice Krakowskiej",
+    "logo": {
+      "alt": "KNPiMI Logo"
+    },
+    "social": {
+      "title": "Znajdziesz nas też na"
+    }
+  },
+  "Header": {
+    "logo": {
+      "alt": "KNPiMI Logo"
+    },
+    "theme": "THEME"
+  },
+  "Hello": {
+    "message": {
+      "1": "Poznaj nasze Koło Naukowe!",
+      "2": "Twórz z nami zajebiste projekty!"
+    }
+  },
+  "NotFound": {
+    "paragraph": "O nie!! Tej strony jeszcze nie zrobiliśmy, i najprawdoppodobniej nie zrobimy XD",
+    "returnButton": "Powróć do Głównej",
+    "title": "Ajć! Coś poszło nie tak!"
+  },
+  "Sections": {
+    "badge": "Ścieżki rozwoju",
+    "paragraph": "Wybierz obszar, który najbardziej Cię interesuje i rozwijaj swoje\n              umiejętności pod okiem starszych studentów.",
+    "sectionData": {
+      "cybersec": {
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
+      },
+      "data&ai": {
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
+      },
+      "webdev": {
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
+      }
+    },
+    "title": "Czym się zajmujemy?"
+  },
+  "underConstruction": "Under Construction",
+  "weAreCurrentlyBuildingOutThisSectionCheckBackSoon": "We are currently building out this section. Check back soon.",
+  "wip": "🚧 WIP",
+  "WorkInProgress": {
+    "badge": "🚧 WIP",
+    "description": "Ekipa budowlana już wylewa fundamenty pod tę stronę. Za kilka dni powinny być widoczne rezultaty.",
+    "title": "W trakcie prac"
+  }
+}
