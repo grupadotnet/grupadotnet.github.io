@@ -12,7 +12,7 @@ const rawTemplate = fs.readFileSync(templatePath, 'utf-8');
 
 const processedTemplate = rawTemplate // 1. Swap the literal import for the TanStack token
   .replace(
-    /import\s+\{\s*createFileRoute\s*\}\s+from\s+['"]@tanstack\/react-router['"];?/,
+    /import\s+\{\s*createFileRoute\s*}\s+from\s+['"]@tanstack\/react-router['"];?/,
     '%%tsrImports%%'
   )
   // 2. Erase the @ts-expect-error comment from the final generated file
@@ -34,6 +34,7 @@ export default defineConfig({
     allowedHosts: [
       'moozek-laptop.taile71b45.ts.net',
       'moozek-pc.taile71b45.ts.net', // Include if not using Tailscale HTTPS
+      'grupadotnet.github.io',
     ],
   },
   resolve: {
