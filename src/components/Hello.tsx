@@ -1,6 +1,6 @@
 'use client';
 import { RiArrowDownSLine } from '@remixicon/react';
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import i18next from 'i18next';
 import { cn } from '../lib/utils.ts';
 

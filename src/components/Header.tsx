@@ -12,7 +12,7 @@ import {
   NavigationMenuTrigger,
   // @ts-expect-error: unrepairable
 } from '@/components/ui/navigation-menu';
-import { Link, useLocation } from '@tanstack/react-router';
+import { type AnyRoute, Link, useLocation } from '@tanstack/react-router';
 import { routeTree } from '../routeTree.gen.ts';
 import { useScrollAndWidth } from '../lib/useScrollAndWidth.tsx';
 import { type Theme, useTheme } from './theme-provider.tsx';
@@ -25,7 +25,7 @@ import { useRef } from 'react';
 // isVisible?: boolean;
 // subItems?: navbarItem[];
 
-function getRouteInfo(route: any) {
+function getRouteInfo(route: AnyRoute) {
   const path = route.fullPath || route.path || route.id;
   // Fallback to capitalizing the path if staticData.title is missing
   const title =
@@ -36,7 +36,7 @@ function getRouteInfo(route: any) {
 
 export default function Header() {
   const { t } = useTranslation();
-  const routes = (routeTree.children || []) as any[];
+  const routes = (routeTree.children || []) as AnyRoute[];
 
   const ref = useRef(null);
 
@@ -72,7 +72,7 @@ export default function Header() {
   const navRoutes = routes
     .filter((route) => {
       const isDynamic = route.path?.includes('$');
-      const isHidden = route.options?.staticData?.hideInNav === true;
+      const isHidden = route.options?.staticData?.hideInNav;
       return !isDynamic && !isHidden;
     })
     .sort(
@@ -157,10 +157,9 @@ export default function Header() {
 
                 // 2. Extract and filter children (capped at 1 step deep)
                 const validChildren = (route.children || []).filter(
-                  (child: any) => {
+                  (child: AnyRoute) => {
                     const childDynamic = child.path?.includes('$');
-                    const childHidden =
-                      child.options?.staticData?.hideInNav === true;
+                    const childHidden = child.options?.staticData?.hideInNav;
                     return !childDynamic && !childHidden;
                   }
                 );
@@ -200,7 +199,7 @@ export default function Header() {
                     <NavigationMenuContent>
                       {/* shadcn dropdowns need a container to dictate their width/layout */}
                       <ul className="z-20">
-                        {validChildren.map((child: any, j: number) => {
+                        {validChildren.map((child: AnyRoute, j: number) => {
                           const childInfo = getRouteInfo(child);
 
                           return (
