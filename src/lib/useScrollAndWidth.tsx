@@ -1,4 +1,4 @@
-import { useState, useEffect, RefObject } from 'react';
+import { useState, useEffect, type RefObject } from 'react';
 
 export function useScrollAndWidth(
   headerRef: RefObject<HTMLElement | null>,
