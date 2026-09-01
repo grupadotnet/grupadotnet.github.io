@@ -95,6 +95,7 @@ export default function Header() {
             <source srcSet={currentLogo} />
             <img
               srcSet={currentLogo}
+              src={currentLogo}
               alt={t('Header.logo.alt', 'KNPiMI Logo')}
               className="h-24"
             />
@@ -114,7 +115,7 @@ export default function Header() {
                       const { path, title, titleKey } = getRouteInfo(route);
 
                       return (
-                        <li key={path + title}>
+                        <li key={path}>
                           <NavigationMenuLink
                             render={
                               <Link to={path}>
@@ -152,7 +153,7 @@ export default function Header() {
         ) : (
           <NavigationMenu>
             <NavigationMenuList>
-              {navRoutes.map((route, i) => {
+              {navRoutes.map((route) => {
                 const { path, title, titleKey } = getRouteInfo(route);
 
                 // 2. Extract and filter children (capped at 1 step deep)
@@ -167,7 +168,7 @@ export default function Header() {
                 // Base Case: No valid child routes (Standard Link)
                 if (validChildren.length === 0) {
                   return (
-                    <NavigationMenuItem key={`${path}-${i}`}>
+                    <NavigationMenuItem key={`${path}`}>
                       <NavigationMenuLink
                         className={`uppercase ${locationHighlight(path)}`}
                         render={
@@ -188,7 +189,7 @@ export default function Header() {
 
                 // Dropdown Case: Has children (Capped at 1 step)
                 return (
-                  <NavigationMenuItem key={`${path}-${i}`}>
+                  <NavigationMenuItem key={`${path}`}>
                     <Link to={path} className={``}>
                       <NavigationMenuTrigger
                         className={`uppercase ${locationHighlight(path)}`}
@@ -199,11 +200,11 @@ export default function Header() {
                     <NavigationMenuContent>
                       {/* shadcn dropdowns need a container to dictate their width/layout */}
                       <ul className="z-20">
-                        {validChildren.map((child: AnyRoute, j: number) => {
+                        {validChildren.map((child: AnyRoute) => {
                           const childInfo = getRouteInfo(child);
 
                           return (
-                            <li key={`${childInfo.path}-${j}`}>
+                            <li key={`${childInfo.path}`}>
                               <NavigationMenuLink
                                 render={
                                   <Link
@@ -256,7 +257,7 @@ export default function Header() {
                 <NavigationMenuContent>
                   <ul>
                     {themes.map((possibleTheme) => (
-                      <li>
+                      <li key={possibleTheme}>
                         <NavigationMenuLink
                           render={
                             <span

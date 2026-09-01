@@ -100,7 +100,7 @@ export function Sections() {
                 <Link to={section.path} key={section.path}>
                   <Card
                     key={index}
-                    className="group border-none bg-muted/50 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70"
+                    className="group border-none bg-muted/50 shadow-sm transition-shadow transition-transform duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70"
                   >
                     <CardHeader>
                       <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
