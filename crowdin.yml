@@ -1,5 +1,5 @@
 project_id: ''
 api_token: ''
 files:
-  - source: src/locale/pl/translation.json
-    translation: src/locale/%two_letters_code%/translation.json
+  - source: src/locales/pl/translation.json
+    translation: src/locales/%two_letters_code%/translation.json
