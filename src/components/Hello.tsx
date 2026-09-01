@@ -14,7 +14,6 @@ const helloAnimStep = (params: { visible: string; invisible: string }) => {
 };
 
 const Typewriter = ({
-  // Accept an array of options (with some fallbacks)
   className = '',
   options = [
     i18next.t('Hello.message.1', 'Poznaj nasze Koło Naukowe!'),
@@ -31,44 +30,23 @@ const Typewriter = ({
       invisible: options[randomIndex],
     };
   });
-  const [isFinished, setIsFinished] = useState(false);
+
+  // Derived directly — true when typing is complete, no extra state or effect triggers needed
+  const isFinished = textState.invisible.length === 0;
 
   const typewritterRef = useRef(null);
 
   useEffect(() => {
-    // 1. Array to hold timeout IDs so we can clean them up if the component unmounts
-    const timeoutIds: ReturnType<typeof setTimeout>[] = [];
+    if (isFinished) return;
 
-    // 2. Start at 0ms delay
-    let accumulatedDelay = 0;
+    const randomTime = Math.floor(Math.random() * 150) + 50;
 
-    // 3. Loop based on the length of the invisible text
-    for (let i = 0; i < textState.invisible.length; i++) {
-      // Generate a random delay between 50ms and 200ms
-      const randomTime = Math.floor(Math.random() * 150) + 50;
+    const timer = setTimeout(() => {
+      setTextState((prev) => helloAnimStep(prev));
+    }, randomTime);
 
-      // Add it to the running total so they execute in order
-      accumulatedDelay += randomTime;
-
-      const id = setTimeout(() => {
-        // MUST use the 'prev' callback version of setState here
-        // Otherwise, every timeout uses the initial empty string state
-        setTextState((prev) => helloAnimStep(prev));
-      }, accumulatedDelay);
-
-      timeoutIds.push(id);
-    }
-
-    const finishId = window.setTimeout(() => {
-      setIsFinished(true);
-    }, accumulatedDelay);
-
-    timeoutIds.push(finishId);
-    // 4. Cleanup function to prevent memory leaks if the user leaves the page early
-    return () => {
-      timeoutIds.forEach((id) => clearTimeout(id));
-    };
-  }, []); // Empty array ensures this only runs ONCE on load
+    return () => clearTimeout(timer);
+  }, [isFinished, textState.invisible]);
 
   return (
     <div
@@ -79,7 +57,6 @@ const Typewriter = ({
       <span className={cn(className)} id={'hero-section'}>
         {textState.visible}
       </span>
-      {/* Optional: Render invisible text with 0 opacity to keep layout stable */}
       <span
         className={`border-l-4 border-white text-transparent ${isFinished ? 'animate-caret-blink' : ''}`}
         ref={typewritterRef}

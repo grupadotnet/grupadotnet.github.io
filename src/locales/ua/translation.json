@@ -1,8 +1,6 @@
 {
   "About": {
-    "badge": "",
-    "paragraph": "",
-    "title": ""
+    "paragraph": ""
   },
   "Footer": {
     "copyright": "",
@@ -30,8 +28,17 @@
     "returnButton": "",
     "title": ""
   },
+  "Pages": {
+    "About": {
+      "badge": "",
+      "title": ""
+    },
+    "Sections": {
+      "badge": "",
+      "title": ""
+    }
+  },
   "Sections": {
-    "badge": "",
     "paragraph": "",
     "sectionData": {
       "cybersec": {
@@ -43,12 +50,8 @@
       "webdev": {
         "description": ""
       }
-    },
-    "title": ""
+    }
   },
-  "underConstruction": "",
-  "weAreCurrentlyBuildingOutThisSectionCheckBackSoon": "",
-  "wip": "",
   "WorkInProgress": {
     "badge": "",
     "description": "",

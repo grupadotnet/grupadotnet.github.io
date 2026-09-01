@@ -1,7 +1,6 @@
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-// @ts-expect-error: unrepairable
 import { cn } from '@/lib/utils';
 
 function Tabs({

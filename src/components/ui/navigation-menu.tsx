@@ -1,6 +1,6 @@
 import { NavigationMenu as NavigationMenuPrimitive } from '@base-ui/react/navigation-menu';
 import { cva } from 'class-variance-authority';
-// @ts-expect-error: unrepairable
+
 import { cn } from '@/lib/utils';
 import { RiArrowDownSLine } from '@remixicon/react';
 
@@ -56,7 +56,7 @@ function NavigationMenuItem({
 }
 
 const navigationMenuTriggerStyle = cva(
-  `group/navigation-menu-trigger flex m-3 items-center after:content-[""] text-lg font-medium transition-all relative after:absolute after:border-b-2 after:inset-0 after:scale-x-0 hover:after:scale-x-100 after:transition-all after:duration-300 after:ease-in-out after-gradient-border
+  `group/navigation-menu-trigger flex m-3 items-center after:content-[""] text-lg font-medium transition-all relative after:absolute after:border-b-2 after:inset-0 after:scale-x-[0.01] after:opacity-0 hover:after:scale-x-100 hover:after:opacity-100 after:transition-all after:duration-300 after:ease-in-out after-gradient-border
    text-nowrap`
 );
 

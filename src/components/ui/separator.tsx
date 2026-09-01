@@ -1,5 +1,5 @@
 import { Separator as SeparatorPrimitive } from '@base-ui/react/separator';
-// @ts-expect-error: unrepairable
+
 import { cn } from '@/lib/utils';
 
 function Separator({

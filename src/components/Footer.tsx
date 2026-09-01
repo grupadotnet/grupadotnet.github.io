@@ -1,4 +1,5 @@
-import Logo_w_text from '/Logo_KNPiMI_white_with_text.svg';
+import LogoBotland from '/logo_botland_kn.png';
+import LogoBotlandW from '/white-logo-botland.png';
 import LogoPK from '/svg/PK_POZIOM_CMYK.svg';
 // import LogoPK_eng from '/svg/PK_POZIOM_CMYK_w.svg';
 import LogoPK_w from '/svg/PK_POZIOM_CMYK_w.svg';
@@ -15,10 +16,10 @@ import {
   RiYoutubeLine,
 } from '@remixicon/react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card.tsx';
-import { useTheme } from './theme-provider.tsx';
-import { useScrollAndWidth } from '../lib/useScrollAndWidth.tsx';
+import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
 import { useTranslation } from 'react-i18next';
 import { useRef } from 'react';
+import { useTheme } from '@/components/theme-provider.tsx';
 
 interface Social {
   href: string;
@@ -49,14 +50,16 @@ const socials: Social[] = [
   },
 ];
 
+// Moved to module scope so it's created once and reused across renders
+const footerLogos: Record<string, string[]> = {
+  light: [LogoPK, LogoWM, LogoBotland],
+  dark: [LogoPK_w, LogoWM_w, LogoBotlandW],
+};
+
 export default function Footer() {
   const { t } = useTranslation();
   const { isMobile } = useScrollAndWidth(useRef(null), '', 1024);
 
-  const footerLogos: Record<string, string[]> = {
-    light: [LogoPK, LogoWM],
-    dark: [LogoPK_w, LogoWM_w],
-  };
   const footerURLs: string[] = [
     'https://www.pk.edu.pl',
     'https://mech.pk.edu.pl/',
@@ -71,21 +74,24 @@ export default function Footer() {
           'grid md:grid-cols-3 md:grid-rows-2 grid-cols-1 grid-rows-4  justify-items-center content-center'
         }
       >
-        <picture>
-          <source srcSet={Logo_w_text} />
-          <img
-            srcSet={Logo_w_text}
-            alt={t('Footer.logo.alt', 'KNPiMI Logo')}
-            className="h-24"
-          />
-        </picture>
-        {!isMobile && <div className={'col-span-2'}></div>}
-        <Card className="flex flex-col items-center gap-8 py-8 sm:items-start bg-background ">
+        <div className={'md:col-span-3'}>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d439.7595064495235!2d19.99434218133859!3d50.07600006690038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165ad2e4488e25%3A0xa4ac37aaae919a61!2sAula%20G18%20Wydzia%C5%82%20Mechaniczny!5e0!3m2!1spl!2spl!4v1787851631322!5m2!1spl!2spl"
+            allowFullScreen={false}
+            title="Map showing Aula G18 Wydzia Mechaniczny at the University of Kraków"
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            sandbox="allow-scripts allow-same-origin"
+          ></iframe>
+        </div>
+        <Card
+          className={`flex flex-col items-center gap-8 py-8 sm:items-start bg-background ${!isMobile ? 'col-span-2' : ''}`}
+        >
           <CardHeader>
-            <CardTitle>
-              <p className="text-foreground">
+            <CardTitle className={'justify-items-start'}>
+              <span className="text-foreground">
                 {t('Footer.social.title', 'Znajdziesz nas też na')}
-              </p>
+              </span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -101,7 +107,7 @@ export default function Footer() {
                 >
                   <social.icon className="h-5 w-5 stroke-[1.5] " />
 
-                  <span className="hidden text-[11px] font-light uppercase tracking-[0.2em] transition-transform duration-500 group-hover:translate-x-1 sm:block after:content-[''] relative after:absolute after:border-b-2 after:inset-0 after:scale-x-0 group-hover:after:scale-x-100 after:transition-all after:duration-300 after:ease-in-out after-gradient-border">
+                  <span className="hidden text-[11px] font-light uppercase tracking-[0.2em] transition-transform duration-500 group-hover:translate-x-1 sm:block after:content-[''] relative after:absolute after:border-b-2 after:inset-0 after:scale-x-[0.01] after:opacity-0 group-hover:after:scale-x-100 group-hover:after:opacity-100 after:transition-all after:duration-300 after:ease-in-out after-gradient-border">
                     {social.name}
                   </span>
                 </a>
@@ -109,24 +115,21 @@ export default function Footer() {
             </div>
           </CardContent>
         </Card>
-        <div>
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d439.7595064495235!2d19.99434218133859!3d50.07600006690038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165ad2e4488e25%3A0xa4ac37aaae919a61!2sAula%20G18%20Wydzia%C5%82%20Mechaniczny!5e0!3m2!1spl!2spl!4v1787851631322!5m2!1spl!2spl"
-            className={'size-full'}
-            allowFullScreen={false}
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
-          ></iframe>
-        </div>
         <Card className={'bg-background  '}>
           <CardContent>
             {footerLogos[actualTheme].map((logo, i) => (
-              <a href={footerURLs[i]} target={'_blank'} key={footerURLs[i]}>
+              <a
+                href={footerURLs[i]}
+                target="_blank"
+                key={footerURLs[i]}
+                rel="noreferrer"
+              >
                 <img
                   srcSet={logo}
-                  alt={''}
+                  src={logo}
+                  alt=""
                   key={logo}
-                  className={'h-21.75 w-[288px] my-1.5'}
+                  className={'h-15 my-1.5'}
                 />
               </a>
             ))}
@@ -136,7 +139,7 @@ export default function Footer() {
       <span>
         {t(
           'Footer.copyright',
-          '© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na\n        Politechnice Krakowskiej'
+          '© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na Politechnice Krakowskiej'
         )}
       </span>
     </footer>

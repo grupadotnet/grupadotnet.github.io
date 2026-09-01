@@ -1,5 +1,5 @@
 import * as React from 'react';
-// @ts-expect-error: unrepairable
+
 import { cn } from '@/lib/utils';
 
 function Card({

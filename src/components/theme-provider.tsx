@@ -23,7 +23,7 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
-export function ThemeProvider({
+function ThemeProvider({
   children,
   defaultTheme = 'system',
   storageKey = 'vite-ui-theme',
@@ -34,16 +34,16 @@ export function ThemeProvider({
   );
 
   // Track the raw system preference in state
-  const [systemTheme, setSystemTheme] = useState<ActualTheme>('light');
+  const [systemTheme, setSystemTheme] = useState<ActualTheme>(() => {
+    if (typeof window === 'undefined') return 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  });
 
-  // 1. Listen for system theme changes in real-time
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-    // Set the initial system preference
-    setSystemTheme(mediaQuery.matches ? 'dark' : 'light');
-
-    // Update state if the user changes their OS theme while the app is open
     const listener = (e: MediaQueryListEvent) => {
       setSystemTheme(e.matches ? 'dark' : 'light');
     };
@@ -84,7 +84,7 @@ export function ThemeProvider({
   );
 }
 
-export const useTheme = () => {
+const useTheme = () => {
   const context = useContext(ThemeProviderContext);
 
   if (context === undefined)
@@ -92,3 +92,5 @@ export const useTheme = () => {
 
   return context;
 };
+
+export { useTheme, ThemeProvider };

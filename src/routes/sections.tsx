@@ -4,9 +4,7 @@ import {
   Outlet,
   useLocation,
 } from '@tanstack/react-router';
-// @ts-expect-error: unrepairable
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-// @ts-expect-error: unrepairable
 import { Badge } from '@/components/ui/badge';
 import {
   RiStackLine,
@@ -15,11 +13,12 @@ import {
   RiShieldCheckLine,
 } from '@remixicon/react';
 import { useTranslation } from 'react-i18next';
+import { extractTitle } from '../lib/extractTitle.tsx';
 
 export const Route = createFileRoute('/sections')({
   component: Sections,
   staticData: {
-    title: 'Sekcje',
+    titleData: extractTitle('Pages.Sections.navbarTitle', 'Sekcje'),
     hideInNav: false,
     order: 1,
   },
@@ -79,10 +78,10 @@ export function Sections() {
               className="px-3 py-1 text-sm font-medium"
             >
               <RiStackLine className="mr-2 h-4 w-4" />
-              {t('Sections.badge', 'Ścieżki rozwoju')}
+              {t('Pages.Sections.badge', 'Ścieżki rozwoju')}
             </Badge>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              {t('Sections.title', 'Czym się zajmujemy?')}
+              {t('Pages.Sections.title', 'Czym się zajmujemy?')}
             </h2>
             <p className="max-w-2xl text-lg text-muted-foreground text-balance">
               {t(
@@ -101,7 +100,7 @@ export function Sections() {
                 <Link to={section.path} key={section.path}>
                   <Card
                     key={index}
-                    className="group border-none bg-muted/50 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70"
+                    className="group border-none bg-muted/50 shadow-sm transition-shadow transition-transform duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70"
                   >
                     <CardHeader>
                       <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
