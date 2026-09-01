@@ -1,11 +1,9 @@
 {
   "About": {
-    "badge": "Kim jesteśmy",
-    "paragraph": "<0>Koło naukowe programistów i miłośników informatyki działa przy Wydziale Mechanicznym Politechniki Krakowskiej. Zrzesza studentów zainteresowanych szeroko rozumianym programowaniem. Organizujemy cotygodniowe zajęcia programowania z <2>zakresu tworzenia aplikacji internetowych, uczenia maszynowego i analizy danych, cyberbezpieczeństwa oraz programowania niskopoziomowego</2>. Zajmujemy się również projektami, które pozwalają uczestnikom na rozwój umiejętności programistycznych.</0>",
-    "title": "O NAS"
+    "paragraph": "<0>Koło naukowe programistów i miłośników informatyki działa przy Wydziale Mechanicznym Politechniki Krakowskiej. Zrzesza studentów zainteresowanych szeroko rozumianym programowaniem. Organizujemy cotygodniowe zajęcia programowania z <2>zakresu tworzenia aplikacji internetowych, uczenia maszynowego i analizy danych, cyberbezpieczeństwa oraz programowania niskopoziomowego</2>. Zajmujemy się również projektami, które pozwalają uczestnikom na rozwój umiejętności programistycznych.</0>"
   },
   "Footer": {
-    "copyright": "© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na\n        Politechnice Krakowskiej",
+    "copyright": "© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na Politechnice Krakowskiej",
     "logo": {
       "alt": "KNPiMI Logo"
     },
@@ -30,9 +28,18 @@
     "returnButton": "Powróć do Głównej",
     "title": "Ajć! Coś poszło nie tak!"
   },
+  "Pages": {
+    "About": {
+      "badge": "Kim jesteśmy",
+      "title": "O NAS"
+    },
+    "Sections": {
+      "badge": "Ścieżki rozwoju",
+      "title": "Czym się zajmujemy?"
+    }
+  },
   "Sections": {
-    "badge": "Ścieżki rozwoju",
-    "paragraph": "Wybierz obszar, który najbardziej Cię interesuje i rozwijaj swoje\n              umiejętności pod okiem starszych studentów.",
+    "paragraph": "Wybierz obszar, który najbardziej Cię interesuje i rozwijaj swoje umiejętności pod okiem starszych studentów.",
     "sectionData": {
       "cybersec": {
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
@@ -43,12 +50,8 @@
       "webdev": {
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
       }
-    },
-    "title": "Czym się zajmujemy?"
+    }
   },
-  "underConstruction": "Under Construction",
-  "weAreCurrentlyBuildingOutThisSectionCheckBackSoon": "We are currently building out this section. Check back soon.",
-  "wip": "🚧 WIP",
   "WorkInProgress": {
     "badge": "🚧 WIP",
     "description": "Ekipa budowlana już wylewa fundamenty pod tę stronę. Za kilka dni powinny być widoczne rezultaty.",
