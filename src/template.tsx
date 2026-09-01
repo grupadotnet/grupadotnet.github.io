@@ -1,12 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
+import { extractTitle } from './lib/extractTitle.tsx';
 
 // @ts-expect-error: Template path token
 
 export const Route = createFileRoute('%%tsrPath%%')({
   component: RouteComponent,
   staticData: {
-    title: 'temp',
+    titleData: extractTitle('Pages', 'temp'),
     hideInNav: true,
     order: -1,
   },

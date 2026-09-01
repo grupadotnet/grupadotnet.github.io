@@ -15,10 +15,10 @@ import {
   RiYoutubeLine,
 } from '@remixicon/react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card.tsx';
-import { useTheme } from './theme-provider.tsx';
-import { useScrollAndWidth } from '../lib/useScrollAndWidth.tsx';
+import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
 import { useTranslation } from 'react-i18next';
 import { useRef } from 'react';
+import { useTheme } from '@/components/theme-provider.tsx';
 
 interface Social {
   href: string;

@@ -68,7 +68,7 @@ const Typewriter = ({
     return () => {
       timeoutIds.forEach((id) => clearTimeout(id));
     };
-  }, []); // Empty array ensures this only runs ONCE on load
+  }, [textState.invisible.length]); // Empty array ensures this only runs ONCE on load
 
   return (
     <div

@@ -1,15 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
-// @ts-expect-error: unrepairable
+
 import { Card, CardContent } from '@/components/ui/card';
-// @ts-expect-error: unrepairable
+
 import { Badge } from '@/components/ui/badge';
 import { RiTerminalBoxFill } from '@remixicon/react';
 import { useTranslation, Trans } from 'react-i18next';
+import { extractTitle } from '../lib/extractTitle.tsx';
 
 export const Route = createFileRoute('/about')({
   component: About,
   staticData: {
-    title: 'O nas',
+    titleData: extractTitle('Pages.About.navbarTitle', 'O Nas'),
     hideInNav: false,
     order: 0,
   },
@@ -37,12 +38,12 @@ export function About() {
                   className="px-3 py-1 text-sm font-medium"
                 >
                   <RiTerminalBoxFill className="mr-2 h-4 w-4" />
-                  {t('About.badge', 'Kim jesteśmy')}
+                  {t('Pages.About.badge', 'Kim jesteśmy')}
                 </Badge>
               </div>
 
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                {t('About.title', 'O NAS')}
+                {t('Pages.About.title', 'O NAS')}
               </h2>
 
               <p className="text-lg leading-relaxed text-muted-foreground text-justify text-pretty">

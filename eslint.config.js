@@ -14,19 +14,17 @@ export default defineConfig([
       js.configs.recommended,
       ...tseslint.configs.recommended, // Note the spread operator (...) if you are using tseslint arrays
       reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
     ],
     languageOptions: {
       globals: globals.browser,
     },
-  },
-  // Put prettier at the absolute end so it overrides formatting rules safely
-  eslintConfigPrettier,
-
-  {
-    files: ['src/components/ui/**/*.tsx', 'components/ui/**/*.tsx'],
+    plugins: {
+      'react-refresh': reactRefresh,
+    },
     rules: {
       'react-refresh/only-export-components': 'off',
     },
   },
+  // Put prettier at the absolute end so it overrides formatting rules safely
+  eslintConfigPrettier,
 ]);

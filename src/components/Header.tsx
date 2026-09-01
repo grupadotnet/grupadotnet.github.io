@@ -10,15 +10,14 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  // @ts-expect-error: unrepairable
 } from '@/components/ui/navigation-menu';
 import { type AnyRoute, Link, useLocation } from '@tanstack/react-router';
-import { routeTree } from '../routeTree.gen.ts';
-import { useScrollAndWidth } from '../lib/useScrollAndWidth.tsx';
-import { type Theme, useTheme } from './theme-provider.tsx';
+import { routeTree } from '@/routeTree.gen.ts';
+import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
 import { RiMoonFill, RiSunFill, RiMenuLine } from '@remixicon/react';
 import { useTranslation } from 'react-i18next';
 import { useRef } from 'react';
+import { useTheme, type Theme } from '@/components/theme-provider.tsx';
 
 // title: string;
 // to: string;
@@ -29,9 +28,10 @@ function getRouteInfo(route: AnyRoute) {
   const path = route.fullPath || route.path || route.id;
   // Fallback to capitalizing the path if staticData.title is missing
   const title =
-    route.options?.staticData?.title ||
+    route.options?.staticData?.titleData.title ||
     (path === '/' ? 'Home' : path.replace('/', ''));
-  return { path, title };
+  const titleKey = route.options?.staticData?.titleData.key;
+  return { path, title, titleKey };
 }
 
 export default function Header() {
@@ -111,7 +111,7 @@ export default function Header() {
                 <NavigationMenuContent>
                   <ul>
                     {navRoutes.map((route) => {
-                      const { path, title } = getRouteInfo(route);
+                      const { path, title, titleKey } = getRouteInfo(route);
 
                       return (
                         <li key={path + title}>
@@ -121,7 +121,7 @@ export default function Header() {
                                 <span
                                   className={`uppercase ${locationHighlight(path)} `}
                                 >
-                                  {title}
+                                  {t(titleKey, title) as string}
                                 </span>{' '}
                               </Link>
                             }
@@ -153,7 +153,7 @@ export default function Header() {
           <NavigationMenu>
             <NavigationMenuList>
               {navRoutes.map((route, i) => {
-                const { path, title } = getRouteInfo(route);
+                const { path, title, titleKey } = getRouteInfo(route);
 
                 // 2. Extract and filter children (capped at 1 step deep)
                 const validChildren = (route.children || []).filter(
@@ -178,7 +178,7 @@ export default function Header() {
                               className: '',
                             }}
                           >
-                            <span>{title}</span>
+                            {t(titleKey, title) as string}
                           </Link>
                         }
                       />
@@ -193,7 +193,7 @@ export default function Header() {
                       <NavigationMenuTrigger
                         className={`uppercase ${locationHighlight(path)}`}
                       >
-                        <span>{title}</span>
+                        <span>{t(titleKey, title) as string}</span>
                       </NavigationMenuTrigger>
                     </Link>
                     <NavigationMenuContent>
@@ -216,7 +216,12 @@ export default function Header() {
                                     <span
                                       className={`${locationHighlight(childInfo.path)} `}
                                     >
-                                      {childInfo.title}
+                                      {
+                                        t(
+                                          childInfo.titleKey,
+                                          childInfo.title
+                                        ) as string
+                                      }
                                     </span>
                                   </Link>
                                 }
