@@ -57,10 +57,10 @@ html {
   scroll-behavior: smooth;
 }
 
-#root {
-  background: var(--primary);
-  background-attachment: fixed;
-}
+/*#root {*/
+/*  background: var(--primary);*/
+/*  background-attachment: fixed;*/
+/*}*/
 
 .dark {
   --primary-from: #9f64a6;
