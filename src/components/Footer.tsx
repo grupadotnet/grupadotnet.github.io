@@ -9,12 +9,7 @@ import LogoWM_w from '/svg/PK_WM_CMYK_w.svg';
 // import LogoWM_eng from '/PK_WM.png';
 // import LogoWM_eng_w from '/PK_WM.png';
 
-import {
-  RiFacebookCircleLine,
-  RiInstagramLine,
-  RiTwitterXLine,
-  RiYoutubeLine,
-} from '@remixicon/react';
+import { RiFacebookCircleLine, RiLinkedinBoxLine } from '@remixicon/react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card.tsx';
 import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
 import { useTranslation } from 'react-i18next';
@@ -34,24 +29,14 @@ interface Social {
 
 const socials: Social[] = [
   {
-    href: 'https://facebook.com',
+    href: 'https://www.facebook.com/grupa.pk.net',
     icon: RiFacebookCircleLine,
     name: 'Facebook',
   },
   {
-    href: 'https://instagram.com',
-    icon: RiInstagramLine,
-    name: 'Instagram',
-  },
-  {
-    href: 'https://twitter.com',
-    icon: RiTwitterXLine,
-    name: 'Twitter',
-  },
-  {
-    href: 'https://youtube.com',
-    icon: RiYoutubeLine,
-    name: 'YouTube',
+    href: 'https://www.linkedin.com/company/knpimi-politechnika-krakowska',
+    icon: RiLinkedinBoxLine,
+    name: 'LinkedIn',
   },
 ];
 
@@ -65,10 +50,28 @@ const coords = [50.076039972227136, 19.99445118155016].toReversed() as [
 ];
 
 // Moved to module scope so it's created once and reused across renders
-const footerLogos: Record<string, string[]> = {
-  light: [LogoPK, LogoWM, LogoBotland],
-  dark: [LogoPK_w, LogoWM_w, LogoBotlandW],
+type Partner = {
+  url: string;
+  logos: {
+    light: string;
+    dark: string;
+  };
 };
+
+const footerPartners: Partner[] = [
+  {
+    url: 'https://www.pk.edu.pl',
+    logos: { light: LogoPK, dark: LogoPK_w },
+  },
+  {
+    url: 'https://mech.pk.edu.pl/',
+    logos: { light: LogoWM, dark: LogoWM_w },
+  },
+  {
+    url: 'https://botland.com.pl/',
+    logos: { light: LogoBotland, dark: LogoBotlandW },
+  },
+];
 
 export default function Footer() {
   const { actualTheme } = useTheme();
@@ -100,12 +103,52 @@ export default function Footer() {
     mapInstanceRef.current = map;
 
     map.addControl(new NavigationControl(), 'top-right');
-    new Marker()
-      .setLngLat(coords) // Match your center coordinates
-      .addTo(map);
+    const marker = new Marker().setLngLat(coords).addTo(map);
 
-    return () => {};
-  }, []);
+    marker.getElement().style.cursor = 'pointer';
+
+    const handleMarkerClick = () => {
+      const win = window as Window & {
+        opera?: string;
+        MSStream?: unknown;
+      };
+
+      // coords[1] is Lat, coords[0] is Lng because of your .toReversed() array
+      const lat = coords[1];
+      const lng = coords[0];
+      const userAgent =
+        navigator.userAgent || navigator.vendor || win.opera || '';
+
+      // 1. iOS Detection -> Apple Maps
+      if (/iPad|iPhone|iPod/.test(userAgent) && !win.MSStream) {
+        window.open(
+          `https://maps.apple.com/?daddr=${lat},${lng}&dirflg=d`,
+          '_blank'
+        );
+      }
+      // 2. Android Detection -> OS App Chooser (Google Maps, Waze, etc.)
+      else if (/android/i.test(userAgent)) {
+        window.open(
+          `geo:${lat},${lng}?q=${lat},${lng}(Politechnika+Krakowska)`,
+          '_blank'
+        );
+      }
+      // 3. Fallback (Desktop/Other) -> Google Maps Web
+      else {
+        window.open(
+          `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
+          '_blank'
+        );
+      }
+    };
+
+    const markerEl = marker.getElement();
+    markerEl.addEventListener('click', handleMarkerClick);
+
+    return () => {
+      markerEl.removeEventListener('click', handleMarkerClick);
+    };
+  });
 
   useEffect(() => {
     const map = mapInstanceRef.current;
@@ -122,12 +165,6 @@ export default function Footer() {
       map.once('load', updateStyle);
     }
   }, [actualTheme]);
-
-  const footerURLs: string[] = [
-    'https://www.pk.edu.pl',
-    'https://mech.pk.edu.pl/',
-    'https://botland.com.pl/',
-  ];
 
   return (
     <footer className={' w-11/12 m-auto text-center *:my-20 text-white'}>
@@ -175,18 +212,13 @@ export default function Footer() {
         </Card>
         <Card className={'bg-background  '}>
           <CardContent>
-            {footerLogos[actualTheme].map((logo, i) => (
-              <a
-                href={footerURLs[i]}
-                target="_blank"
-                key={footerURLs[i]}
-                rel="noreferrer"
-              >
+            {footerPartners.map(({ logos, url }) => (
+              <a href={url} target="_blank" key={url} rel="noreferrer">
                 <img
-                  srcSet={logo}
-                  src={logo}
+                  srcSet={logos[actualTheme]}
+                  src={logos[actualTheme]}
                   alt=""
-                  key={logo}
+                  key={logos[actualTheme]}
                   className={'h-15 my-1.5'}
                 />
               </a>

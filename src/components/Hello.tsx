@@ -17,7 +17,10 @@ const Typewriter = ({
   className = '',
   options = [
     i18next.t('Hello.message.1', 'Poznaj nasze Koło Naukowe!'),
-    i18next.t('Hello.message.2', 'Twórz z nami zajebiste projekty!'),
+    i18next.t('Hello.message.2', 'Twórz z nami super projekty!'),
+    i18next.t('Hello.message.3', 'Zdobądź praktyczne doświadczenie w zespole!'),
+    i18next.t('Hello.message.4', 'Rozwijaj z nami swoje pasje i umiejętności!'),
+    i18next.t('Hello.message.5', 'Dołącz do nas i zacznij działać!'),
   ],
 }: {
   options?: string[];
@@ -79,12 +82,20 @@ export function Hello() {
   };
 
   return (
-    <div className={'h-[91dvh] w-full grid grid-rows-[1fr_auto]'}>
+    <div
+      className={'h-[91dvh] w-full grid grid-rows-[1fr_auto] bg-transparent'}
+    >
       <section className={'flex items-center'}>
         <Typewriter />
       </section>
       <div className={'flex justify-center items-end mb-20'}>
-        <a href={'#about'} onClick={handleScroll}>
+        <a
+          href={'#about'}
+          onClick={handleScroll}
+          className={
+            'hover:scale-150  hover:-translate-y-1.5 transition duration-200 ease-in-out'
+          }
+        >
           <RiArrowDownSLine />
         </a>
       </div>
