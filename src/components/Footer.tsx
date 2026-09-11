@@ -180,10 +180,10 @@ export default function Footer() {
           />
         </div>
         <Card
-          className={`flex flex-col items-center gap-8 py-8 sm:items-start bg-background ${!isMobile ? 'col-span-2' : ''}`}
+          className={`flex flex-col items-center gap-8 py-8 sm:items-start bg-background ${!isMobile ? 'col-span-2' : ''} min-w-3/5`}
         >
           <CardHeader>
-            <CardTitle className={'justify-items-start'}>
+            <CardTitle className="text-left w-full">
               <span className="text-foreground">
                 {t('Footer.social.title', 'Znajdziesz nas też na')}
               </span>
