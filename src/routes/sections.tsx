@@ -24,40 +24,44 @@ export const Route = createFileRoute('/sections')({
   },
 });
 
+export const sections = [
+  {
+    // i18next-instrument-ignore-next-line
+    title: 'WebDev',
+    path: 'webdev',
+    icon: RiCodeBoxLine,
+    description: extractTranslation(
+      'Sections.sectionData.webdev.description',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
+    ),
+    id: 1,
+  },
+  {
+    // i18next-instrument-ignore-next-line
+    title: 'Data&AI',
+    path: 'data&ai',
+    icon: RiBrainLine,
+    description: extractTranslation(
+      'Sections.sectionData.data&ai.description',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
+    ),
+    id: 2,
+  },
+  {
+    // i18next-instrument-ignore-next-line
+    title: 'CyberSec',
+    path: 'cybersec',
+    icon: RiShieldCheckLine,
+    description: extractTranslation(
+      'Sections.sectionData.cybersec.description',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
+    ),
+    id: 3,
+  },
+];
+
 export function Sections() {
   const { t } = useTranslation();
-  const sections = [
-    {
-      // i18next-instrument-ignore-next-line
-      title: 'WebDev',
-      path: 'webdev',
-      icon: RiCodeBoxLine,
-      description: t(
-        'Sections.sectionData.webdev.description',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
-      ),
-    },
-    {
-      // i18next-instrument-ignore-next-line
-      title: 'Data&AI',
-      path: 'data&ai',
-      icon: RiBrainLine,
-      description: t(
-        'Sections.sectionData.data&ai.description',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
-      ),
-    },
-    {
-      // i18next-instrument-ignore-next-line
-      title: 'CyberSec',
-      path: 'cybersec',
-      icon: RiShieldCheckLine,
-      description: t(
-        'Sections.sectionData.cybersec.description',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
-      ),
-    },
-  ];
 
   const location = useLocation().pathname;
   const isSection = location === '/sections' || location === '/';
@@ -98,7 +102,7 @@ export function Sections() {
 
               return (
                 <Link to={section.path} key={section.path}>
-                  <Card className="group border-none bg-muted/50 shadow-sm transition-shadow transition-transform duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70">
+                  <Card className="group border-none bg-muted/50 shadow-sm transition-[transfrom shadow] duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70">
                     <CardHeader>
                       <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
                         {/* Remix Icons accept standard Tailwind sizing classes perfectly */}
@@ -110,7 +114,7 @@ export function Sections() {
                     </CardHeader>
                     <CardContent>
                       <p className="text-muted-foreground leading-relaxed">
-                        {section.description}
+                        {section.description.translation}
                       </p>
                     </CardContent>
                   </Card>
