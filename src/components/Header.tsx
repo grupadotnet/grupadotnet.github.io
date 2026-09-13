@@ -28,7 +28,7 @@ function getRouteInfo(route: AnyRoute) {
   const path = route.fullPath || route.path || route.id;
   // Fallback to capitalizing the path if staticData.title is missing
   const title =
-    route.options?.staticData?.titleData.title ||
+    route.options?.staticData?.titleData.translation ||
     (path === '/' ? 'Home' : path.replace('/', ''));
   const titleKey = route.options?.staticData?.titleData.key;
   return { path, title, titleKey };
