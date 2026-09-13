@@ -92,13 +92,18 @@ function Carousel({
   }, [api, setApi]);
 
   React.useEffect(() => {
-    if (!api) return;
+    if (!api) {
+      return;
+    }
+
     onSelect(api);
     api.on('reInit', onSelect);
     api.on('select', onSelect);
 
+    // Add this cleanup function to fix the memory leak
     return () => {
-      api?.off('select', onSelect);
+      api.off('reInit', onSelect);
+      api.off('select', onSelect);
     };
   }, [api, onSelect]);
 

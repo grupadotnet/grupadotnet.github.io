@@ -4,23 +4,26 @@
   },
   "Footer": {
     "copyright": "",
-    "logo": {
-      "alt": ""
-    },
     "social": {
       "title": ""
     }
   },
   "Header": {
+    "dark": "",
+    "light": "",
     "logo": {
       "alt": ""
     },
+    "system": "",
     "theme": ""
   },
   "Hello": {
     "message": {
       "1": "",
-      "2": ""
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": ""
     }
   },
   "NotFound": {
@@ -33,24 +36,22 @@
       "badge": "",
       "title": ""
     },
+    "Schedule": {
+      "badge": "",
+      "notFound": {
+        "paragraph": "",
+        "title": ""
+      },
+      "paragraph": "",
+      "title": ""
+    },
     "Sections": {
       "badge": "",
       "title": ""
     }
   },
   "Sections": {
-    "paragraph": "",
-    "sectionData": {
-      "cybersec": {
-        "description": ""
-      },
-      "data&ai": {
-        "description": ""
-      },
-      "webdev": {
-        "description": ""
-      }
-    }
+    "paragraph": ""
   },
   "WorkInProgress": {
     "badge": "",

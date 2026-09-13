@@ -7,7 +7,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { useEffect, useState } from 'react';
 import {
   Card,
   CardAction,
@@ -23,13 +22,15 @@ import { RiCalendar2Line } from '@remixicon/react';
 import { sections } from '@/routes/sections.tsx';
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
+import { useCalendarLinks } from '@/lib/useCalendarLinks.tsx';
+import { useQuery } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/schedule')({
   component: Schedule,
   staticData: {
     titleData: extractTranslation('Pages.Schedule.navbarTitle', 'Schedule'),
-    hideInNav: true,
-    order: -1,
+    hideInNav: false,
+    order: 3,
   },
 });
 
@@ -41,7 +42,34 @@ interface EventType {
   start: Date;
   end: Date;
   calendarName: string;
+  eventLinks: {
+    googleTemplateUrl: string;
+    icsUrl: string;
+    googleSubscribeUrl: string;
+    webcalUrl: string;
+  };
 }
+
+const fetchCalendarEvents = async () => {
+  // We still keep the cache buster because Google Apps Script is notoriously sticky
+  const scriptUrl =
+    'https://script.google.com/macros/s/AKfycbx6k6b3VQW02WpwBeQiaK4KYNmeR-BJ4Zo8VnwXYeqdGgj0rviGbdY1sa7cXPFc45A8Qw/exec';
+  const res = await fetch(`${scriptUrl}`);
+
+  if (!res.ok) throw new Error('Failed to fetch events');
+
+  const data = await res.json();
+
+  return data.map((item: EventType) => ({
+    calendarName: item.calendarName,
+    id: item.id,
+    title: item.title,
+    description: item.description,
+    start: new Date(item.start),
+    end: new Date(item.end),
+    eventLinks: item.eventLinks,
+  }));
+};
 
 export function Schedule() {
   const { t } = useTranslation();
@@ -69,29 +97,15 @@ export function Schedule() {
 
 function LoadedCarousel() {
   const { t } = useTranslation();
-  const [events, setEvents] = useState<EventType[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // 1. Added loading state
-
-  useEffect(() => {
-    fetch(
-      'https://script.google.com/macros/s/AKfycbyUGIAWurd7931vh3zLLMvvyWJhxrtNCDW5OT0GQS2f-haIZGfMZFUSfKD6Ax85wsdtSQ/exec'
-    )
-      .then((res) => res.json())
-      .then((data: EventType[]) => {
-        setEvents(
-          data.map((item) => ({
-            calendarName: item.calendarName,
-            id: item.id,
-            title: item.title,
-            description: item.description,
-            start: new Date(item.start),
-            end: new Date(item.end),
-          }))
-        );
-      })
-      .catch((err) => console.error(err))
-      .finally(() => setIsLoading(false)); // 2. Turn off loading when done
-  }, []);
+  const {
+    data: events = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['calendarEvents'], // A unique key for this data
+    queryFn: fetchCalendarEvents,
+    staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes (won't refetch on tab switch)
+  });
 
   // 3. Show Skeleton if fetching
   if (isLoading) {
@@ -99,7 +113,7 @@ function LoadedCarousel() {
   }
 
   // 4. Show Empty State if no events
-  if (events.length === 0) {
+  if (events.length === 0 || isError) {
     return (
       <Card>
         <CardHeader>
@@ -124,7 +138,7 @@ function LoadedCarousel() {
   // 5. Show Actual Data
   return (
     <Carousel
-      className="w-full max-w-[80%]" // Changed from invalid 9/11
+      className="w-full max-w-9/11" // Changed from invalid 9/11
       opts={{ align: 'center' }}
     >
       <CarouselContent>
@@ -134,48 +148,12 @@ function LoadedCarousel() {
               .toLowerCase()
               .includes(section.title.toLowerCase())
           );
-          const Icon = matchedSection?.icon;
-
           return (
-            <CarouselItem
-              key={event.id} // Changed to id for uniqueness
-              className="md:basis-[27dvw] basis-1/3"
-            >
-              <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
-                {matchedSection && (
-                  <Badge
-                    variant="secondary"
-                    className="px-3 py-1 text-sm font-medium flex items-center mx-7"
-                  >
-                    {Icon && <Icon className="mr-2 h-4 w-4" />}
-                    {matchedSection.title}
-                  </Badge>
-                )}
-                <CardHeader>
-                  <CardTitle className="flex text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                    {event.title}
-                  </CardTitle>
-                  <CardAction>
-                    <Button variant="ghost">Przypominaj o spotkaniach</Button>
-                  </CardAction>
-                </CardHeader>
-                <CardContent className="space-y-4 grow">
-                  <CardDescription>{event.description}</CardDescription>
-                  <div className="text-sm font-medium">
-                    <p>{`${event.start.toLocaleTimeString()} - ${event.end.toLocaleTimeString()}`}</p>
-                    <p>{event.start.toLocaleDateString()}</p>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between *:mx-2 *:grow">
-                  <Button
-                    variant="default"
-                    onClick={() => console.log(event.title.split(' ').pop())}
-                  >
-                    Wbijam!!
-                  </Button>
-                </CardFooter>
-              </Card>
-            </CarouselItem>
+            <EventCarouselItem
+              key={`${event.id}-${event.calendarName}-${event.start}`}
+              event={event}
+              matchedSection={matchedSection}
+            />
           );
         })}
       </CarouselContent>
@@ -185,6 +163,62 @@ function LoadedCarousel() {
   );
 }
 
+function EventCarouselItem({
+  event,
+  matchedSection,
+}: {
+  event: EventType;
+  matchedSection: (typeof sections)[0] | undefined;
+}) {
+  // ✅ The hook is now safely at the top level of a component
+  // Note: Pass event.eventLinks if you used the Apps Script structure from earlier
+  const { singularLink, entireLink } = useCalendarLinks(event.eventLinks);
+  const Icon = matchedSection?.icon;
+
+  return (
+    <CarouselItem className="md:basis-[27dvw] basis-1/3">
+      <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
+        {matchedSection && (
+          <Badge
+            variant="secondary"
+            className="px-3 py-1 text-sm font-medium flex items-center mx-7"
+          >
+            {Icon && <Icon className="mr-2 h-4 w-4" />}
+            {matchedSection.title}
+          </Badge>
+        )}
+        <CardHeader>
+          <CardTitle className="flex text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+            {event.title}
+          </CardTitle>
+          <CardAction>
+            {/* Example of using the entireLink */}
+            <Button variant="ghost">
+              <a href={entireLink} target="_blank" rel="noreferrer">
+                Przypominaj o spotkaniach (Subskrybuj)
+              </a>
+            </Button>
+          </CardAction>
+        </CardHeader>
+        <CardContent className="space-y-4 grow">
+          <CardDescription>{event.description}</CardDescription>
+          <div className="text-sm font-medium">
+            <p>{`${event.start.toLocaleTimeString()} - ${event.end.toLocaleTimeString()}`}</p>
+            <p>{event.start.toLocaleDateString()}</p>
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-between *:mx-2 *:grow">
+          {/* Example of using the singularLink */}
+          <Button variant="default">
+            <a href={singularLink} target="_blank" rel="noreferrer">
+              Wbijam!! (Zapisz to wydarzenie)
+            </a>
+          </Button>
+        </CardFooter>
+      </Card>
+    </CarouselItem>
+  );
+}
 // 6. The Skeleton Component using Shadcn <Skeleton />
 function GhostCarousel() {
   return (
