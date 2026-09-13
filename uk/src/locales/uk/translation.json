@@ -4,23 +4,26 @@
   },
   "Footer": {
     "copyright": "© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na Politechnice Krakowskiej",
-    "logo": {
-      "alt": "KNPiMI Logo"
-    },
     "social": {
       "title": "Znajdziesz nas też na"
     }
   },
   "Header": {
+    "dark": "Ciemny",
+    "light": "Jasny",
     "logo": {
       "alt": "KNPiMI Logo"
     },
-    "theme": "THEME"
+    "system": "Systemowy",
+    "theme": "MOTYW"
   },
   "Hello": {
     "message": {
       "1": "Poznaj nasze Koło Naukowe!",
-      "2": "Twórz z nami zajebiste projekty!"
+      "2": "Twórz z nami zajebiste projekty!",
+      "3": "Zdobądź praktyczne doświadczenie w zespole!",
+      "4": "Rozwijaj z nami swoje pasje i umiejętności!",
+      "5": "Dołącz do nas i zacznij działać!"
     }
   },
   "NotFound": {
@@ -33,24 +36,22 @@
       "badge": "Kim jesteśmy",
       "title": "O NAS"
     },
+    "Schedule": {
+      "badge": "Harmonogram spotkań",
+      "notFound": {
+        "paragraph": "Nie mamy zaplanowanych żadnych spotkań, możliwe że w kolejnych dniach to się zmieni.",
+        "title": "O kurcze!!"
+      },
+      "paragraph": "Lista zaplanowanych spotkań na kolejny miesiąc",
+      "title": "Kiedy się spotykamy?"
+    },
     "Sections": {
       "badge": "Ścieżki rozwoju",
       "title": "Czym się zajmujemy?"
     }
   },
   "Sections": {
-    "paragraph": "Wybierz obszar, który najbardziej Cię interesuje i rozwijaj swoje umiejętności pod okiem starszych studentów.",
-    "sectionData": {
-      "cybersec": {
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
-      },
-      "data&ai": {
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
-      },
-      "webdev": {
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
-      }
-    }
+    "paragraph": "Wybierz obszar, który najbardziej Cię interesuje i rozwijaj swoje umiejętności pod okiem starszych studentów."
   },
   "WorkInProgress": {
     "badge": "🚧 WIP",
