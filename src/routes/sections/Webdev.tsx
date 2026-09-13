@@ -1,11 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
-import { extractTitle } from '@/lib/extractTitle.tsx';
+import { extractTranslation } from '@/lib/extractTranslation.tsx';
 
 export const Route = createFileRoute('/sections/Webdev')({
   component: Webdev,
   staticData: {
-    titleData: extractTitle('Pages.Webdev.navbarTitle', 'Webdev'),
+    titleData: extractTranslation('Pages.Webdev.navbarTitle', 'Webdev'),
     hideInNav: true,
     order: -1,
   },

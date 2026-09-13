@@ -13,7 +13,7 @@ declare module '@tanstack/react-router' {
   interface StaticDataRouteOption {
     titleData: {
       key: string;
-      title: string;
+      translation: string;
     };
     hideInNav: boolean;
     order: number;
