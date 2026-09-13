@@ -1,13 +1,13 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 import Header from '../components/Header.tsx';
 import Footer from '../components/Footer.tsx';
-import { extractTitle } from '../lib/extractTitle.tsx';
+import { extractTranslation } from '../lib/extractTranslation.tsx';
 import BackgroundSwirl from '@/components/swirl.tsx';
 
 export const Route = createRootRoute({
   component: RootComponent,
   staticData: {
-    titleData: extractTitle('temp', 'temp'),
+    titleData: extractTranslation('temp', 'temp'),
     hideInNav: true,
     order: -1,
   },

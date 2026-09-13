@@ -5,12 +5,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { RiTerminalBoxFill } from '@remixicon/react';
 import { useTranslation, Trans } from 'react-i18next';
-import { extractTitle } from '../lib/extractTitle.tsx';
+import { extractTranslation } from '../lib/extractTranslation.tsx';
 
 export const Route = createFileRoute('/about')({
   component: About,
   staticData: {
-    titleData: extractTitle('Pages.About.navbarTitle', 'O Nas'),
+    titleData: extractTranslation('Pages.About.navbarTitle', 'O Nas'),
     hideInNav: false,
     order: 0,
   },

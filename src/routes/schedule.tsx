@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { extractTitle } from '@/lib/extractTitle.tsx';
+import { extractTranslation } from '@/lib/extractTranslation.tsx';
 import {
   Carousel,
   CarouselContent,
@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/button.tsx';
 export const Route = createFileRoute('/schedule')({
   component: Schedule,
   staticData: {
-    titleData: extractTitle('Pages.Schedule.navbarTitle', 'Schedule'),
+    titleData: extractTranslation('Pages.Schedule.navbarTitle', 'Schedule'),
     hideInNav: true,
     order: -1,
   },

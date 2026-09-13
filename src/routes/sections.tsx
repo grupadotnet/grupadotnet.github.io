@@ -13,12 +13,12 @@ import {
   RiShieldCheckLine,
 } from '@remixicon/react';
 import { useTranslation } from 'react-i18next';
-import { extractTitle } from '../lib/extractTitle.tsx';
+import { extractTranslation } from '../lib/extractTranslation.tsx';
 
 export const Route = createFileRoute('/sections')({
   component: Sections,
   staticData: {
-    titleData: extractTitle('Pages.Sections.navbarTitle', 'Sekcje'),
+    titleData: extractTranslation('Pages.Sections.navbarTitle', 'Sekcje'),
     hideInNav: false,
     order: 1,
   },
