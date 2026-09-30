@@ -30,7 +30,7 @@ import { useRef } from 'react';
 export const Route = createFileRoute('/schedule')({
   component: Schedule,
   staticData: {
-    titleData: extractTranslation('Pages.Schedule.navbarTitle', 'Schedule'),
+    titleData: extractTranslation('Pages.Schedule.navbarTitle', 'Harmonogram'),
     hideInNav: false,
     order: 3,
   },
