@@ -24,11 +24,13 @@ import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
 import { useCalendarLinks } from '@/lib/useCalendarLinks.tsx';
 import { useQuery } from '@tanstack/react-query';
+import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
+import { useRef } from 'react';
 
 export const Route = createFileRoute('/schedule')({
   component: Schedule,
   staticData: {
-    titleData: extractTranslation('Pages.Schedule.navbarTitle', 'Schedule'),
+    titleData: extractTranslation('Pages.Schedule.navbarTitle', 'Harmonogram'),
     hideInNav: false,
     order: 3,
   },
@@ -176,7 +178,7 @@ function EventCarouselItem({
   const Icon = matchedSection?.icon;
 
   return (
-    <CarouselItem className="md:basis-[27dvw] basis-1/3">
+    <CarouselItem className="md:basis-[27dvw] basis-full">
       <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
         {matchedSection && (
           <Badge
@@ -221,12 +223,13 @@ function EventCarouselItem({
 }
 // 6. The Skeleton Component using Shadcn <Skeleton />
 function GhostCarousel() {
+  const { isMobile } = useScrollAndWidth(useRef(null), '');
   return (
     <Carousel className="w-full max-w-[80%]" opts={{ align: 'center' }}>
       <CarouselContent>
         {/* Render 4 dummy skeleton cards so the carousel looks full */}
-        {Array.from({ length: 4 }).map((_, index) => (
-          <CarouselItem key={index} className="md:basis-[27dvw] basis-1/3">
+        {Array.from({ length: isMobile ? 1 : 4 }).map((_, index) => (
+          <CarouselItem key={index} className="md:basis-[27dvw] basis-full">
             <Card className="h-full flex flex-col">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">

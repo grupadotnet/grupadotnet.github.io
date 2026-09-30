@@ -32,7 +32,7 @@ export const sections = [
     icon: RiCodeBoxLine,
     description: extractTranslation(
       'Sections.sectionData.webdev.description',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
+      'W sekcji Webdev zajmujemy się praktycznym tworzeniem nowoczesnych aplikacji internetowych. Podczas wspólnej pracy nad projektami na bieżąco uczymy się nowych narzędzi oraz wykorzystujemy sprawdzone w przemyśle rozwiązania.'
     ),
     id: 1,
   },
