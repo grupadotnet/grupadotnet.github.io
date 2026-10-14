@@ -1,13 +1,9 @@
 import LogoBotland from '/logo_botland_kn.png';
 import LogoBotlandW from '/white-logo-botland.png';
-import LogoPK from '/svg/PK_POZIOM_CMYK.svg';
-// import LogoPK_eng from '/svg/PK_POZIOM_CMYK_w.svg';
-import LogoPK_w from '/svg/PK_POZIOM_CMYK_w.svg';
-// import LogoPK_eng_w from '/PK_POZIOM_INVERT.png';
-import LogoWM from '/svg/PK_WM_CMYK.svg';
-import LogoWM_w from '/svg/PK_WM_CMYK_w.svg';
-// import LogoWM_eng from '/PK_WM.png';
-// import LogoWM_eng_w from '/PK_WM.png';
+import LogoPK from '/svg/PK/PK_POZIOM_CMYK.svg';
+import LogoPK_w from '/svg/PK/PK_POZIOM_CMYK_w.svg';
+import LogoWM from '/svg/PK/PK_WM_CMYK.svg';
+import LogoWM_w from '/svg/PK/PK_WM_CMYK_w.svg';
 
 import { RiFacebookCircleLine, RiLinkedinBoxLine } from '@remixicon/react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card.tsx';
