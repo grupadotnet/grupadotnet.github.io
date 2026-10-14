@@ -3,58 +3,14 @@
    id="Logo"
    viewBox="0 0 1451.34 425.2"
    version="1.1"
-   sodipodi:docname="Logo_KNPiMI_with_text_color.svg"
-   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview52"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.2829523"
-     inkscape:cx="413.4994"
-     inkscape:cy="97.431526"
-     inkscape:window-width="3424"
-     inkscape:window-height="1347"
-     inkscape:window-x="20"
-     inkscape:window-y="20"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="Logo"
-     showguides="true">
-    <sodipodi:guide
-       position="125.22996,70.762388"
-       orientation="0,-1"
-       id="guide3"
-       inkscape:locked="false" />
-    <sodipodi:guide
-       position="0.7794522,396.36028"
-       orientation="1,0"
-       id="guide4"
-       inkscape:locked="false" />
-    <sodipodi:guide
-       position="70.930151,561.60415"
-       orientation="1,0"
-       id="guide5"
-       inkscape:locked="false" />
-    <sodipodi:guide
-       position="430.10844,555.84958"
-       orientation="1,0"
-       id="guide6"
-       inkscape:locked="false" />
-  </sodipodi:namedview>
   <defs
      id="defs3">
     <linearGradient
        id="linearGradient7"
-       inkscape:collect="always">
+    >
       <stop
          style="stop-color:#2e64ae;stop-opacity:1;"
          offset="0"
@@ -86,7 +42,7 @@
     </style>
     <linearGradient
        id="Gradient_bez_nazwy_28"
-       data-name="Gradient bez nazwy 28"
+
        x1="101.11"
        y1="324.59"
        x2="313.89"
@@ -106,7 +62,7 @@
          id="stop3" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
+
        xlink:href="#Gradient_bez_nazwy_28"
        id="linearGradient6"
        gradientUnits="userSpaceOnUse"
@@ -115,7 +71,7 @@
        x2="313.89"
        y2="111.81" />
     <linearGradient
-       inkscape:collect="always"
+
        xlink:href="#linearGradient7"
        id="linearGradient8"
        x1="569.26215"
@@ -349,7 +305,6 @@
      xml:space="preserve"
      id="text52"
      style="writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect52);shape-padding:0;display:inline;fill:url(#linearGradient8)"
-     inkscape:label="text52"
      transform="matrix(1.0278732,0,0,1,-17.233581,-8.6604263)"><tspan
        x="429.47852"
        y="169.77406"

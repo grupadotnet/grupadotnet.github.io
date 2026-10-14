@@ -10,7 +10,7 @@
         fill: url(#Gradient_bez_nazwy_28);
       }
     </style>
-    <linearGradient id="Gradient_bez_nazwy_28" data-name="Gradient bez nazwy 28" x1="100.61" y1="324.59" x2="313.38" y2="111.82" gradientUnits="userSpaceOnUse">
+    <linearGradient id="Gradient_bez_nazwy_28" x1="100.61" y1="324.59" x2="313.38" y2="111.82" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#2e64ae"/>
       <stop offset=".92" stop-color="#9965a7"/>
       <stop offset="1" stop-color="#9f64a6"/>
