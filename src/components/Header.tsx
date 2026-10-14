@@ -1,7 +1,7 @@
-import Logo_text from '/Logo_KNPiMI_with_text.svg';
-import Logo_w_text from '/Logo_KNPiMI_white_with_text.svg';
-import Logo from '/Logo_KNPiMI.svg';
-import Logo_w from '/Logo_KNPiMI_white.svg';
+import Logo_text from '/svg/KNPIMI/Logo_KNPiMI_with_text.svg';
+import Logo_w_text from '/svg/KNPIMI/Logo_KNPiMI_white_with_text.svg';
+import Logo from '/svg/KNPIMI/Logo_KNPiMI.svg';
+import Logo_w from '/svg/KNPIMI/Logo_KNPiMI_white.svg';
 
 import {
   NavigationMenu,
