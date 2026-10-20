@@ -109,6 +109,20 @@ function LoadedCarousel() {
     staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes (won't refetch on tab switch)
   });
 
+  interface eventData {
+    calendarName: string;
+    id: number;
+    title: string;
+    description: string;
+    start: Date;
+    end: Date;
+    eventLinks: never;
+  }
+
+  events.sort(
+    (a: eventData, b: eventData) => a.start.getTime() - b.start.getTime()
+  );
+
   // 3. Show Skeleton if fetching
   if (isLoading) {
     return <GhostCarousel />;
