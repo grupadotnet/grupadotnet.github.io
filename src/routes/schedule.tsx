@@ -55,7 +55,7 @@ interface EventType {
 const fetchCalendarEvents = async () => {
   // We still keep the cache buster because Google Apps Script is notoriously sticky
   const scriptUrl =
-    'https://script.google.com/macros/s/AKfycbx6k6b3VQW02WpwBeQiaK4KYNmeR-BJ4Zo8VnwXYeqdGgj0rviGbdY1sa7cXPFc45A8Qw/exec';
+    'https://script.google.com/macros/s/AKfycbzeFQDs7qwoKq2qZKYkn4BEX4mCY22FQYdGHYEnb_mDffa4ydn1AOQ71CM7d-zgxZV2JA/exec';
   const res = await fetch(`${scriptUrl}`);
 
   if (!res.ok) throw new Error('Failed to fetch events');
@@ -108,6 +108,20 @@ function LoadedCarousel() {
     queryFn: fetchCalendarEvents,
     staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes (won't refetch on tab switch)
   });
+
+  interface eventData {
+    calendarName: string;
+    id: number;
+    title: string;
+    description: string;
+    start: Date;
+    end: Date;
+    eventLinks: never;
+  }
+
+  events.sort(
+    (a: eventData, b: eventData) => a.start.getTime() - b.start.getTime()
+  );
 
   // 3. Show Skeleton if fetching
   if (isLoading) {

@@ -43,7 +43,7 @@ export const sections = [
     icon: RiBrainLine,
     description: extractTranslation(
       'Sections.sectionData.data&ai.description',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
+      'Przekuwamy teoretyczną wiedzę z AI, Machine Learning i Data Science w innowacyjne projekty prototypowe o znaczeniu przemysłowym i badawczym.'
     ),
     id: 2,
   },
@@ -54,7 +54,7 @@ export const sections = [
     icon: RiShieldCheckLine,
     description: extractTranslation(
       'Sections.sectionData.cybersec.description',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
+      'W sekcji cyberbezpieczeństwa łączymy solidną wiedzę teoretyczną z praktyką, skupiając się na testach penetracyjnych, systemie Kali Linux oraz technikach OSINT. Rozwijamy nasze umiejętności, biorąc udział w konferencjach i hackathonach.'
     ),
     id: 3,
   },
