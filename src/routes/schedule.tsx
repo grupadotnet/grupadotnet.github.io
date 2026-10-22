@@ -192,7 +192,7 @@ function EventCarouselItem({
   const Icon = matchedSection?.icon;
 
   return (
-    <CarouselItem className="md:basis-[27dvw] basis-full">
+    <CarouselItem className="md:basis-[27dvw] basis-[50dvw]">
       <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
         {matchedSection && (
           <Badge

@@ -3,6 +3,7 @@ import { About } from './about.tsx';
 import { Sections } from './sections.tsx';
 import { Hello } from '../components/Hello.tsx';
 import { extractTranslation } from '../lib/extractTranslation.tsx';
+import { Schedule } from '@/routes/schedule.tsx';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -21,6 +22,7 @@ function RouteComponent() {
   return (
     <>
       <Hello />
+      <Schedule />
       <About />
       <Sections />
     </>
