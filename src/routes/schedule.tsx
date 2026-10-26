@@ -1,15 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { extractTranslation } from '@/lib/extractTranslation.tsx';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -26,6 +19,7 @@ import { useCalendarLinks } from '@/lib/useCalendarLinks.tsx';
 import { useQuery } from '@tanstack/react-query';
 import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
 import { useRef } from 'react';
+import { ButtonGroup } from '@/components/ui/button-group.tsx';
 
 export const Route = createFileRoute('/schedule')({
   component: Schedule,
@@ -77,7 +71,7 @@ export function Schedule() {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-background flex py-10 w-full items-center justify-center flex-col space-y-4">
+    <div className="bg-background flex py-10 w-full min-w-0 items-center justify-center flex-col space-y-4">
       <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
         <RiCalendar2Line className="mr-2 h-4 w-4" />
         {t('Pages.Schedule.badge', 'Harmonogram spotkań')}
@@ -85,7 +79,7 @@ export function Schedule() {
       <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
         {t('Pages.Schedule.title', 'Kiedy się spotykamy?')}
       </h2>
-      <p className="max-w-2xl text-lg text-muted-foreground text-balance">
+      <p className="max-w-2xl text-lg text-muted-foreground text-balance text-center">
         {t(
           'Pages.Schedule.paragraph',
           'Lista zaplanowanych spotkań na kolejny miesiąc'
@@ -108,7 +102,7 @@ function LoadedCarousel() {
     queryFn: fetchCalendarEvents,
     staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes (won't refetch on tab switch)
   });
-
+  const { isMobile } = useScrollAndWidth(useRef(null), '');
   interface eventData {
     calendarName: string;
     id: number;
@@ -125,7 +119,7 @@ function LoadedCarousel() {
 
   // 3. Show Skeleton if fetching
   if (isLoading) {
-    return <GhostCarousel />;
+    return <GhostCarousel isMobile={isMobile}/>;
   }
 
   // 4. Show Empty State if no events
@@ -153,11 +147,8 @@ function LoadedCarousel() {
 
   // 5. Show Actual Data
   return (
-    <Carousel
-      className="w-full max-w-9/11" // Changed from invalid 9/11
-      opts={{ align: 'center' }}
-    >
-      <CarouselContent>
+    <ScrollArea className={`${isMobile? "w-9/11":"w-2/3"}  rounded-xl`}>
+      <div className="flex w-max space-x-4 pb-4">
         {events.map((event: EventType) => {
           const matchedSection = sections.find((section) =>
             event.calendarName
@@ -169,111 +160,174 @@ function LoadedCarousel() {
               key={`${event.id}-${event.calendarName}-${event.start}`}
               event={event}
               matchedSection={matchedSection}
+              isMobile={isMobile}
             />
           );
         })}
-      </CarouselContent>
-      <CarouselPrevious className="hidden sm:flex" />
-      <CarouselNext className="hidden sm:flex" />
-    </Carousel>
+      </div>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
   );
 }
 
 function EventCarouselItem({
   event,
   matchedSection,
+  isMobile,
 }: {
   event: EventType;
   matchedSection: (typeof sections)[0] | undefined;
+  isMobile: boolean;
 }) {
   // ✅ The hook is now safely at the top level of a component
   // Note: Pass event.eventLinks if you used the Apps Script structure from earlier
   const { singularLink, entireLink } = useCalendarLinks(event.eventLinks);
   const Icon = matchedSection?.icon;
 
-  return (
-    <CarouselItem className="md:basis-[27dvw] basis-[50dvw]">
-      <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
-        {matchedSection && (
-          <Badge
-            variant="secondary"
-            className="px-3 py-1 text-sm font-medium flex items-center mx-7"
-          >
-            {Icon && <Icon className="mr-2 h-4 w-4" />}
-            {matchedSection.title}
-          </Badge>
-        )}
-        <CardHeader>
-          <CardTitle className="flex text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-            {event.title}
-          </CardTitle>
-          <CardAction>
-            {/* Example of using the entireLink */}
-            <Button variant="ghost">
-              <a href={entireLink} target="_blank" rel="noreferrer">
-                Przypominaj o spotkaniach (Subskrybuj)
-              </a>
-            </Button>
-          </CardAction>
-        </CardHeader>
-        <CardContent className="space-y-4 grow">
-          <CardDescription>{event.description}</CardDescription>
-          <div className="text-sm font-medium">
-            <p>{`${event.start.toLocaleTimeString()} - ${event.end.toLocaleTimeString()}`}</p>
-            <p>{event.start.toLocaleDateString()}</p>
-          </div>
-        </CardContent>
-        <CardFooter className="flex justify-between *:mx-2 *:grow">
-          {/* Example of using the singularLink */}
-          <Button variant="default">
-            <a href={singularLink} target="_blank" rel="noreferrer">
-              Wbijam!! (Zapisz to wydarzenie)
-            </a>
-          </Button>
-        </CardFooter>
-      </Card>
-    </CarouselItem>
-  );
+  if(isMobile) {
+    return (
+      <div className="w-[calc(8/11*100dvw)] min-w-fit">
+        <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
+          {matchedSection && (
+            <Badge
+              variant="secondary"
+              className="px-3 py-1 text-sm font-medium flex items-center mx-7"
+            >
+              {Icon && <Icon className="mr-2 h-4 w-4" />}
+              {matchedSection.title}
+            </Badge>
+          )}
+          <CardHeader>
+            <CardTitle className="flex text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+              {event.title}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 grow">
+            <CardDescription>{event.description}</CardDescription>
+            <div className="text-sm font-medium">
+              <p>{`${event.start.toLocaleTimeString()} - ${event.end.toLocaleTimeString()}`}</p>
+              <p>{event.start.toLocaleDateString()}</p>
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-between *:mx-0.5">
+            {/* Example of using the singularLink */}
+            <ButtonGroup>
+              <Button variant="default">
+                <a href={singularLink} target="_blank" rel="noreferrer">
+                  Wbijam!!
+                </a>
+              </Button>
+              <Button variant="default">
+                <a href={entireLink} target="_blank" rel="noreferrer">
+                  Przypominaj o spotkaniach!
+                </a>
+              </Button>
+            </ButtonGroup>
+          </CardFooter>
+        </Card>
+      </div>
+    );
+  }
+  else{
+    return (
+      <div className="min-w-25dvw max-w-50dvw w-fit">
+        <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
+          {matchedSection && (
+            <Badge
+              variant="secondary"
+              className="px-3 py-1 text-sm font-medium flex items-center mx-7"
+            >
+              {Icon && <Icon className="mr-2 h-4 w-4" />}
+              {matchedSection.title}
+            </Badge>
+          )}
+          <CardHeader>
+            <CardTitle className="flex text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+              {event.title}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 grow">
+            <CardDescription>{event.description}</CardDescription>
+            <div className="text-sm font-medium">
+              <p>{`${event.start.toLocaleTimeString()} - ${event.end.toLocaleTimeString()}`}</p>
+              <p>{event.start.toLocaleDateString()}</p>
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-between *:mx-2 *:grow">
+            {/* Example of using the singularLink */}
+            <ButtonGroup>
+              <Button variant="default">
+                <a href={singularLink} target="_blank" rel="noreferrer">
+                  Wbijam!!
+                </a>
+              </Button>
+              <Button>
+                <a href={entireLink} target="_blank" rel="noreferrer">
+                  Przypominaj o spotkaniach!
+                </a>
+              </Button>
+            </ButtonGroup>
+          </CardFooter>
+        </Card>
+      </div>
+    );
+  }
+
 }
 // 6. The Skeleton Component using Shadcn <Skeleton />
-function GhostCarousel() {
-  const { isMobile } = useScrollAndWidth(useRef(null), '');
+function GhostCarousel(props: { isMobile: boolean }) {
+  const isMobile = props.isMobile;
   return (
-    <Carousel className="w-full max-w-[80%]" opts={{ align: 'center' }}>
-      <CarouselContent>
-        {/* Render 4 dummy skeleton cards so the carousel looks full */}
+    <ScrollArea className={`${isMobile ? 'w-9/11' : 'w-2/3'} rounded-xl`}>
+      <div className="flex w-max space-x-4 pb-4">
+        {/* Render 4 dummy skeleton cards so the scroll area looks full */}
         {Array.from({ length: isMobile ? 1 : 4 }).map((_, index) => (
-          <CarouselItem key={index} className="md:basis-[27dvw] basis-full">
-            <Card className="h-full flex flex-col">
+          <div
+            key={index}
+            className={
+              isMobile
+                ? 'w-[calc(8/11*100dvw)] min-w-fit'
+                : 'min-w-25dvw max-w-50dvw w-fit'
+            }
+          >
+            <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
+              {/* Badge skeleton */}
+              <Skeleton className="h-5 w-24 rounded-4xl mx-7" />
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Skeleton className="h-6 w-20 rounded-full" />{' '}
-                  {/* Badge skeleton */}
-                  <Skeleton className="h-6 w-32" /> {/* Title skeleton */}
+                <CardTitle className="flex text-xl">
+                  {/* Title skeleton */}
+                  <Skeleton className="h-7 w-48" />
                 </CardTitle>
-                <CardAction>
-                  <Skeleton className="h-9 w-full rounded-md" />{' '}
-                  {/* Button skeleton */}
-                </CardAction>
               </CardHeader>
-              <CardContent className="space-y-4 grow flex flex-col justify-between">
-                <Skeleton className="h-16 w-full" />{' '}
+              <CardContent className="space-y-4 grow">
                 {/* Description skeleton */}
-                <div className="space-y-2 mt-auto">
-                  <Skeleton className="h-4 w-24" /> {/* Time skeleton */}
-                  <Skeleton className="h-4 w-20" /> {/* Date skeleton */}
+                <Skeleton className="h-16 w-full" />
+                <div className="space-y-2 text-sm font-medium">
+                  {/* Time skeleton */}
+                  <Skeleton className="h-4 w-32" />
+                  {/* Date skeleton */}
+                  <Skeleton className="h-4 w-20" />
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-between *:mx-2 *:grow">
-                <Skeleton className="h-10 w-full rounded-md" />{' '}
-                {/* Main Action Button skeleton */}
+              <CardFooter
+                className={
+                  isMobile
+                    ? 'flex justify-between *:mx-0.5'
+                    : 'flex justify-between *:mx-2 *:grow'
+                }
+              >
+                <ButtonGroup>
+                  {/* Singular link button skeleton */}
+                  <Skeleton className="h-9 w-20 rounded-4xl border border-transparent bg-clip-padding" />
+                  {/* Entire link button skeleton */}
+                  <Skeleton className="h-9 w-48 rounded-4xl border border-transparent bg-clip-padding" />
+                </ButtonGroup>
               </CardFooter>
             </Card>
-          </CarouselItem>
+          </div>
         ))}
-      </CarouselContent>
-      <CarouselPrevious className="hidden sm:flex" />
-      <CarouselNext className="hidden sm:flex" />
-    </Carousel>
+      </div>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
   );
 }
