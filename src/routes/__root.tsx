@@ -17,7 +17,11 @@ function RootComponent() {
   return (
     <>
       <BackgroundSwirl />
-      <div className={'relative grid min-h-screen grid-rows-[auto_1fr_auto]'}>
+      <div
+        className={
+          'relative grid min-h-screen grid-cols-1 grid-rows-[auto_1fr_auto]'
+        }
+      >
         <Header />
         <Outlet />
         <Footer />
