@@ -119,7 +119,7 @@ function LoadedCarousel() {
 
   // 3. Show Skeleton if fetching
   if (isLoading) {
-    return <GhostCarousel isMobile={isMobile}/>;
+    return <GhostCarousel isMobile={isMobile} />;
   }
 
   // 4. Show Empty State if no events
@@ -147,7 +147,7 @@ function LoadedCarousel() {
 
   // 5. Show Actual Data
   return (
-    <ScrollArea className={`${isMobile? "w-9/11":"w-2/3"}  rounded-xl`}>
+    <ScrollArea className={`${isMobile ? 'w-9/11' : 'w-2/3'}  rounded-xl`}>
       <div className="flex w-max space-x-4 pb-4">
         {events.map((event: EventType) => {
           const matchedSection = sections.find((section) =>
@@ -184,7 +184,7 @@ function EventCarouselItem({
   const { singularLink, entireLink } = useCalendarLinks(event.eventLinks);
   const Icon = matchedSection?.icon;
 
-  if(isMobile) {
+  if (isMobile) {
     return (
       <div className="w-[calc(8/11*100dvw)] min-w-fit">
         <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
@@ -227,8 +227,7 @@ function EventCarouselItem({
         </Card>
       </div>
     );
-  }
-  else{
+  } else {
     return (
       <div className="min-w-25dvw max-w-50dvw w-fit">
         <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
@@ -272,7 +271,6 @@ function EventCarouselItem({
       </div>
     );
   }
-
 }
 // 6. The Skeleton Component using Shadcn <Skeleton />
 function GhostCarousel(props: { isMobile: boolean }) {
