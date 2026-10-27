@@ -2,6 +2,36 @@
   "About": {
     "paragraph": ""
   },
+  "Contact": {
+    "discord": {
+      "description": "",
+      "online": "",
+      "title": ""
+    },
+    "email": {
+      "badge": "",
+      "copied": "",
+      "copy": "",
+      "description": "",
+      "title": ""
+    },
+    "facebook": {
+      "badge": "",
+      "description": ""
+    },
+    "linkedin": {
+      "badge": "",
+      "description": ""
+    },
+    "mastodon": {
+      "description": ""
+    },
+    "matrix": {
+      "badge": "",
+      "description": ""
+    },
+    "paragraph": ""
+  },
   "Footer": {
     "copyright": "",
     "social": {
@@ -33,6 +63,10 @@
   },
   "Pages": {
     "About": {
+      "badge": "",
+      "title": ""
+    },
+    "Contact": {
       "badge": "",
       "title": ""
     },
