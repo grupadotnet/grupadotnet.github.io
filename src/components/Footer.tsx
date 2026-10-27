@@ -5,7 +5,13 @@ import LogoPK_w from '/svg/PK/PK_POZIOM_CMYK_w.svg';
 import LogoWM from '/svg/PK/PK_WM_CMYK.svg';
 import LogoWM_w from '/svg/PK/PK_WM_CMYK_w.svg';
 
-import { RiFacebookCircleLine, RiLinkedinBoxLine } from '@remixicon/react';
+import {
+  RiDiscordFill,
+  RiFacebookBoxLine,
+  RiLinkedinBoxLine,
+  RiMailSendLine,
+  RiMastodonLine,
+} from '@remixicon/react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card.tsx';
 import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
 import { useTranslation } from 'react-i18next';
@@ -17,17 +23,58 @@ import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
 setWorkerUrl(workerUrl);
 
+function MatrixIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M7 3H4v18h3" />
+      <path d="M17 3h3v18h-3" />
+      <path d="M8 15V9l4 4 4-4v6" />
+    </svg>
+  );
+}
+
 interface Social {
   href: string;
   icon: React.ElementType;
   name: string;
+  rel?: string;
 }
 
 const socials: Social[] = [
   {
+    href: 'mailto:knpimi@pk.edu.pl',
+    icon: RiMailSendLine,
+    name: 'E-mail',
+  },
+  {
+    href: 'https://discord.gg/XQwaABveDb',
+    icon: RiDiscordFill,
+    name: 'Discord',
+  },
+  {
     href: 'https://www.facebook.com/grupa.pk.net',
-    icon: RiFacebookCircleLine,
+    icon: RiFacebookBoxLine,
     name: 'Facebook',
+  },
+  {
+    href: 'https://matrix.to/#/@knpimi:matrix.org',
+    icon: MatrixIcon,
+    name: 'Matrix',
+  },
+  {
+    href: 'https://mastodon.social/@knpimi',
+    icon: RiMastodonLine,
+    name: 'Mastodon',
+    rel: 'me noreferrer',
   },
   {
     href: 'https://www.linkedin.com/company/knpimi-politechnika-krakowska',
@@ -176,7 +223,7 @@ export default function Footer() {
           />
         </div>
         <Card
-          className={`flex flex-col items-center gap-8 py-8 sm:items-start bg-background ${!isMobile ? 'col-span-2' : ''} min-w-3/5`}
+          className={`flex flex-col items-center gap-8 py-8 sm:items-start bg-background ${!isMobile ? 'col-span-2' : ''} min-w-2/5`}
         >
           <CardHeader>
             <CardTitle className="text-left w-full">
@@ -185,14 +232,14 @@ export default function Footer() {
               </span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap items-center justify-center gap-10 sm:justify-start sm:gap-14">
+          <CardContent className="w-full">
+            <div className="grid grid-cols-3 justify-items-center gap-x-10 gap-y-6 sm:grid-cols-2 sm:justify-items-start lg:grid-cols-3 lg:gap-x-14 lg:gap-y-8">
               {socials.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
-                  rel="noreferrer"
+                  rel={social.rel ?? 'noreferrer'}
                   className="group flex items-center gap-4 text-foreground transition-colors duration-500"
                   aria-label={social.name}
                 >
