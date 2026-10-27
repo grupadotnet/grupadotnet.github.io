@@ -3,8 +3,6 @@ name: Build, Release, and Deploy to Pages
 on:
   push:
     branches: [main]
-    tags:
-      - 'v*'
   workflow_dispatch:
 
 permissions:
@@ -44,17 +42,15 @@ jobs:
         with:
           path: './dist'
 
-      # Upload a standard artifact so the parallel release job can access the build output
       - name: Upload Build artifact
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
           path: './dist'
 
-  # 2. DEPLOY JOB (Runs in parallel with 'release')
+  # 2. DEPLOY JOB
   deploy:
     needs: build
-    if: startsWith(github.ref, 'refs/tags/')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -64,10 +60,9 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  # 3. RELEASE JOB (Runs in parallel with 'deploy')
+  # 3. RELEASE JOB
   release:
     needs: build
-    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
       - name: Download Build artifact
@@ -79,8 +74,11 @@ jobs:
       - name: Archive build output
         run: zip -r release-build.zip ./dist
 
+      # Automatically creates a new tag and release based on the run number
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Release v1.0.${{ github.run_number }}
           files: release-build.zip
           generate_release_notes: true
