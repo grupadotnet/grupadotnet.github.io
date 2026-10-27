@@ -2,6 +2,36 @@
   "About": {
     "paragraph": "<0>Koło naukowe programistów i miłośników informatyki działa przy Wydziale Mechanicznym Politechniki Krakowskiej. Zrzesza studentów zainteresowanych szeroko rozumianym programowaniem. Organizujemy cotygodniowe zajęcia programowania z <2>zakresu tworzenia aplikacji internetowych, uczenia maszynowego i analizy danych, cyberbezpieczeństwa oraz programowania niskopoziomowego</2>. Zajmujemy się również projektami, które pozwalają uczestnikom na rozwój umiejętności programistycznych.</0>"
   },
+  "Contact": {
+    "discord": {
+      "description": "Serce naszego koła naukowego. Wpadnij porozmawiać o projektach, zadać pytania starszym studentom i być na bieżąco z życiem sekcji.",
+      "online": "Online",
+      "title": "Społeczność Discord"
+    },
+    "email": {
+      "badge": "Zapytania biznesowe",
+      "copied": "Skopiowano",
+      "copy": "Kopiuj adres",
+      "description": "Kanał bezpośredni do spraw oficjalnych, propozycji współpracy i patronatów.",
+      "title": "Napisz do nas e-mail"
+    },
+    "facebook": {
+      "badge": "Strona oficjalna",
+      "description": "Aktualności, relacje z wydarzeń oraz szybki kontakt przez wiadomość prywatną."
+    },
+    "linkedin": {
+      "badge": "Profil oficjalny",
+      "description": "Poznaj nasze osiągnięcia naukowe, zrealizowane projekty oraz relacje z konferencji i hackathonów."
+    },
+    "mastodon": {
+      "description": "Śledź nasze mikroblogowe wpisy w zdecentralizowanej sieci społecznościowej Fediverse."
+    },
+    "matrix": {
+      "badge": "Szyfrowany / Open Source",
+      "description": "Bezpieczny, zdecentralizowany czat oparty o otwarty protokół."
+    },
+    "paragraph": "Wybierz najwygodniejszy kanał komunikacji i skontaktuj się z nami bezpośrednio lub dołącz do naszej społeczności."
+  },
   "Footer": {
     "copyright": "© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na Politechnice Krakowskiej",
     "social": {
@@ -35,6 +65,10 @@
     "About": {
       "badge": "Kim jesteśmy",
       "title": "O NAS"
+    },
+    "Contact": {
+      "badge": "Bądźmy w kontakcie",
+      "title": "Gdzie nas znajdziesz?"
     },
     "Schedule": {
       "badge": "Harmonogram spotkań",
