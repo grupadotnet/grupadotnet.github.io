@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as SectionsRouteImport } from './routes/sections'
 import { Route as SectionsWebdevRouteImport } from './routes/sections/Webdev'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScheduleRoute = ScheduleRouteImport.update({
@@ -44,6 +50,7 @@ const SectionsWebdevRoute = SectionsWebdevRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/schedule': typeof ScheduleRoute
   '/sections': typeof SectionsRouteWithChildren
   '/sections/Webdev': typeof SectionsWebdevRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/schedule': typeof ScheduleRoute
   '/sections': typeof SectionsRouteWithChildren
   '/sections/Webdev': typeof SectionsWebdevRoute
@@ -59,19 +67,33 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/schedule': typeof ScheduleRoute
   '/sections': typeof SectionsRouteWithChildren
   '/sections/Webdev': typeof SectionsWebdevRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/schedule' | '/sections' | '/sections/Webdev'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/schedule'
+    | '/sections'
+    | '/sections/Webdev'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/schedule' | '/sections' | '/sections/Webdev'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/schedule'
+    | '/sections'
+    | '/sections/Webdev'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/contact'
     | '/schedule'
     | '/sections'
     | '/sections/Webdev'
@@ -80,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   ScheduleRoute: typeof ScheduleRoute
   SectionsRoute: typeof SectionsRouteWithChildren
 }
@@ -98,6 +121,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/schedule': {
@@ -139,6 +169,7 @@ const SectionsRouteWithChildren = SectionsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   ScheduleRoute: ScheduleRoute,
   SectionsRoute: SectionsRouteWithChildren,
 }
