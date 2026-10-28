@@ -155,10 +155,10 @@ export function Contact() {
             >
               <CardHeader>
                 <div className="flex items-start justify-between gap-4">
-                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#5865F2]/15 text-[#5865F2] dark:bg-[#5865F2]/25 dark:text-[#7983F5]">
+                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#5865F2]/15 text-[#5865F2]">
                     <RiDiscordFill className="h-6 w-6" />
                   </div>
-                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600">
                     <span className="relative flex h-2 w-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -187,9 +187,8 @@ export function Contact() {
                     width="350"
                     height="500"
                     allowTransparency={true}
-                    frameBorder="0"
                     sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-                    className="h-[350px] w-full border-0 lg:h-full lg:min-h-[320px]"
+                    className="h-87.5 w-full border-0 lg:h-full lg:min-h-80"
                   />
                 </div>
               </CardContent>
