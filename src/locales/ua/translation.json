@@ -1,8 +1,11 @@
 {
   "About": {
-    "paragraph": ""
+    "badge": "",
+    "paragraph": "",
+    "title": ""
   },
   "Contact": {
+    "badge": "",
     "discord": {
       "description": "",
       "online": "",
@@ -30,62 +33,45 @@
       "badge": "",
       "description": ""
     },
-    "paragraph": ""
+    "paragraph": "",
+    "title": ""
   },
   "Footer": {
     "copyright": "",
-    "social": {
-      "title": ""
-    }
+    "socialTitle": ""
   },
   "Header": {
     "dark": "",
     "light": "",
-    "logo": {
-      "alt": ""
-    },
+    "logoAlt": "",
     "system": "",
     "theme": ""
   },
   "Hello": {
-    "message": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": ""
-    }
+    "1": "",
+    "2": "",
+    "3": "",
+    "4": "",
+    "5": ""
   },
   "NotFound": {
     "paragraph": "",
     "returnButton": "",
     "title": ""
   },
-  "Pages": {
-    "About": {
-      "badge": "",
-      "title": ""
-    },
-    "Contact": {
-      "badge": "",
-      "title": ""
-    },
-    "Schedule": {
-      "badge": "",
-      "notFound": {
-        "paragraph": "",
-        "title": ""
-      },
+  "Schedule": {
+    "badge": "",
+    "notFound": {
       "paragraph": "",
       "title": ""
     },
-    "Sections": {
-      "badge": "",
-      "title": ""
-    }
+    "paragraph": "",
+    "title": ""
   },
   "Sections": {
-    "paragraph": ""
+    "badge": "",
+    "paragraph": "",
+    "title": ""
   },
   "WorkInProgress": {
     "badge": "",

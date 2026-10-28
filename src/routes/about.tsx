@@ -10,7 +10,7 @@ import { extractTranslation } from '../lib/extractTranslation.tsx';
 export const Route = createFileRoute('/about')({
   component: About,
   staticData: {
-    titleData: extractTranslation('Pages.About.navbarTitle', 'O Nas'),
+    titleData: extractTranslation('About.navbarTitle', 'O Nas'),
     hideInNav: false,
     order: 0,
   },
@@ -38,12 +38,12 @@ export function About() {
                   className="px-3 py-1 text-sm font-medium"
                 >
                   <RiTerminalBoxFill className="mr-2 h-4 w-4" />
-                  {t('Pages.About.badge', 'Kim jesteśmy')}
+                  {t('About.badge', 'Kim jesteśmy')}
                 </Badge>
               </div>
 
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                {t('Pages.About.title', 'O NAS')}
+                {t('About.title', 'O NAS')}
               </h2>
 
               <p className="text-lg leading-relaxed text-muted-foreground text-justify text-pretty">

@@ -96,7 +96,7 @@ export default function Header() {
             <img
               srcSet={currentLogo}
               src={currentLogo}
-              alt={t('Header.logo.alt', 'KNPiMI Logo')}
+              alt={t('Header.logoAlt', 'KNPiMI Logo')}
               className="h-24"
             />
           </picture>

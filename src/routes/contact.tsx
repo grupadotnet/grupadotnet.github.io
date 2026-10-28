@@ -21,7 +21,7 @@ import {
 export const Route = createFileRoute('/contact')({
   component: Contact,
   staticData: {
-    titleData: extractTranslation('Pages.Contact.navbarTitle', 'Kontakt'),
+    titleData: extractTranslation('Contact.navbarTitle', 'Kontakt'),
     hideInNav: false,
     order: 4,
   },
@@ -86,10 +86,10 @@ export function Contact() {
               className="px-3 py-1 text-sm font-medium"
             >
               <RiChatSmile2Line className="mr-2 h-4 w-4" />
-              {t('Pages.Contact.badge', 'Bądźmy w kontakcie')}
+              {t('Contact.badge', 'Bądźmy w kontakcie')}
             </Badge>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              {t('Pages.Contact.title', 'Gdzie nas znajdziesz?')}
+              {t('Contact.title', 'Gdzie nas znajdziesz?')}
             </h2>
             <p className="max-w-2xl text-lg text-muted-foreground text-balance">
               {t(

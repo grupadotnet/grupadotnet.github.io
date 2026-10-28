@@ -18,7 +18,7 @@ import { extractTranslation } from '../lib/extractTranslation.tsx';
 export const Route = createFileRoute('/sections')({
   component: Sections,
   staticData: {
-    titleData: extractTranslation('Pages.Sections.navbarTitle', 'Sekcje'),
+    titleData: extractTranslation('Sections.navbarTitle', 'Sekcje'),
     hideInNav: false,
     order: 1,
   },
@@ -31,7 +31,7 @@ export const sections = [
     path: 'webdev',
     icon: RiCodeBoxLine,
     description: extractTranslation(
-      'Sections.sectionData.webdev.description',
+      'Sections.webdev.description',
       'W sekcji Webdev zajmujemy się praktycznym tworzeniem nowoczesnych aplikacji internetowych. Podczas wspólnej pracy nad projektami na bieżąco uczymy się nowych narzędzi oraz wykorzystujemy sprawdzone w przemyśle rozwiązania.'
     ),
     id: 1,
@@ -42,7 +42,7 @@ export const sections = [
     path: 'data&ai',
     icon: RiBrainLine,
     description: extractTranslation(
-      'Sections.sectionData.data&ai.description',
+      'Sections.data&ai.description',
       'Przekuwamy teoretyczną wiedzę z AI, Machine Learning i Data Science w innowacyjne projekty prototypowe o znaczeniu przemysłowym i badawczym.'
     ),
     id: 2,
@@ -53,7 +53,7 @@ export const sections = [
     path: 'cybersec',
     icon: RiShieldCheckLine,
     description: extractTranslation(
-      'Sections.sectionData.cybersec.description',
+      'Sections.cybersec.description',
       'W sekcji cyberbezpieczeństwa łączymy solidną wiedzę teoretyczną z praktyką, skupiając się na testach penetracyjnych, systemie Kali Linux oraz technikach OSINT. Rozwijamy nasze umiejętności, biorąc udział w konferencjach i hackathonach.'
     ),
     id: 3,
@@ -82,10 +82,10 @@ export function Sections() {
               className="px-3 py-1 text-sm font-medium"
             >
               <RiStackLine className="mr-2 h-4 w-4" />
-              {t('Pages.Sections.badge', 'Ścieżki rozwoju')}
+              {t('Sections.badge', 'Ścieżki rozwoju')}
             </Badge>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              {t('Pages.Sections.title', 'Czym się zajmujemy?')}
+              {t('Sections.title', 'Czym się zajmujemy?')}
             </h2>
             <p className="max-w-2xl text-lg text-muted-foreground text-balance">
               {t(
@@ -114,7 +114,10 @@ export function Sections() {
                     </CardHeader>
                     <CardContent>
                       <p className="text-muted-foreground leading-relaxed">
-                        {section.description.translation}
+                        {t(
+                          section.description.key,
+                          section.description.translation
+                        )}
                       </p>
                     </CardContent>
                   </Card>
