@@ -60,7 +60,7 @@ export function Contact() {
   const { actualTheme } = useTheme();
   const [copied, setCopied] = useState(false);
 
-  const emailAddress = 'knpimi@pk.edu.pl';
+  const emailAddress = 'dot.net.group.pk@gmail.com';
 
   const handleCopyEmail = async () => {
     try {
