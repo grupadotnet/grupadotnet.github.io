@@ -24,6 +24,20 @@ import { useTheme, type Theme } from '@/components/theme-provider.tsx';
 // isVisible?: boolean;
 // subItems?: navbarItem[];
 
+const images: Record<string, string> = {
+  '000': Logo_text,
+  '010': Logo,
+  '001': Logo_text,
+  '011': Logo,
+  '100': Logo_w_text,
+  '110': Logo_w,
+  '101': Logo_text,
+  '111': Logo,
+};
+
+// i18next-instrument-ignore-next-line
+const themes: Theme[] = ['light', 'dark', 'system'];
+
 function getRouteInfo(route: AnyRoute) {
   const path = route.fullPath || route.path || route.id;
   // Fallback to capitalizing the path if staticData.title is missing
@@ -50,20 +64,8 @@ export default function Header() {
   // i18next-instrument-ignore-next-line
   const locationHighlight = (path: string) => {
     return location === path
-      ? 'after:[border-image:var(--primary)_1] bg-(image:--primary) bg-clip-text text-transparent svg_helper'
+      ? 'after:[border-image:var(--primary-gradient)_1] bg-(image:--primary-gradient) bg-clip-text text-transparent svg_helper'
       : '';
-  };
-
-  // Now you can use it in an object lookup or a switch!
-  const images: Record<string, string> = {
-    '000': Logo_text,
-    '010': Logo,
-    '001': Logo_text,
-    '011': Logo,
-    '100': Logo_w_text,
-    '110': Logo_w,
-    '101': Logo_text,
-    '111': Logo,
   };
 
   const currentLogo = images[stateString];
@@ -80,9 +82,6 @@ export default function Header() {
     );
 
   const { actualTheme, theme, setTheme } = useTheme();
-
-  // i18next-instrument-ignore-next-line
-  const themes = ['light', 'dark', 'system'];
 
   return (
     <header
@@ -137,14 +136,16 @@ export default function Header() {
                 <NavigationMenuLink
                   className={'mr-0 after:content-none cursor-pointer'}
                   render={
-                    <span
+                    <button
+                      type="button"
                       className={`uppercase ${isScrolled ? 'text-primary' : ''}`}
                       onClick={() =>
                         setTheme(actualTheme === 'light' ? 'dark' : 'light')
                       }
+                      aria-label={t('Header.theme', 'THEME')}
                     >
                       {actualTheme === 'dark' ? <RiMoonFill /> : <RiSunFill />}
-                    </span>
+                    </button>
                   }
                 ></NavigationMenuLink>
               </NavigationMenuItem>
@@ -239,14 +240,16 @@ export default function Header() {
                 <NavigationMenuLink
                   className={'mr-0 after:content-none cursor-pointer'}
                   render={
-                    <span
+                    <button
+                      type="button"
                       className={`uppercase ${isScrolled ? 'text-primary' : ''}`}
                       onClick={() =>
                         setTheme(actualTheme === 'light' ? 'dark' : 'light')
                       }
+                      aria-label={t('Header.theme', 'THEME')}
                     >
                       {actualTheme === 'dark' ? <RiMoonFill /> : <RiSunFill />}
-                    </span>
+                    </button>
                   }
                 ></NavigationMenuLink>
               </NavigationMenuItem>
@@ -260,12 +263,13 @@ export default function Header() {
                       <li key={possibleTheme}>
                         <NavigationMenuLink
                           render={
-                            <span
-                              className={`${theme === (possibleTheme as Theme) ? 'scrolled' : ''}`}
-                              onClick={() => setTheme(possibleTheme as Theme)}
+                            <button
+                              type="button"
+                              className={`cursor-pointer ${theme === possibleTheme ? 'scrolled' : ''}`}
+                              onClick={() => setTheme(possibleTheme)}
                             >
                               {t(`Header.${possibleTheme}`)}
-                            </span>
+                            </button>
                           }
                         ></NavigationMenuLink>
                       </li>

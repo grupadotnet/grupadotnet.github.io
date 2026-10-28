@@ -12,7 +12,7 @@ import {
 import { Button } from '@/components/ui/button.tsx';
 import { Badge } from '@/components/ui/badge.tsx';
 import { RiCalendar2Line } from '@remixicon/react';
-import { sections } from '@/routes/sections.tsx';
+import { sections } from '@/lib/sections.ts';
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
 import { useCalendarLinks } from '@/lib/useCalendarLinks.tsx';
@@ -67,7 +67,7 @@ const fetchCalendarEvents = async () => {
   }));
 };
 
-export function Schedule() {
+function Schedule() {
   const { t } = useTranslation();
 
   return (

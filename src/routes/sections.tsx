@@ -6,14 +6,10 @@ import {
 } from '@tanstack/react-router';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import {
-  RiStackLine,
-  RiCodeBoxLine,
-  RiBrainLine,
-  RiShieldCheckLine,
-} from '@remixicon/react';
+import { RiStackLine } from '@remixicon/react';
 import { useTranslation } from 'react-i18next';
 import { extractTranslation } from '../lib/extractTranslation.tsx';
+import { sections } from '@/lib/sections.ts';
 
 export const Route = createFileRoute('/sections')({
   component: Sections,
@@ -24,43 +20,7 @@ export const Route = createFileRoute('/sections')({
   },
 });
 
-export const sections = [
-  {
-    // i18next-instrument-ignore-next-line
-    title: 'WebDev',
-    path: 'webdev',
-    icon: RiCodeBoxLine,
-    description: extractTranslation(
-      'Sections.webdev.description',
-      'W sekcji Webdev zajmujemy się praktycznym tworzeniem nowoczesnych aplikacji internetowych. Podczas wspólnej pracy nad projektami na bieżąco uczymy się nowych narzędzi oraz wykorzystujemy sprawdzone w przemyśle rozwiązania.'
-    ),
-    id: 1,
-  },
-  {
-    // i18next-instrument-ignore-next-line
-    title: 'Data&AI',
-    path: 'data&ai',
-    icon: RiBrainLine,
-    description: extractTranslation(
-      'Sections.data&ai.description',
-      'Przekuwamy teoretyczną wiedzę z AI, Machine Learning i Data Science w innowacyjne projekty prototypowe o znaczeniu przemysłowym i badawczym.'
-    ),
-    id: 2,
-  },
-  {
-    // i18next-instrument-ignore-next-line
-    title: 'CyberSec',
-    path: 'cybersec',
-    icon: RiShieldCheckLine,
-    description: extractTranslation(
-      'Sections.cybersec.description',
-      'W sekcji cyberbezpieczeństwa łączymy solidną wiedzę teoretyczną z praktyką, skupiając się na testach penetracyjnych, systemie Kali Linux oraz technikach OSINT. Rozwijamy nasze umiejętności, biorąc udział w konferencjach i hackathonach.'
-    ),
-    id: 3,
-  },
-];
-
-export function Sections() {
+function Sections() {
   const { t } = useTranslation();
 
   const location = useLocation().pathname;
@@ -102,9 +62,9 @@ export function Sections() {
 
               return (
                 <Link to={section.path} key={section.path}>
-                  <Card className="group border-none bg-muted/50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70">
+                  <Card className="group border-none bg-muted/50 shadow-sm transition-[translate,box-shadow,background-color] duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70">
                     <CardHeader>
-                      <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
+                      <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
                         {/* Remix Icons accept standard Tailwind sizing classes perfectly */}
                         <Icon className="h-6 w-6" />
                       </div>

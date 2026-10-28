@@ -16,7 +16,7 @@ export const Route = createFileRoute('/about')({
   },
 });
 
-export function About() {
+function About() {
   const { t } = useTranslation();
   return (
     <div className={'bg-background'}>
@@ -54,7 +54,7 @@ export function About() {
                     studentów zainteresowanych szeroko rozumianym
                     programowaniem. Organizujemy cotygodniowe zajęcia
                     programowania z{' '}
-                    <strong className="bg-(image:--primary) bg-clip-text font-bold text-transparent ">
+                    <strong className="bg-(image:--primary-gradient) bg-clip-text font-bold text-transparent ">
                       zakresu tworzenia aplikacji internetowych, uczenia
                       maszynowego i analizy danych, cyberbezpieczeństwa oraz
                       programowania niskopoziomowego
