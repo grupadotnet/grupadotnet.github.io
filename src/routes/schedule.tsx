@@ -128,9 +128,7 @@ function LoadedCarousel() {
       <Card>
         <CardHeader>
           {/* Removed wrapping <h2> to fix hydration error */}
-          <CardTitle>
-            {t('Schedule.notFound.title', 'O kurcze!!')}
-          </CardTitle>
+          <CardTitle>{t('Schedule.notFound.title', 'O kurcze!!')}</CardTitle>
         </CardHeader>
         <CardContent>
           {/* Removed wrapping <p> to fix hydration error */}
