@@ -9,7 +9,7 @@ import { Schedule } from '@/routes/schedule.tsx';
 export const Route = createFileRoute('/')({
   component: RouteComponent,
   staticData: {
-    titleData: extractTranslation('Pages.Home.title', ''),
+    titleData: extractTranslation('Home.title', ''),
     hideInNav: true,
     order: -1,
   },

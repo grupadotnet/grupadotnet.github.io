@@ -51,7 +51,7 @@ interface Social {
 
 const socials: Social[] = [
   {
-    href: 'mailto:knpimi@pk.edu.pl',
+    href: 'mailto:dot.net.group.pk@gmail.com',
     icon: RiMailSendLine,
     name: 'E-mail',
   },
@@ -228,7 +228,7 @@ export default function Footer() {
           <CardHeader>
             <CardTitle className="text-left w-full">
               <span className="text-foreground">
-                {t('Footer.social.title', 'Znajdziesz nas też na')}
+                {t('Footer.socialTitle', 'Znajdziesz nas też na')}
               </span>
             </CardTitle>
           </CardHeader>

@@ -24,7 +24,7 @@ import { ButtonGroup } from '@/components/ui/button-group.tsx';
 export const Route = createFileRoute('/schedule')({
   component: Schedule,
   staticData: {
-    titleData: extractTranslation('Pages.Schedule.navbarTitle', 'Harmonogram'),
+    titleData: extractTranslation('Schedule.navbarTitle', 'Harmonogram'),
     hideInNav: false,
     order: 3,
   },
@@ -74,14 +74,14 @@ export function Schedule() {
     <div className="bg-background flex py-10 w-full min-w-0 items-center justify-center flex-col space-y-4">
       <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
         <RiCalendar2Line className="mr-2 h-4 w-4" />
-        {t('Pages.Schedule.badge', 'Harmonogram spotkań')}
+        {t('Schedule.badge', 'Harmonogram spotkań')}
       </Badge>
       <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-        {t('Pages.Schedule.title', 'Kiedy się spotykamy?')}
+        {t('Schedule.title', 'Kiedy się spotykamy?')}
       </h2>
       <p className="max-w-2xl text-lg text-muted-foreground text-balance text-center">
         {t(
-          'Pages.Schedule.paragraph',
+          'Schedule.paragraph',
           'Lista zaplanowanych spotkań na kolejny miesiąc'
         )}
       </p>
@@ -128,15 +128,13 @@ function LoadedCarousel() {
       <Card>
         <CardHeader>
           {/* Removed wrapping <h2> to fix hydration error */}
-          <CardTitle>
-            {t('Pages.Schedule.notFound.title', 'O kurcze!!')}
-          </CardTitle>
+          <CardTitle>{t('Schedule.notFound.title', 'O kurcze!!')}</CardTitle>
         </CardHeader>
         <CardContent>
           {/* Removed wrapping <p> to fix hydration error */}
           <CardDescription className="max-w-2xl text-lg text-muted-foreground text-balance">
             {t(
-              'Pages.Schedule.notFound.paragraph',
+              'Schedule.notFound.paragraph',
               'Nie mamy zaplanowanych żadnych spotkań, możliwe że w kolejnych dniach to się zmieni.'
             )}
           </CardDescription>

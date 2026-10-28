@@ -16,11 +16,11 @@ const helloAnimStep = (params: { visible: string; invisible: string }) => {
 const Typewriter = ({
   className = '',
   options = [
-    i18next.t('Hello.message.1', 'Poznaj nasze Koło Naukowe!'),
-    i18next.t('Hello.message.2', 'Twórz z nami super projekty!'),
-    i18next.t('Hello.message.3', 'Zdobądź praktyczne doświadczenie w zespole!'),
-    i18next.t('Hello.message.4', 'Rozwijaj z nami swoje pasje i umiejętności!'),
-    i18next.t('Hello.message.5', 'Dołącz do nas i zacznij działać!'),
+    i18next.t('Hello.1', 'Poznaj nasze Koło Naukowe!'),
+    i18next.t('Hello.2', 'Twórz z nami super projekty!'),
+    i18next.t('Hello.3', 'Zdobądź praktyczne doświadczenie pracy w zespole!'),
+    i18next.t('Hello.4', 'Rozwijaj z nami swoje pasje i umiejętności!'),
+    i18next.t('Hello.5', 'Dołącz do nas i zacznij działać!'),
   ],
 }: {
   options?: string[];

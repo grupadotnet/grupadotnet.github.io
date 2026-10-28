@@ -5,7 +5,7 @@ import { extractTranslation } from '@/lib/extractTranslation.tsx';
 export const Route = createFileRoute('/sections/Webdev')({
   component: Webdev,
   staticData: {
-    titleData: extractTranslation('Pages.Webdev.navbarTitle', 'Webdev'),
+    titleData: extractTranslation('Webdev.navbarTitle', 'Webdev'),
     hideInNav: true,
     order: -1,
   },
