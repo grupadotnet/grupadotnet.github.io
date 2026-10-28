@@ -46,7 +46,7 @@ interface Social {
   href: string;
   icon: React.ElementType;
   name: string;
-  rel?: string;
+  me?: boolean;
 }
 
 const socials: Social[] = [
@@ -74,7 +74,7 @@ const socials: Social[] = [
     href: 'https://mastodon.social/@knpimi',
     icon: RiMastodonLine,
     name: 'Mastodon',
-    rel: 'me noreferrer',
+    me: true,
   },
   {
     href: 'https://www.linkedin.com/company/knpimi-politechnika-krakowska',
@@ -94,6 +94,7 @@ const coords = [50.076039972227136, 19.99445118155016].toReversed() as [
 
 // Moved to module scope so it's created once and reused across renders
 type Partner = {
+  name: string;
   url: string;
   logos: {
     light: string;
@@ -103,14 +104,17 @@ type Partner = {
 
 const footerPartners: Partner[] = [
   {
+    name: 'Politechnika Krakowska',
     url: 'https://www.pk.edu.pl',
     logos: { light: LogoPK, dark: LogoPK_w },
   },
   {
+    name: 'Wydział Mechaniczny PK',
     url: 'https://mech.pk.edu.pl/',
     logos: { light: LogoWM, dark: LogoWM_w },
   },
   {
+    name: 'Botland',
     url: 'https://botland.com.pl/',
     logos: { light: LogoBotland, dark: LogoBotlandW },
   },
@@ -166,21 +170,24 @@ export default function Footer() {
       if (/iPad|iPhone|iPod/.test(userAgent) && !win.MSStream) {
         window.open(
           `https://maps.apple.com/?daddr=${lat},${lng}&dirflg=d`,
-          '_blank'
+          '_blank',
+          'noopener,noreferrer'
         );
       }
       // 2. Android Detection -> OS App Chooser (Google Maps, Waze, etc.)
       else if (/android/i.test(userAgent)) {
         window.open(
           `geo:${lat},${lng}?q=${lat},${lng}(Politechnika+Krakowska)`,
-          '_blank'
+          '_blank',
+          'noopener,noreferrer'
         );
       }
       // 3. Fallback (Desktop/Other) -> Google Maps Web
       else {
         window.open(
           `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
-          '_blank'
+          '_blank',
+          'noopener,noreferrer'
         );
       }
     };
@@ -239,13 +246,13 @@ export default function Footer() {
                   key={social.name}
                   href={social.href}
                   target="_blank"
-                  rel={social.rel ?? 'noreferrer'}
+                  rel={social.me ? 'me noreferrer' : 'noreferrer'}
                   className="group flex items-center gap-4 text-foreground transition-colors duration-500"
                   aria-label={social.name}
                 >
                   <social.icon className="h-5 w-5 stroke-[1.5] " />
 
-                  <span className="hidden text-[11px] font-light uppercase tracking-[0.2em] transition-transform duration-500 group-hover:translate-x-1 sm:block after:content-[''] relative after:absolute after:border-b-2 after:inset-0 after:scale-x-[0.01] after:opacity-0 group-hover:after:scale-x-100 group-hover:after:opacity-100 after:transition-all after:duration-300 after:ease-in-out after-gradient-border">
+                  <span className="hidden text-[11px] font-light uppercase tracking-[0.2em] transition-transform duration-500 group-hover:translate-x-1 sm:block after:content-[''] relative after:absolute after:border-b-2 after:inset-0 after:scale-x-[0.01] after:opacity-0 group-hover:after:scale-x-100 group-hover:after:opacity-100 after:transition-[scale,opacity] after:duration-300 after:ease-in-out after-gradient-border">
                     {social.name}
                   </span>
                 </a>
@@ -255,12 +262,18 @@ export default function Footer() {
         </Card>
         <Card className={'bg-background  '}>
           <CardContent>
-            {footerPartners.map(({ logos, url }) => (
-              <a href={url} target="_blank" key={url} rel="noreferrer">
+            {footerPartners.map(({ logos, url, name }) => (
+              <a
+                href={url}
+                target="_blank"
+                key={url}
+                rel="noreferrer"
+                aria-label={name}
+              >
                 <img
                   srcSet={logos[actualTheme]}
                   src={logos[actualTheme]}
-                  alt=""
+                  alt={name}
                   key={logos[actualTheme]}
                   className={'h-15 my-1.5'}
                 />

@@ -11,11 +11,12 @@
   --padding-margin-mobile: 1rem;
   --primary-from: #9f64a6;
   --primary-to: #2e64ae;
-  --primary: linear-gradient(
+  --primary-gradient: linear-gradient(
     201.03deg,
     var(--primary-from) -0.45%,
     var(--primary-to) 99.55%
   );
+  --primary: oklch(0.21 0.006 285.885);
   --font-family: Quicksand;
   --font-family-monospace: 'JetBrains Mono', monospace;
   --font-size: calc(15px + 0.390625vw);
@@ -65,11 +66,12 @@ html {
 .dark {
   --primary-from: #9f64a6;
   --primary-to: #2e64ae;
-  --primary: linear-gradient(
+  --primary-gradient: linear-gradient(
     201.03deg,
     var(--primary-from) -0.45%,
     var(--primary-to) 99.55%
   );
+  --primary: oklch(0.92 0.004 286.32);
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.21 0.006 285.885);

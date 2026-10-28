@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  use,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 export type Theme = 'dark' | 'light' | 'system';
 export type ActualTheme = 'dark' | 'light';
@@ -23,6 +30,20 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
+function getSystemTheme(): ActualTheme {
+  if (typeof window === 'undefined') return 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
+}
+
+function applyRootThemeClass(resolvedTheme: ActualTheme) {
+  if (typeof window === 'undefined') return;
+  const root = window.document.documentElement;
+  root.classList.remove('light', 'dark');
+  root.classList.add(resolvedTheme);
+}
+
 function ThemeProvider({
   children,
   defaultTheme = 'system',
@@ -34,12 +55,13 @@ function ThemeProvider({
   );
 
   // Track the raw system preference in state
-  const [systemTheme, setSystemTheme] = useState<ActualTheme>(() => {
-    if (typeof window === 'undefined') return 'light';
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
-  });
+  const [systemTheme, setSystemTheme] = useState<ActualTheme>(getSystemTheme);
+
+  const actualTheme = theme === 'system' ? systemTheme : theme;
+
+  useEffect(() => {
+    applyRootThemeClass(actualTheme);
+  }, [actualTheme]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -52,30 +74,22 @@ function ThemeProvider({
     return () => mediaQuery.removeEventListener('change', listener);
   }, []);
 
-  // 2. Apply the correct class to the document root
-  useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove('light', 'dark');
-
-    if (theme === 'system') {
-      root.classList.add(systemTheme);
-      return;
-    }
-
-    root.classList.add(theme);
-  }, [theme, systemTheme]);
-
-  // 3. Resolve the actual theme to expose to consumer components
-  const actualTheme = theme === 'system' ? systemTheme : theme;
-
-  const value = {
-    theme,
-    setTheme: (newTheme: Theme) => {
+  const handleSetTheme = useCallback(
+    (newTheme: Theme) => {
       localStorage.setItem(storageKey, newTheme);
       setTheme(newTheme);
     },
-    actualTheme,
-  };
+    [storageKey]
+  );
+
+  const value = useMemo(
+    () => ({
+      theme,
+      setTheme: handleSetTheme,
+      actualTheme,
+    }),
+    [theme, handleSetTheme, actualTheme]
+  );
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
@@ -85,7 +99,7 @@ function ThemeProvider({
 }
 
 const useTheme = () => {
-  const context = useContext(ThemeProviderContext);
+  const context = use(ThemeProviderContext);
 
   if (context === undefined)
     throw new Error('useTheme must be used within a ThemeProvider');

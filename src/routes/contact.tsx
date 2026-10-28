@@ -47,7 +47,7 @@ function MatrixIcon({ className }: { className?: string }) {
 }
 
 const cardClass =
-  'group h-full justify-between border-none bg-muted/50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70';
+  'group h-full justify-between border-none bg-muted/50 shadow-sm transition-[translate,box-shadow,background-color] duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70';
 
 const iconBoxClass =
   'mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400';
@@ -55,7 +55,7 @@ const iconBoxClass =
 const titleClass =
   'text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors';
 
-export function Contact() {
+function Contact() {
   const { t } = useTranslation();
   const { actualTheme } = useTheme();
   const [copied, setCopied] = useState(false);
@@ -186,7 +186,6 @@ export function Contact() {
                     src={`https://discord.com/widget?id=954758423185092708&theme=${actualTheme}`}
                     width="350"
                     height="500"
-                    allowTransparency={true}
                     sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
                     className="h-87.5 w-full border-0 lg:h-full lg:min-h-80"
                   />

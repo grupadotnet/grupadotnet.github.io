@@ -69,18 +69,22 @@ const Typewriter = ({
     </div>
   );
 };
-export function Hello() {
-  // @ts-expect-error: unrepairable
-  const handleScroll = (e) => {
-    e.preventDefault();
-    const targetId = e.currentTarget.getAttribute('href');
+const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  e.preventDefault();
+  const targetId = e.currentTarget.getAttribute('href');
+  if (!targetId) return;
+  try {
     const targetElement = document.querySelector(targetId);
 
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  };
+  } catch {
+    // Ignore invalid CSS selector
+  }
+};
 
+export function Hello() {
   return (
     <div
       className={'h-[91dvh] w-full grid grid-rows-[1fr_auto] bg-transparent'}
