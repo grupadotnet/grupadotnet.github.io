@@ -49,7 +49,7 @@ function About() {
               <p className="text-lg leading-relaxed text-muted-foreground text-justify text-pretty">
                 <Trans i18nKey={'About.paragraph'}>
                   <span>
-                    Koło naukowe programistów i miłośników informatyki działa
+                    Koło Naukowe Programistów i Miłośników Informatyki działa
                     przy Wydziale Mechanicznym Politechniki Krakowskiej. Zrzesza
                     studentów zainteresowanych szeroko rozumianym
                     programowaniem. Organizujemy cotygodniowe zajęcia
