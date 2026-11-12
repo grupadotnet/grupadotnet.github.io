@@ -20,6 +20,12 @@ import { useTheme } from '@/components/theme-provider.tsx';
 import { Map, Marker, NavigationControl, setWorkerUrl } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel.tsx';
+
 
 setWorkerUrl(workerUrl);
 
@@ -217,23 +223,19 @@ export default function Footer() {
   }, [actualTheme]);
 
   return (
-    <footer className={' w-11/12 m-auto text-center *:my-20 text-white'}>
+    <footer
+      className={' md:w-10/12 w-9/11 m-auto text-center *:my-20 text-white'}
+    >
       <section
         className={
-          'grid md:grid-cols-3 md:grid-rows-2 grid-cols-1 grid-rows-4  justify-items-center content-center gap-5'
+          'grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 justify-items-stretch content-stretch gap-5'
         }
       >
-        <div className="md:col-span-3 relative h-full md:w-1/2 w-full">
-          <div
-            ref={mapContainerRef}
-            className="absolute size-full inset-0 rounded-xl"
-          />
-        </div>
         <Card
-          className={`flex flex-col items-center gap-8 py-8 sm:items-start bg-background ${!isMobile ? 'col-span-2' : ''} min-w-2/5`}
+          className={`flex flex-col items-center gap-8 py-8 sm:items-start bg-background w-full min-w-fit`}
         >
           <CardHeader>
-            <CardTitle className="text-left w-full">
+            <CardTitle>
               <span className="text-foreground">
                 {t('Footer.socialTitle', 'Znajdziesz nas też na')}
               </span>
@@ -260,25 +262,43 @@ export default function Footer() {
             </div>
           </CardContent>
         </Card>
-        <Card className={'bg-background  '}>
-          <CardContent>
-            {footerPartners.map(({ logos, url, name }) => (
-              <a
-                href={url}
-                target="_blank"
-                key={url}
-                rel="noreferrer"
-                aria-label={name}
-              >
-                <img
-                  srcSet={logos[actualTheme]}
-                  src={logos[actualTheme]}
-                  alt={name}
-                  key={logos[actualTheme]}
-                  className={'h-15 my-1.5'}
-                />
-              </a>
-            ))}
+        <div className=" relative min-w-fit">
+          <div
+            ref={mapContainerRef}
+            className="absolute size-full inset-0 rounded-xl"
+          />
+        </div>
+        <Card className={'bg-background min-w-fit'}>
+          <CardContent className=" flex flex-col items-center">
+            <Carousel
+            // plugins={[
+            //   Autoplay({
+            //       delay: 2000,
+            //     }),
+            //   ]}
+            >
+              <CarouselContent>
+                {footerPartners.map(({ logos, url, name }) => (
+                  <CarouselItem>
+                    <a
+                      href={url}
+                      target="_blank"
+                      key={url}
+                      rel="noreferrer"
+                      aria-label={name}
+                    >
+                      <img
+                        srcSet={logos[actualTheme]}
+                        src={logos[actualTheme]}
+                        alt={name}
+                        key={logos[actualTheme]}
+                        className={'h-15 my-1.5'}
+                      />
+                    </a>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </CardContent>
         </Card>
       </section>
