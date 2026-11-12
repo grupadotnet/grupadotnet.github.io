@@ -292,7 +292,7 @@ export default function Footer() {
                         src={logos[actualTheme]}
                         alt={name}
                         key={logos[actualTheme]}
-                        className={'h-15 my-1.5'}
+                        className={'h-20 p-2.5'}
                       />
                     </a>
                   </CarouselItem>

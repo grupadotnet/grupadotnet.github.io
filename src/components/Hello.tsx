@@ -99,6 +99,8 @@ export function Hello() {
           className={
             'hover:scale-150  hover:-translate-y-1.5 transition duration-200 ease-in-out'
           }
+          aria-label={'About'}
+          aria-labelledby={'about'}
         >
           <RiArrowDownSLine />
         </a>
