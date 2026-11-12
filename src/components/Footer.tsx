@@ -13,19 +13,19 @@ import {
   RiMastodonLine,
 } from '@remixicon/react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card.tsx';
-import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
+//import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTheme } from '@/components/theme-provider.tsx';
 import { Map, Marker, NavigationControl, setWorkerUrl } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel.tsx';
-
 
 setWorkerUrl(workerUrl);
 
@@ -130,10 +130,35 @@ export default function Footer() {
   const { actualTheme } = useTheme();
 
   const { t } = useTranslation();
-  const { isMobile } = useScrollAndWidth(useRef(null), '', 1024);
+  // const { isMobile } = useScrollAndWidth(useRef(null), '', 1024);
 
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<Map | null>(null);
+
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    if (!carouselApi) return;
+
+    const onSelect = () => {
+      setCurrentSlide(carouselApi.selectedScrollSnap());
+    };
+
+    onSelect();
+    carouselApi.on('select', onSelect);
+    carouselApi.on('reInit', onSelect);
+
+    const interval = setInterval(() => {
+      carouselApi.scrollNext();
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+      carouselApi.off('select', onSelect);
+      carouselApi.off('reInit', onSelect);
+    };
+  }, [carouselApi]);
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -268,22 +293,22 @@ export default function Footer() {
             className="absolute size-full inset-0 rounded-xl"
           />
         </div>
-        <Card className={'bg-background min-w-fit'}>
-          <CardContent className=" flex flex-col items-center">
+        <Card className={'bg-background min-w-fit justify-center'}>
+          <CardContent className="flex flex-col items-center gap-4">
             <Carousel
-            // plugins={[
-            //   Autoplay({
-            //       delay: 2000,
-            //     }),
-            //   ]}
+              setApi={setCarouselApi}
+              opts={{ loop: true }}
+              className="w-full"
             >
               <CarouselContent>
                 {footerPartners.map(({ logos, url, name }) => (
-                  <CarouselItem>
+                  <CarouselItem
+                    key={url}
+                    className="flex items-center justify-center"
+                  >
                     <a
                       href={url}
                       target="_blank"
-                      key={url}
                       rel="noreferrer"
                       aria-label={name}
                     >
@@ -292,13 +317,31 @@ export default function Footer() {
                         src={logos[actualTheme]}
                         alt={name}
                         key={logos[actualTheme]}
-                        className={'h-20 p-2.5'}
+                        className={
+                          'h-20 m-5 sm:h-24 sm:m-6 lg:h-32 lg:m-8 object-contain'
+                        }
                       />
                     </a>
                   </CarouselItem>
                 ))}
               </CarouselContent>
             </Carousel>
+            <div className="flex items-center justify-center gap-2">
+              {footerPartners.map(({ name }, index) => (
+                <button
+                  key={name}
+                  type="button"
+                  onClick={() => carouselApi?.scrollTo(index)}
+                  aria-label={`Go to slide ${index + 1}: ${name}`}
+                  aria-current={currentSlide === index ? 'true' : undefined}
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                    currentSlide === index
+                      ? 'w-6 bg-primary'
+                      : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60'
+                  }`}
+                />
+              ))}
+            </div>
           </CardContent>
         </Card>
       </section>
