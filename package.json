@@ -33,6 +33,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cn": "^0.2.6",
+    "embla-carousel-react": "^8.6.0",
     "i18next": "^26.4.0",
     "i18next-cli": "^1.71.3",
     "maplibre-gl": "^6.6.0",
