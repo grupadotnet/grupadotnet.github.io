@@ -61,11 +61,62 @@
   },
   "Schedule": {
     "badge": "",
+    "calendarApps": {
+      "apple": {
+        "name": "",
+        "preferenceHint": "",
+        "singularHint": "",
+        "subscribeHint": ""
+      },
+      "google": {
+        "name": "",
+        "singularHint": "",
+        "subscribeHint": ""
+      },
+      "other": {
+        "name": "",
+        "singularHint": "",
+        "singularName": "",
+        "subscribeHint": "",
+        "subscribeName": ""
+      },
+      "outlookLive": {
+        "name": "",
+        "singularHint": "",
+        "subscribeHint": ""
+      },
+      "outlookOffice": {
+        "name": "",
+        "singularHint": "",
+        "subscribeHint": ""
+      }
+    },
+    "calendarDialog": {
+      "addDescription": "",
+      "addTitle": "",
+      "close": "",
+      "copied": "",
+      "copy": "",
+      "copyFeedLabel": "",
+      "rememberChoice": "",
+      "subscribeDescription": "",
+      "subscribeTitle": ""
+    },
+    "joinEvent": "",
     "notFound": {
       "paragraph": "",
       "title": ""
     },
     "paragraph": "",
+    "preferredApp": {
+      "askEveryTime": "",
+      "askEveryTimeHint": "",
+      "change": "",
+      "dialogDescription": "",
+      "dialogTitle": "",
+      "label": ""
+    },
+    "subscribeCalendar": "",
     "title": ""
   },
   "Sections": {
