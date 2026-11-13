@@ -61,11 +61,62 @@
   },
   "Schedule": {
     "badge": "Harmonogram spotkań",
+    "calendarApps": {
+      "apple": {
+        "name": "Kalendarz Apple (iPhone / Mac)",
+        "preferenceHint": "Plik .ics oraz linki webcal://",
+        "singularHint": "Pobierz plik .ics i otwórz w Apple Calendar",
+        "subscribeHint": "Subskrybuj bezpośrednio przez webcal://"
+      },
+      "google": {
+        "name": "Google Kalendarz",
+        "singularHint": "Otwórz w Google Calendar",
+        "subscribeHint": "Subskrybuj w Google Calendar"
+      },
+      "other": {
+        "name": "Inny kalendarz (.ics / iCal)",
+        "singularHint": "Outlook Desktop, Thunderbird, Proton, Samsung Calendar...",
+        "singularName": "Inny kalendarz (plik .ics)",
+        "subscribeHint": "Otwórz w domyślnej aplikacji (Thunderbird, Outlook Desktop...)",
+        "subscribeName": "Inny kalendarz (webcal://)"
+      },
+      "outlookLive": {
+        "name": "Outlook.com",
+        "singularHint": "Konto prywatne Microsoft (outlook.live.com)",
+        "subscribeHint": "Subskrybuj na koncie prywatnym Microsoft"
+      },
+      "outlookOffice": {
+        "name": "Outlook 365",
+        "singularHint": "Konto uczelniane lub firmowe (Microsoft 365)",
+        "subscribeHint": "Subskrybuj na koncie uczelnianym / firmowym"
+      }
+    },
+    "calendarDialog": {
+      "addDescription": "Wybierz aplikację kalendarza dla spotkania „{{title}}” ({{date}}, {{time}}).",
+      "addTitle": "Dodaj do kalendarza",
+      "close": "Zamknij",
+      "copied": "Skopiowano",
+      "copy": "Kopiuj",
+      "copyFeedLabel": "Lub skopiuj adres iCal (.ics) do wklejenia ręcznie (np. Proton Calendar, Nextcloud):",
+      "rememberChoice": "Zapamiętaj mój wybór na tym urządzeniu",
+      "subscribeDescription": "Wybierz aplikację, aby automatycznie otrzymywać aktualizacje spotkań ({{calendar}}).",
+      "subscribeTitle": "Subskrybuj kalendarz spotkań"
+    },
+    "joinEvent": "Wbijam!!",
     "notFound": {
       "paragraph": "Nie mamy zaplanowanych żadnych spotkań, możliwe że w kolejnych dniach to się zmieni.",
       "title": "O kurcze!!"
     },
     "paragraph": "Lista zaplanowanych spotkań na kolejny miesiąc",
+    "preferredApp": {
+      "askEveryTime": "Pytaj za każdym razem",
+      "askEveryTimeHint": "Pokaż listę aplikacji po każdym kliknięciu",
+      "change": "Zmień",
+      "dialogDescription": "Wybrana aplikacja zostanie użyta automatycznie przy dodawaniu i subskrybowaniu spotkań.",
+      "dialogTitle": "Wybierz domyślny kalendarz",
+      "label": "Wybrany kalendarz:"
+    },
+    "subscribeCalendar": "Przypominaj o spotkaniach!",
     "title": "Kiedy się spotykamy?"
   },
   "Sections": {
