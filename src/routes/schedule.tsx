@@ -292,6 +292,42 @@ function LoadedCarousel() {
   );
 }
 
+function renderCalendarActionButton({
+  label,
+  href,
+  external = false,
+  onClick,
+}: {
+  label: string;
+  href?: string;
+  external?: boolean;
+  onClick?: () => void;
+}) {
+  if (href) {
+    return (
+      <Button
+        variant="default"
+        nativeButton={false}
+        render={
+          <a
+            href={href}
+            target={external ? '_blank' : undefined}
+            rel={external ? 'noopener noreferrer' : undefined}
+          >
+            {label}
+          </a>
+        }
+      />
+    );
+  }
+
+  return (
+    <Button type="button" variant="default" onClick={onClick}>
+      {label}
+    </Button>
+  );
+}
+
 function EventCarouselItem({
   event,
   matchedSection,
@@ -310,171 +346,35 @@ function EventCarouselItem({
   const Icon = matchedSection?.icon;
   const { timeLabel, dateLabel } = formatEventSchedule(event.start, event.end);
 
-  const renderSingularButton = () => {
-    const label = t('Schedule.joinEvent', 'Wbijam!!');
-
-    if (preferredApp === 'google' && targets.singular.googleUrl) {
-      return (
-        <Button
-          variant="default"
-          nativeButton={false}
-          render={
-            <a
-              href={targets.singular.googleUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          }
-        >
-          {label}
-        </Button>
-      );
-    }
-
-    if (preferredApp === 'outlook-live' && targets.singular.outlookLiveUrl) {
-      return (
-        <Button
-          variant="default"
-          nativeButton={false}
-          render={
-            <a
-              href={targets.singular.outlookLiveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          }
-        >
-          {label}
-        </Button>
-      );
-    }
-
-    if (
-      preferredApp === 'outlook-office' &&
-      targets.singular.outlookOfficeUrl
-    ) {
-      return (
-        <Button
-          variant="default"
-          nativeButton={false}
-          render={
-            <a
-              href={targets.singular.outlookOfficeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          }
-        >
-          {label}
-        </Button>
-      );
-    }
-
-    if (preferredApp === 'apple' || preferredApp === 'other') {
-      return (
-        <Button
-          type="button"
-          variant="default"
-          onClick={targets.singular.downloadIcs}
-        >
-          {label}
-        </Button>
-      );
-    }
-
-    return (
-      <Button
-        type="button"
-        variant="default"
-        onClick={() => onRequestAppChoice('singular')}
-      >
-        {label}
-      </Button>
-    );
+  const singularUrlByApp: Partial<Record<CalendarApp, string>> = {
+    google: targets.singular.googleUrl,
+    'outlook-live': targets.singular.outlookLiveUrl,
+    'outlook-office': targets.singular.outlookOfficeUrl,
   };
 
-  const renderSubscribeButton = () => {
-    const label = t('Schedule.subscribeCalendar', 'Przypominaj o spotkaniach!');
-
-    if (preferredApp === 'google' && targets.subscribe.googleUrl) {
-      return (
-        <Button
-          variant="default"
-          nativeButton={false}
-          render={
-            <a
-              href={targets.subscribe.googleUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          }
-        >
-          {label}
-        </Button>
-      );
-    }
-
-    if (preferredApp === 'apple' && targets.subscribe.webcalUrl) {
-      return (
-        <Button
-          variant="default"
-          nativeButton={false}
-          render={<a href={targets.subscribe.webcalUrl} />}
-        >
-          {label}
-        </Button>
-      );
-    }
-
-    if (preferredApp === 'outlook-live' && targets.subscribe.outlookLiveUrl) {
-      return (
-        <Button
-          variant="default"
-          nativeButton={false}
-          render={
-            <a
-              href={targets.subscribe.outlookLiveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          }
-        >
-          {label}
-        </Button>
-      );
-    }
-
-    if (
-      preferredApp === 'outlook-office' &&
-      targets.subscribe.outlookOfficeUrl
-    ) {
-      return (
-        <Button
-          variant="default"
-          nativeButton={false}
-          render={
-            <a
-              href={targets.subscribe.outlookOfficeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          }
-        >
-          {label}
-        </Button>
-      );
-    }
-
-    return (
-      <Button
-        type="button"
-        variant="default"
-        onClick={() => onRequestAppChoice('subscribe')}
-      >
-        {label}
-      </Button>
-    );
+  const subscribeUrlByApp: Partial<
+    Record<CalendarApp, { href?: string; external: boolean }>
+  > = {
+    google: { href: targets.subscribe.googleUrl, external: true },
+    apple: { href: targets.subscribe.webcalUrl, external: false },
+    'outlook-live': { href: targets.subscribe.outlookLiveUrl, external: true },
+    'outlook-office': {
+      href: targets.subscribe.outlookOfficeUrl,
+      external: true,
+    },
   };
+
+  const singularHref = preferredApp
+    ? singularUrlByApp[preferredApp]
+    : undefined;
+  const singularOnClick =
+    preferredApp === 'apple' || preferredApp === 'other'
+      ? targets.singular.downloadIcs
+      : () => onRequestAppChoice('singular');
+
+  const subscribeTarget = preferredApp
+    ? subscribeUrlByApp[preferredApp]
+    : undefined;
 
   return (
     <div
@@ -514,8 +414,21 @@ function EventCarouselItem({
           }
         >
           <ButtonGroup>
-            {renderSingularButton()}
-            {renderSubscribeButton()}
+            {renderCalendarActionButton({
+              label: t('Schedule.joinEvent', 'Wbijam!!'),
+              href: singularHref,
+              external: Boolean(singularHref),
+              onClick: singularOnClick,
+            })}
+            {renderCalendarActionButton({
+              label: t(
+                'Schedule.subscribeCalendar',
+                'Przypominaj o spotkaniach!'
+              ),
+              href: subscribeTarget?.href,
+              external: subscribeTarget?.external,
+              onClick: () => onRequestAppChoice('subscribe'),
+            })}
           </ButtonGroup>
         </CardFooter>
       </Card>
@@ -630,6 +543,220 @@ function CalendarPickerDialog({
   );
 }
 
+interface ActionDialogOption extends CalendarOptionRowProps {
+  key: CalendarApp;
+}
+
+function CopyFeedSection({ feedUrl }: { feedUrl: string }) {
+  const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyFeedUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(feedUrl);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard API may be unavailable in restricted contexts
+    }
+  };
+
+  return (
+    <div className="min-w-0 space-y-2 border-t border-border/70 pt-3">
+      <p className="text-xs leading-snug text-muted-foreground">
+        {t(
+          'Schedule.calendarDialog.copyFeedLabel',
+          'Lub skopiuj adres iCal (.ics) do wklejenia ręcznie (np. Proton Calendar, Nextcloud):'
+        )}
+      </p>
+      <div className="flex min-w-0 items-center justify-between gap-2 rounded-xl bg-muted/60 p-2 pl-3 ring-1 ring-foreground/10">
+        <code className="min-w-0 flex-1 truncate font-mono text-xs text-foreground">
+          {feedUrl}
+        </code>
+        <Button
+          type="button"
+          variant="secondary"
+          size="xs"
+          onClick={handleCopyFeedUrl}
+          className="shrink-0 cursor-pointer gap-1.5 rounded-lg"
+        >
+          {copied ? (
+            <>
+              <RiCheckLine className="size-3.5 text-emerald-500" />
+              <span>{t('Schedule.calendarDialog.copied', 'Skopiowano')}</span>
+            </>
+          ) : (
+            <>
+              <RiFileCopyLine className="size-3.5" />
+              <span>{t('Schedule.calendarDialog.copy', 'Kopiuj')}</span>
+            </>
+          )}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function buildActionDialogOptions({
+  isSingular,
+  targets,
+  t,
+  onFinalize,
+}: {
+  isSingular: boolean;
+  targets: ReturnType<typeof buildCalendarTargets>;
+  t: TFunction;
+  onFinalize: (app: CalendarApp) => void;
+}): ActionDialogOption[] {
+  const urlSource = isSingular ? targets.singular : targets.subscribe;
+  const externalEntries: Array<{
+    app: CalendarApp;
+    href?: string;
+    icon: ReactNode;
+    title: string;
+    subtitle: string;
+  }> = [
+    {
+      app: 'google',
+      href: urlSource.googleUrl,
+      icon: <RiGoogleFill className="size-5" />,
+      title: t('Schedule.calendarApps.google.name', 'Google Kalendarz'),
+      subtitle: isSingular
+        ? t(
+            'Schedule.calendarApps.google.singularHint',
+            'Otwórz w Google Calendar'
+          )
+        : t(
+            'Schedule.calendarApps.google.subscribeHint',
+            'Subskrybuj w Google Calendar'
+          ),
+    },
+    {
+      app: 'outlook-live',
+      href: urlSource.outlookLiveUrl,
+      icon: <RiMicrosoftFill className="size-5" />,
+      title: t('Schedule.calendarApps.outlookLive.name', 'Outlook.com'),
+      subtitle: isSingular
+        ? t(
+            'Schedule.calendarApps.outlookLive.singularHint',
+            'Konto prywatne Microsoft (outlook.live.com)'
+          )
+        : t(
+            'Schedule.calendarApps.outlookLive.subscribeHint',
+            'Subskrybuj na koncie prywatnym Microsoft'
+          ),
+    },
+    {
+      app: 'outlook-office',
+      href: urlSource.outlookOfficeUrl,
+      icon: <RiMicrosoftFill className="size-5" />,
+      title: t('Schedule.calendarApps.outlookOffice.name', 'Outlook 365'),
+      subtitle: isSingular
+        ? t(
+            'Schedule.calendarApps.outlookOffice.singularHint',
+            'Konto uczelniane lub firmowe (Microsoft 365)'
+          )
+        : t(
+            'Schedule.calendarApps.outlookOffice.subscribeHint',
+            'Subskrybuj na koncie uczelnianym / firmowym'
+          ),
+    },
+  ];
+
+  const externalOptions = externalEntries
+    .filter((entry): entry is typeof entry & { href: string } =>
+      Boolean(entry.href)
+    )
+    .map((entry) => ({
+      key: entry.app,
+      icon: entry.icon,
+      title: entry.title,
+      subtitle: entry.subtitle,
+      href: entry.href,
+      external: true,
+      trailing: <RiArrowRightUpLine className="size-4" />,
+      onSelect: () => onFinalize(entry.app),
+    }));
+
+  const localOrWebcalOptions: ActionDialogOption[] = [];
+  if (isSingular || targets.subscribe.webcalUrl) {
+    const localHref = isSingular ? undefined : targets.subscribe.webcalUrl;
+    const localTrailing = isSingular ? (
+      <RiDownload2Line className="size-4" />
+    ) : (
+      <RiArrowRightUpLine className="size-4" />
+    );
+    const selectLocalOrWebcal = (app: CalendarApp) => {
+      if (isSingular) {
+        targets.singular.downloadIcs();
+      }
+      onFinalize(app);
+    };
+
+    localOrWebcalOptions.push(
+      {
+        key: 'apple',
+        icon: <RiAppleFill className="size-5" />,
+        title: t(
+          'Schedule.calendarApps.apple.name',
+          'Kalendarz Apple (iPhone / Mac)'
+        ),
+        subtitle: isSingular
+          ? t(
+              'Schedule.calendarApps.apple.singularHint',
+              'Pobierz plik .ics i otwórz w Apple Calendar'
+            )
+          : t(
+              'Schedule.calendarApps.apple.subscribeHint',
+              'Subskrybuj bezpośrednio przez webcal://'
+            ),
+        href: localHref,
+        trailing: localTrailing,
+        onSelect: () => selectLocalOrWebcal('apple'),
+      },
+      {
+        key: 'other',
+        icon: isSingular ? (
+          <RiDownload2Line className="size-5" />
+        ) : (
+          <RiCalendar2Line className="size-5" />
+        ),
+        title: isSingular
+          ? t(
+              'Schedule.calendarApps.other.singularName',
+              'Inny kalendarz (plik .ics)'
+            )
+          : t(
+              'Schedule.calendarApps.other.subscribeName',
+              'Inny kalendarz (webcal://)'
+            ),
+        subtitle: isSingular
+          ? t(
+              'Schedule.calendarApps.other.singularHint',
+              'Outlook Desktop, Thunderbird, Proton, Samsung Calendar...'
+            )
+          : t(
+              'Schedule.calendarApps.other.subscribeHint',
+              'Otwórz w domyślnej aplikacji (Thunderbird, Outlook Desktop...)'
+            ),
+        href: localHref,
+        trailing: localTrailing,
+        onSelect: () => selectLocalOrWebcal('other'),
+      }
+    );
+  }
+
+  // Keep original display order: Google, Apple, Outlook.com, Outlook 365, Other
+  const google = externalOptions.filter((opt) => opt.key === 'google');
+  const apple = localOrWebcalOptions.filter((opt) => opt.key === 'apple');
+  const outlook = externalOptions.filter(
+    (opt) => opt.key === 'outlook-live' || opt.key === 'outlook-office'
+  );
+  const other = localOrWebcalOptions.filter((opt) => opt.key === 'other');
+
+  return [...google, ...apple, ...outlook, ...other];
+}
+
 function ActionDialogBody({
   event,
   mode,
@@ -645,7 +772,6 @@ function ActionDialogBody({
 }) {
   const { t } = useTranslation();
   const [rememberChoice, setRememberChoice] = useState(initialRemember);
-  const [copied, setCopied] = useState(false);
 
   const targets = buildCalendarTargets(event);
   const { timeLabel, dateLabel } = formatEventSchedule(event.start, event.end);
@@ -658,253 +784,53 @@ function ActionDialogBody({
     onClose();
   };
 
-  const handleCopyFeedUrl = async () => {
-    if (!targets.subscribe.httpsFeedUrl) return;
-    try {
-      await navigator.clipboard.writeText(targets.subscribe.httpsFeedUrl);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard API may be unavailable in restricted contexts
-    }
-  };
+  const options = buildActionDialogOptions({
+    isSingular,
+    targets,
+    t,
+    onFinalize: finalizeSelection,
+  });
+
+  const dialogTitle = isSingular
+    ? t('Schedule.calendarDialog.addTitle', 'Dodaj do kalendarza')
+    : t(
+        'Schedule.calendarDialog.subscribeTitle',
+        'Subskrybuj kalendarz spotkań'
+      );
+
+  const dialogDescription = isSingular
+    ? t(
+        'Schedule.calendarDialog.addDescription',
+        'Wybierz aplikację kalendarza dla spotkania „{{title}}” ({{date}}, {{time}}).',
+        {
+          title: event.title,
+          date: dateLabel,
+          time: timeLabel,
+        }
+      )
+    : t(
+        'Schedule.calendarDialog.subscribeDescription',
+        'Wybierz aplikację, aby automatycznie otrzymywać aktualizacje spotkań ({{calendar}}).',
+        {
+          calendar: event.calendarName || 'KNPiMI',
+        }
+      );
 
   return (
     <>
       <DialogHeader>
-        <DialogTitle>
-          {isSingular
-            ? t('Schedule.calendarDialog.addTitle', 'Dodaj do kalendarza')
-            : t(
-                'Schedule.calendarDialog.subscribeTitle',
-                'Subskrybuj kalendarz spotkań'
-              )}
-        </DialogTitle>
-        <DialogDescription>
-          {isSingular
-            ? t(
-                'Schedule.calendarDialog.addDescription',
-                'Wybierz aplikację kalendarza dla spotkania „{{title}}” ({{date}}, {{time}}).',
-                {
-                  title: event.title,
-                  date: dateLabel,
-                  time: timeLabel,
-                }
-              )
-            : t(
-                'Schedule.calendarDialog.subscribeDescription',
-                'Wybierz aplikację, aby automatycznie otrzymywać aktualizacje spotkań ({{calendar}}).',
-                {
-                  calendar: event.calendarName || 'KNPiMI',
-                }
-              )}
-        </DialogDescription>
+        <DialogTitle>{dialogTitle}</DialogTitle>
+        <DialogDescription>{dialogDescription}</DialogDescription>
       </DialogHeader>
 
       <div className="flex min-w-0 flex-col gap-2">
-        {(isSingular
-          ? targets.singular.googleUrl
-          : targets.subscribe.googleUrl) && (
-          <CalendarOptionRow
-            icon={<RiGoogleFill className="size-5" />}
-            title={t('Schedule.calendarApps.google.name', 'Google Kalendarz')}
-            subtitle={
-              isSingular
-                ? t(
-                    'Schedule.calendarApps.google.singularHint',
-                    'Otwórz w Google Calendar'
-                  )
-                : t(
-                    'Schedule.calendarApps.google.subscribeHint',
-                    'Subskrybuj w Google Calendar'
-                  )
-            }
-            href={
-              isSingular
-                ? targets.singular.googleUrl
-                : targets.subscribe.googleUrl
-            }
-            external
-            trailing={<RiArrowRightUpLine className="size-4" />}
-            onSelect={() => finalizeSelection('google')}
-          />
-        )}
-
-        {(isSingular || targets.subscribe.webcalUrl) && (
-          <CalendarOptionRow
-            icon={<RiAppleFill className="size-5" />}
-            title={t(
-              'Schedule.calendarApps.apple.name',
-              'Kalendarz Apple (iPhone / Mac)'
-            )}
-            subtitle={
-              isSingular
-                ? t(
-                    'Schedule.calendarApps.apple.singularHint',
-                    'Pobierz plik .ics i otwórz w Apple Calendar'
-                  )
-                : t(
-                    'Schedule.calendarApps.apple.subscribeHint',
-                    'Subskrybuj bezpośrednio przez webcal://'
-                  )
-            }
-            href={isSingular ? undefined : targets.subscribe.webcalUrl}
-            trailing={
-              isSingular ? (
-                <RiDownload2Line className="size-4" />
-              ) : (
-                <RiArrowRightUpLine className="size-4" />
-              )
-            }
-            onSelect={() => {
-              if (isSingular) {
-                targets.singular.downloadIcs();
-              }
-              finalizeSelection('apple');
-            }}
-          />
-        )}
-
-        {(isSingular
-          ? targets.singular.outlookLiveUrl
-          : targets.subscribe.outlookLiveUrl) && (
-          <CalendarOptionRow
-            icon={<RiMicrosoftFill className="size-5" />}
-            title={t('Schedule.calendarApps.outlookLive.name', 'Outlook.com')}
-            subtitle={
-              isSingular
-                ? t(
-                    'Schedule.calendarApps.outlookLive.singularHint',
-                    'Konto prywatne Microsoft (outlook.live.com)'
-                  )
-                : t(
-                    'Schedule.calendarApps.outlookLive.subscribeHint',
-                    'Subskrybuj na koncie prywatnym Microsoft'
-                  )
-            }
-            href={
-              isSingular
-                ? targets.singular.outlookLiveUrl
-                : targets.subscribe.outlookLiveUrl
-            }
-            external
-            trailing={<RiArrowRightUpLine className="size-4" />}
-            onSelect={() => finalizeSelection('outlook-live')}
-          />
-        )}
-
-        {(isSingular
-          ? targets.singular.outlookOfficeUrl
-          : targets.subscribe.outlookOfficeUrl) && (
-          <CalendarOptionRow
-            icon={<RiMicrosoftFill className="size-5" />}
-            title={t('Schedule.calendarApps.outlookOffice.name', 'Outlook 365')}
-            subtitle={
-              isSingular
-                ? t(
-                    'Schedule.calendarApps.outlookOffice.singularHint',
-                    'Konto uczelniane lub firmowe (Microsoft 365)'
-                  )
-                : t(
-                    'Schedule.calendarApps.outlookOffice.subscribeHint',
-                    'Subskrybuj na koncie uczelnianym / firmowym'
-                  )
-            }
-            href={
-              isSingular
-                ? targets.singular.outlookOfficeUrl
-                : targets.subscribe.outlookOfficeUrl
-            }
-            external
-            trailing={<RiArrowRightUpLine className="size-4" />}
-            onSelect={() => finalizeSelection('outlook-office')}
-          />
-        )}
-
-        {(isSingular || targets.subscribe.webcalUrl) && (
-          <CalendarOptionRow
-            icon={
-              isSingular ? (
-                <RiDownload2Line className="size-5" />
-              ) : (
-                <RiCalendar2Line className="size-5" />
-              )
-            }
-            title={
-              isSingular
-                ? t(
-                    'Schedule.calendarApps.other.singularName',
-                    'Inny kalendarz (plik .ics)'
-                  )
-                : t(
-                    'Schedule.calendarApps.other.subscribeName',
-                    'Inny kalendarz (webcal://)'
-                  )
-            }
-            subtitle={
-              isSingular
-                ? t(
-                    'Schedule.calendarApps.other.singularHint',
-                    'Outlook Desktop, Thunderbird, Proton, Samsung Calendar...'
-                  )
-                : t(
-                    'Schedule.calendarApps.other.subscribeHint',
-                    'Otwórz w domyślnej aplikacji (Thunderbird, Outlook Desktop...)'
-                  )
-            }
-            href={isSingular ? undefined : targets.subscribe.webcalUrl}
-            trailing={
-              isSingular ? (
-                <RiDownload2Line className="size-4" />
-              ) : (
-                <RiArrowRightUpLine className="size-4" />
-              )
-            }
-            onSelect={() => {
-              if (isSingular) {
-                targets.singular.downloadIcs();
-              }
-              finalizeSelection('other');
-            }}
-          />
-        )}
+        {options.map(({ key, ...rowProps }) => (
+          <CalendarOptionRow key={key} {...rowProps} />
+        ))}
       </div>
 
       {!isSingular && targets.subscribe.httpsFeedUrl && (
-        <div className="min-w-0 space-y-2 border-t border-border/70 pt-3">
-          <p className="text-xs leading-snug text-muted-foreground">
-            {t(
-              'Schedule.calendarDialog.copyFeedLabel',
-              'Lub skopiuj adres iCal (.ics) do wklejenia ręcznie (np. Proton Calendar, Nextcloud):'
-            )}
-          </p>
-          <div className="flex min-w-0 items-center justify-between gap-2 rounded-xl bg-muted/60 p-2 pl-3 ring-1 ring-foreground/10">
-            <code className="min-w-0 flex-1 truncate font-mono text-xs text-foreground">
-              {targets.subscribe.httpsFeedUrl}
-            </code>
-            <Button
-              type="button"
-              variant="secondary"
-              size="xs"
-              onClick={handleCopyFeedUrl}
-              className="shrink-0 cursor-pointer gap-1.5 rounded-lg"
-            >
-              {copied ? (
-                <>
-                  <RiCheckLine className="size-3.5 text-emerald-500" />
-                  <span>
-                    {t('Schedule.calendarDialog.copied', 'Skopiowano')}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <RiFileCopyLine className="size-3.5" />
-                  <span>{t('Schedule.calendarDialog.copy', 'Kopiuj')}</span>
-                </>
-              )}
-            </Button>
-          </div>
-        </div>
+        <CopyFeedSection feedUrl={targets.subscribe.httpsFeedUrl} />
       )}
 
       <label className="flex min-w-0 cursor-pointer items-center gap-2.5 pt-1 text-xs leading-snug text-muted-foreground select-none">

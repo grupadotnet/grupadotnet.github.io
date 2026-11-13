@@ -22,9 +22,9 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import {
   Carousel,
-  type CarouselApi,
   CarouselContent,
   CarouselItem,
+  useCarousel,
 } from '@/components/ui/carousel.tsx';
 
 setWorkerUrl(workerUrl);
@@ -126,6 +126,63 @@ const footerPartners: Partner[] = [
   },
 ];
 
+function PartnerCarouselControls() {
+  const { api } = useCarousel();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [autoplayTick, setAutoplayTick] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => {
+      setCurrentSlide(api.selectedScrollSnap());
+    };
+
+    onSelect();
+    api.on('select', onSelect);
+    api.on('reInit', onSelect);
+
+    return () => {
+      api.off('select', onSelect);
+      api.off('reInit', onSelect);
+    };
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const timerId = setTimeout(() => {
+      api.scrollNext();
+    }, 3000);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [api, currentSlide, autoplayTick]);
+
+  return (
+    <div className="mt-4 flex items-center justify-center gap-2">
+      {footerPartners.map(({ name }, index) => (
+        <button
+          key={name}
+          type="button"
+          onClick={() => {
+            api?.scrollTo(index);
+            setAutoplayTick((tick) => tick + 1);
+          }}
+          aria-label={`Go to slide ${index + 1}: ${name}`}
+          aria-current={currentSlide === index ? 'true' : undefined}
+          className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+            currentSlide === index
+              ? 'w-6 bg-primary'
+              : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60'
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function Footer() {
   const { actualTheme } = useTheme();
 
@@ -134,41 +191,6 @@ export default function Footer() {
 
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<Map | null>(null);
-
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const resetAutoplayRef = useRef<(() => void) | null>(null);
-
-  useEffect(() => {
-    if (!carouselApi) return;
-
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    const scheduleNext = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        carouselApi.scrollNext();
-      }, 3000);
-    };
-
-    resetAutoplayRef.current = scheduleNext;
-
-    const onSelect = () => {
-      setCurrentSlide(carouselApi.selectedScrollSnap());
-      scheduleNext();
-    };
-
-    onSelect();
-    carouselApi.on('select', onSelect);
-    carouselApi.on('reInit', onSelect);
-
-    return () => {
-      clearTimeout(timeoutId);
-      resetAutoplayRef.current = null;
-      carouselApi.off('select', onSelect);
-      carouselApi.off('reInit', onSelect);
-    };
-  }, [carouselApi]);
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -305,11 +327,7 @@ export default function Footer() {
         </div>
         <Card className={'bg-background min-w-fit justify-center'}>
           <CardContent className="flex flex-col items-center gap-4">
-            <Carousel
-              setApi={setCarouselApi}
-              opts={{ loop: true }}
-              className="w-full"
-            >
+            <Carousel opts={{ loop: true }} className="w-full">
               <CarouselContent>
                 {footerPartners.map(({ logos, url, name }) => (
                   <CarouselItem
@@ -335,26 +353,8 @@ export default function Footer() {
                   </CarouselItem>
                 ))}
               </CarouselContent>
+              <PartnerCarouselControls />
             </Carousel>
-            <div className="flex items-center justify-center gap-2">
-              {footerPartners.map(({ name }, index) => (
-                <button
-                  key={name}
-                  type="button"
-                  onClick={() => {
-                    carouselApi?.scrollTo(index);
-                    resetAutoplayRef.current?.();
-                  }}
-                  aria-label={`Go to slide ${index + 1}: ${name}`}
-                  aria-current={currentSlide === index ? 'true' : undefined}
-                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                    currentSlide === index
-                      ? 'w-6 bg-primary'
-                      : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60'
-                  }`}
-                />
-              ))}
-            </div>
           </CardContent>
         </Card>
       </section>
