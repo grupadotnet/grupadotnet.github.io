@@ -13,13 +13,19 @@ import {
   RiMastodonLine,
 } from '@remixicon/react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card.tsx';
-import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
+//import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTheme } from '@/components/theme-provider.tsx';
 import { Map, Marker, NavigationControl, setWorkerUrl } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  useCarousel,
+} from '@/components/ui/carousel.tsx';
 
 setWorkerUrl(workerUrl);
 
@@ -120,11 +126,68 @@ const footerPartners: Partner[] = [
   },
 ];
 
+function PartnerCarouselControls() {
+  const { api } = useCarousel();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [autoplayTick, setAutoplayTick] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => {
+      setCurrentSlide(api.selectedScrollSnap());
+    };
+
+    onSelect();
+    api.on('select', onSelect);
+    api.on('reInit', onSelect);
+
+    return () => {
+      api.off('select', onSelect);
+      api.off('reInit', onSelect);
+    };
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const timerId = setTimeout(() => {
+      api.scrollNext();
+    }, 3000);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [api, currentSlide, autoplayTick]);
+
+  return (
+    <div className="mt-4 flex items-center justify-center gap-2">
+      {footerPartners.map(({ name }, index) => (
+        <button
+          key={name}
+          type="button"
+          onClick={() => {
+            api?.scrollTo(index);
+            setAutoplayTick((tick) => tick + 1);
+          }}
+          aria-label={`Go to slide ${index + 1}: ${name}`}
+          aria-current={currentSlide === index ? 'true' : undefined}
+          className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+            currentSlide === index
+              ? 'w-6 bg-primary'
+              : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60'
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function Footer() {
   const { actualTheme } = useTheme();
 
   const { t } = useTranslation();
-  const { isMobile } = useScrollAndWidth(useRef(null), '', 1024);
+  // const { isMobile } = useScrollAndWidth(useRef(null), '', 1024);
 
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<Map | null>(null);
@@ -217,23 +280,19 @@ export default function Footer() {
   }, [actualTheme]);
 
   return (
-    <footer className={' w-11/12 m-auto text-center *:my-20 text-white'}>
+    <footer
+      className={' md:w-10/12 w-9/11 m-auto text-center *:my-20 text-white'}
+    >
       <section
         className={
-          'grid md:grid-cols-3 md:grid-rows-2 grid-cols-1 grid-rows-4  justify-items-center content-center gap-5'
+          'grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 justify-items-stretch content-stretch gap-5'
         }
       >
-        <div className="md:col-span-3 relative h-full md:w-1/2 w-full">
-          <div
-            ref={mapContainerRef}
-            className="absolute size-full inset-0 rounded-xl"
-          />
-        </div>
         <Card
-          className={`flex flex-col items-center gap-8 py-8 sm:items-start bg-background ${!isMobile ? 'col-span-2' : ''} min-w-2/5`}
+          className={`flex flex-col items-center gap-8 py-8 sm:items-start bg-background w-full min-w-fit`}
         >
           <CardHeader>
-            <CardTitle className="text-left w-full">
+            <CardTitle>
               <span className="text-foreground">
                 {t('Footer.socialTitle', 'Znajdziesz nas też na')}
               </span>
@@ -260,25 +319,42 @@ export default function Footer() {
             </div>
           </CardContent>
         </Card>
-        <Card className={'bg-background  '}>
-          <CardContent>
-            {footerPartners.map(({ logos, url, name }) => (
-              <a
-                href={url}
-                target="_blank"
-                key={url}
-                rel="noreferrer"
-                aria-label={name}
-              >
-                <img
-                  srcSet={logos[actualTheme]}
-                  src={logos[actualTheme]}
-                  alt={name}
-                  key={logos[actualTheme]}
-                  className={'h-20 p-2.5'}
-                />
-              </a>
-            ))}
+        <div className=" relative min-w-fit">
+          <div
+            ref={mapContainerRef}
+            className="absolute size-full inset-0 rounded-xl"
+          />
+        </div>
+        <Card className={'bg-background min-w-fit justify-center'}>
+          <CardContent className="flex flex-col items-center gap-4">
+            <Carousel opts={{ loop: true }} className="w-full">
+              <CarouselContent>
+                {footerPartners.map(({ logos, url, name }) => (
+                  <CarouselItem
+                    key={url}
+                    className="flex items-center justify-center"
+                  >
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={name}
+                    >
+                      <img
+                        srcSet={logos[actualTheme]}
+                        src={logos[actualTheme]}
+                        alt={name}
+                        key={logos[actualTheme]}
+                        className={
+                          'h-20 m-5 sm:h-24 sm:m-6 lg:h-32 lg:m-8 object-contain'
+                        }
+                      />
+                    </a>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <PartnerCarouselControls />
+            </Carousel>
           </CardContent>
         </Card>
       </section>
