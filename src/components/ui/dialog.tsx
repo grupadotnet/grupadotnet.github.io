@@ -48,7 +48,7 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          'fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-2xl bg-card p-6 text-card-foreground shadow-xl ring-1 ring-foreground/10 transition-[opacity,transform] duration-200 outline-none data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0',
+          'fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-1.5rem)] w-[calc(100dvw-1.5rem)] max-w-md -translate-x-1/2 -translate-y-1/2 grid-cols-[minmax(0,1fr)] gap-3 overflow-x-hidden overflow-y-auto rounded-2xl bg-card p-4 text-card-foreground shadow-xl ring-1 ring-foreground/10 transition-[opacity,transform] duration-200 outline-none sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100dvw-2rem)] sm:gap-4 sm:p-6 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0',
           className
         )}
         {...props}
@@ -57,7 +57,7 @@ function DialogContent({
         <DialogPrimitive.Close
           type="button"
           aria-label={closeLabel}
-          className="absolute top-4 right-4 inline-flex size-8 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+          className="absolute top-3 right-3 inline-flex size-8 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none sm:top-4 sm:right-4"
         >
           <RiCloseLine className="size-4" />
         </DialogPrimitive.Close>
