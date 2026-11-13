@@ -137,24 +137,34 @@ export default function Footer() {
 
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const resetAutoplayRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (!carouselApi) return;
 
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const scheduleNext = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        carouselApi.scrollNext();
+      }, 3000);
+    };
+
+    resetAutoplayRef.current = scheduleNext;
+
     const onSelect = () => {
       setCurrentSlide(carouselApi.selectedScrollSnap());
+      scheduleNext();
     };
 
     onSelect();
     carouselApi.on('select', onSelect);
     carouselApi.on('reInit', onSelect);
 
-    const interval = setInterval(() => {
-      carouselApi.scrollNext();
-    }, 3000);
-
     return () => {
-      clearInterval(interval);
+      clearTimeout(timeoutId);
+      resetAutoplayRef.current = null;
       carouselApi.off('select', onSelect);
       carouselApi.off('reInit', onSelect);
     };
@@ -331,7 +341,10 @@ export default function Footer() {
                 <button
                   key={name}
                   type="button"
-                  onClick={() => carouselApi?.scrollTo(index)}
+                  onClick={() => {
+                    carouselApi?.scrollTo(index);
+                    resetAutoplayRef.current?.();
+                  }}
                   aria-label={`Go to slide ${index + 1}: ${name}`}
                   aria-current={currentSlide === index ? 'true' : undefined}
                   className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
