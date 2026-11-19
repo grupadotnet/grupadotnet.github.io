@@ -6,6 +6,8 @@ import LogoWM from '/svg/PK/PK_WM_CMYK.svg';
 import LogoWM_w from '/svg/PK/PK_WM_CMYK_w.svg';
 
 import {
+  RiArrowLeftSLine,
+  RiArrowRightSLine,
   RiDiscordFill,
   RiFacebookBoxLine,
   RiLinkedinBoxLine,
@@ -126,9 +128,10 @@ const footerPartners: Partner[] = [
   },
 ];
 
-function PartnerCarouselControls() {
-  const { api } = useCarousel();
+function PartnerCarouselControls({ isPaused }: { isPaused: boolean }) {
+  const { api, scrollPrev, scrollNext } = useCarousel();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const [autoplayTick, setAutoplayTick] = useState(0);
 
   useEffect(() => {
@@ -137,49 +140,138 @@ function PartnerCarouselControls() {
     const onSelect = () => {
       setCurrentSlide(api.selectedScrollSnap());
     };
+    const onPointerDown = () => setIsDragging(true);
+    const onSettle = () => setIsDragging(false);
 
     onSelect();
     api.on('select', onSelect);
     api.on('reInit', onSelect);
+    api.on('pointerDown', onPointerDown);
+    api.on('pointerUp', onSettle);
+    api.on('settle', onSettle);
 
     return () => {
       api.off('select', onSelect);
       api.off('reInit', onSelect);
+      api.off('pointerDown', onPointerDown);
+      api.off('pointerUp', onSettle);
+      api.off('settle', onSettle);
     };
   }, [api]);
 
   useEffect(() => {
-    if (!api) return;
+    if (!api || isPaused || isDragging) return;
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return;
+    }
 
     const timerId = setTimeout(() => {
       api.scrollNext();
-    }, 3000);
+    }, 3500);
 
     return () => {
       clearTimeout(timerId);
     };
-  }, [api, currentSlide, autoplayTick]);
+  }, [api, currentSlide, autoplayTick, isPaused, isDragging]);
+
+  const handlePrev = () => {
+    scrollPrev();
+    setAutoplayTick((tick) => tick + 1);
+  };
+
+  const handleNext = () => {
+    scrollNext();
+    setAutoplayTick((tick) => tick + 1);
+  };
 
   return (
-    <div className="mt-4 flex items-center justify-center gap-2">
-      {footerPartners.map(({ name }, index) => (
-        <button
-          key={name}
-          type="button"
-          onClick={() => {
-            api?.scrollTo(index);
-            setAutoplayTick((tick) => tick + 1);
-          }}
-          aria-label={`Go to slide ${index + 1}: ${name}`}
-          aria-current={currentSlide === index ? 'true' : undefined}
-          className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-            currentSlide === index
-              ? 'w-6 bg-primary'
-              : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60'
-          }`}
-        />
-      ))}
+    <div className="mt-2 flex items-center justify-center gap-0.5 md:mt-3 md:gap-1.5">
+      <button
+        type="button"
+        onClick={handlePrev}
+        aria-label="Previous slide"
+        className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring md:h-7 md:w-7"
+      >
+        <RiArrowLeftSLine className="h-5 w-5 md:h-4 md:w-4" />
+      </button>
+
+      <div className="flex items-center justify-center">
+        {footerPartners.map(({ name }, index) => (
+          <button
+            key={name}
+            type="button"
+            onClick={() => {
+              api?.scrollTo(index);
+              setAutoplayTick((tick) => tick + 1);
+            }}
+            aria-label={`Go to slide ${index + 1}: ${name}`}
+            aria-current={currentSlide === index ? 'true' : undefined}
+            className="group flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full px-1 focus-visible:outline-2 focus-visible:outline-ring md:min-h-6 md:min-w-6"
+          >
+            <span
+              className={`block h-2 rounded-full transition-all duration-300 ${
+                currentSlide === index
+                  ? 'w-6 bg-primary'
+                  : 'w-2 bg-muted-foreground/55 group-hover:bg-muted-foreground/85'
+              }`}
+            />
+          </button>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        onClick={handleNext}
+        aria-label="Next slide"
+        className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring md:h-7 md:w-7"
+      >
+        <RiArrowRightSLine className="h-5 w-5 md:h-4 md:w-4" />
+      </button>
     </div>
+  );
+}
+
+function PartnerCarousel({ theme }: { theme: 'light' | 'dark' }) {
+  const [isPaused, setIsPaused] = useState(false);
+
+  return (
+    <Carousel
+      opts={{ loop: true, align: 'center' }}
+      className="w-full select-none"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+          setIsPaused(false);
+        }
+      }}
+    >
+      <CarouselContent>
+        {footerPartners.map(({ logos, url, name }) => (
+          <CarouselItem key={url} className="flex items-center justify-center">
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={name}
+              className="flex h-24 w-full max-w-80 items-center justify-center rounded-lg px-2 py-2 transition-opacity duration-200 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:h-28"
+            >
+              <img
+                src={logos[theme]}
+                alt={name}
+                draggable={false}
+                className="max-h-full max-w-full h-auto w-auto object-contain"
+              />
+            </a>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <PartnerCarouselControls isPaused={isPaused} />
+    </Carousel>
   );
 }
 
@@ -325,36 +417,9 @@ export default function Footer() {
             className="absolute size-full inset-0 rounded-xl"
           />
         </div>
-        <Card className={'bg-background min-w-fit justify-center'}>
-          <CardContent className="flex flex-col items-center gap-4">
-            <Carousel opts={{ loop: true }} className="w-full">
-              <CarouselContent>
-                {footerPartners.map(({ logos, url, name }) => (
-                  <CarouselItem
-                    key={url}
-                    className="flex items-center justify-center"
-                  >
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={name}
-                    >
-                      <img
-                        srcSet={logos[actualTheme]}
-                        src={logos[actualTheme]}
-                        alt={name}
-                        key={logos[actualTheme]}
-                        className={
-                          'h-20 m-5 sm:h-24 sm:m-6 lg:h-32 lg:m-8 object-contain'
-                        }
-                      />
-                    </a>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <PartnerCarouselControls />
-            </Carousel>
+        <Card className="bg-background w-full min-w-0 justify-center">
+          <CardContent className="flex w-full flex-col items-center justify-center px-4 sm:px-6">
+            <PartnerCarousel theme={actualTheme} />
           </CardContent>
         </Card>
       </section>
