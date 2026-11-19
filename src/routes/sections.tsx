@@ -61,7 +61,6 @@ function Sections() {
             {sections.map((section) => {
               const Icon = section.icon;
 
-
               return (
                 <Link
                   to={`/sections/${section.path}`}
