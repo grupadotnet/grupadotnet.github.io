@@ -104,6 +104,30 @@ const logoAssets: LogoAsset[] = [
     aspectRatio: '3.4:1 (Horyzontalny)',
     format: 'SVG (Wektor)',
   },
+  {
+    id: 'vertical-dark',
+    name: 'Logotyp Wertykalny (Wersja ciemna)',
+    category: 'Logotyp wertykalny',
+    description:
+      'Pionowy układ znaku z sygnetem nad typografią w kolorze grafitowym (#1D1D1B). Idealny na plakaty, roll-upy, okładki oraz materiały o węższym formacie na jasnych tłach.',
+    path: '/svg/KNPIMI/Logo_KNPiMI_with_text_vertical.svg',
+    filename: 'Logo_KNPiMI_with_text_vertical.svg',
+    previewBg: 'light',
+    aspectRatio: '1.4:1 (Wertykalny)',
+    format: 'SVG (Wektor)',
+  },
+  {
+    id: 'vertical-white',
+    name: 'Logotyp Wertykalny (Wersja biała)',
+    category: 'Logotyp wertykalny (Inwersja)',
+    description:
+      'Pionowy układ znaku z sygnetem i białą typografią (#FFFFFF). Dedykowany do ciemnych plakatów, grafik w mediach społecznościowych oraz prezentacji.',
+    path: '/svg/KNPIMI/Logo_KNPiMI_white_with_text_vertical.svg',
+    filename: 'Logo_KNPiMI_white_with_text_vertical.svg',
+    previewBg: 'dark',
+    aspectRatio: '1.4:1 (Wertykalny)',
+    format: 'SVG (Wektor)',
+  },
 ];
 
 interface ColorDef {
