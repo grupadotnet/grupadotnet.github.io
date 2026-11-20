@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +16,6 @@ import {
 
 import { extractTranslation } from '@/lib/extractTranslation.tsx';
 import { sections } from '@/lib/sections.ts';
-import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
 import {
   buildCalendarTargets,
   useCalendarLinks,
@@ -165,6 +164,12 @@ const fetchCalendarEvents = async (): Promise<EventType[]> => {
   }));
 };
 
+const SCHEDULE_SCROLL_AREA_CLASS =
+  '@container w-[92%] md:w-[94%] lg:w-[92%] max-w-[100rem] rounded-xl';
+const SCHEDULE_TRACK_CLASS = 'mx-auto flex w-max gap-4 pb-4';
+const SCHEDULE_CARD_WRAPPER_CLASS =
+  'shrink-0 w-[calc(100cqw-1.5rem)] sm:w-[min(24rem,calc(100cqw-1.5rem))] md:w-[calc((100cqw-1rem)/2)] lg:w-[calc((100cqw-2rem)/2.5)] xl:w-[calc((100cqw-2rem)/3)] 2xl:w-[calc((100cqw-3rem)/4)]';
+
 function Schedule() {
   const { t } = useTranslation();
 
@@ -174,10 +179,10 @@ function Schedule() {
         <RiCalendar2Line className="mr-2 h-4 w-4" />
         {t('Schedule.badge', 'Harmonogram spotkań')}
       </Badge>
-      <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+      <h2 className="px-4 text-center text-3xl font-bold tracking-tight md:text-4xl">
         {t('Schedule.title', 'Kiedy się spotykamy?')}
       </h2>
-      <p className="max-w-2xl text-lg text-muted-foreground text-balance text-center">
+      <p className="max-w-2xl px-4 text-lg text-muted-foreground text-balance text-center">
         {t(
           'Schedule.paragraph',
           'Lista zaplanowanych spotkań na kolejny miesiąc'
@@ -200,7 +205,6 @@ function LoadedCarousel() {
     queryFn: fetchCalendarEvents,
     staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes (won't refetch on tab switch)
   });
-  const { isMobile } = useScrollAndWidth(useRef(null), '');
   const [preferredApp, setPreferredApp] = usePreferredCalendarApp();
   const [dialogState, setDialogState] = useState<DialogState>(null);
 
@@ -210,7 +214,7 @@ function LoadedCarousel() {
 
   // 3. Show Skeleton if fetching
   if (isLoading) {
-    return <GhostCarousel isMobile={isMobile} />;
+    return <GhostCarousel />;
   }
 
   // 4. Show Empty State if no events
@@ -257,8 +261,8 @@ function LoadedCarousel() {
         </div>
       )}
 
-      <ScrollArea className={`${isMobile ? 'w-9/11' : 'w-2/3'} rounded-xl`}>
-        <div className="flex w-max space-x-4 pb-4">
+      <ScrollArea className={SCHEDULE_SCROLL_AREA_CLASS}>
+        <div className={SCHEDULE_TRACK_CLASS}>
           {sortedEvents.map((event) => {
             const matchedSection = sections.find((section) =>
               event.calendarName
@@ -270,7 +274,6 @@ function LoadedCarousel() {
                 key={`${event.id}-${event.calendarName}-${event.start.getTime()}`}
                 event={event}
                 matchedSection={matchedSection}
-                isMobile={isMobile}
                 preferredApp={preferredApp}
                 onRequestAppChoice={(mode) =>
                   setDialogState({ type: 'action', event, mode })
@@ -292,6 +295,9 @@ function LoadedCarousel() {
   );
 }
 
+const scheduleActionButtonClassName =
+  'grow h-auto min-h-9 py-1.5 whitespace-normal text-center leading-tight';
+
 function renderCalendarActionButton({
   label,
   href,
@@ -307,6 +313,7 @@ function renderCalendarActionButton({
     return (
       <Button
         variant="default"
+        className={scheduleActionButtonClassName}
         nativeButton={false}
         render={
           <a
@@ -322,7 +329,12 @@ function renderCalendarActionButton({
   }
 
   return (
-    <Button type="button" variant="default" onClick={onClick}>
+    <Button
+      type="button"
+      variant="default"
+      className={scheduleActionButtonClassName}
+      onClick={onClick}
+    >
       {label}
     </Button>
   );
@@ -331,13 +343,11 @@ function renderCalendarActionButton({
 function EventCarouselItem({
   event,
   matchedSection,
-  isMobile,
   preferredApp,
   onRequestAppChoice,
 }: {
   event: EventType;
   matchedSection: (typeof sections)[0] | undefined;
-  isMobile: boolean;
   preferredApp: CalendarApp | null;
   onRequestAppChoice: (mode: ActionMode) => void;
 }) {
@@ -377,13 +387,7 @@ function EventCarouselItem({
     : undefined;
 
   return (
-    <div
-      className={
-        isMobile
-          ? 'w-[calc(8/11*100dvw)] min-w-fit'
-          : 'min-w-25dvw max-w-50dvw w-fit'
-      }
-    >
+    <div className={SCHEDULE_CARD_WRAPPER_CLASS}>
       <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
         {matchedSection && (
           <Badge
@@ -406,14 +410,8 @@ function EventCarouselItem({
             <p>{dateLabel}</p>
           </div>
         </CardContent>
-        <CardFooter
-          className={
-            isMobile
-              ? 'flex justify-between *:mx-0.5'
-              : 'flex justify-between *:mx-2 *:grow'
-          }
-        >
-          <ButtonGroup>
+        <CardFooter className="flex justify-between">
+          <ButtonGroup className="w-full">
             {renderCalendarActionButton({
               label: t('Schedule.joinEvent', 'Wbijam!!'),
               href: singularHref,
@@ -968,21 +966,13 @@ function PreferenceDialogBody({
 }
 
 // 6. The Skeleton Component using Shadcn <Skeleton />
-function GhostCarousel(props: { isMobile: boolean }) {
-  const isMobile = props.isMobile;
+function GhostCarousel() {
   return (
-    <ScrollArea className={`${isMobile ? 'w-9/11' : 'w-2/3'} rounded-xl`}>
-      <div className="flex w-max space-x-4 pb-4">
+    <ScrollArea className={SCHEDULE_SCROLL_AREA_CLASS}>
+      <div className={SCHEDULE_TRACK_CLASS}>
         {/* Render 4 dummy skeleton cards so the scroll area looks full */}
-        {Array.from({ length: isMobile ? 1 : 4 }).map((_, index) => (
-          <div
-            key={index}
-            className={
-              isMobile
-                ? 'w-[calc(8/11*100dvw)] min-w-fit'
-                : 'min-w-25dvw max-w-50dvw w-fit'
-            }
-          >
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div key={index} className={SCHEDULE_CARD_WRAPPER_CLASS}>
             <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
               {/* Badge skeleton */}
               <Skeleton className="h-5 w-24 rounded-4xl mx-7" />
@@ -1002,18 +992,12 @@ function GhostCarousel(props: { isMobile: boolean }) {
                   <Skeleton className="h-4 w-44" />
                 </div>
               </CardContent>
-              <CardFooter
-                className={
-                  isMobile
-                    ? 'flex justify-between *:mx-0.5'
-                    : 'flex justify-between *:mx-2 *:grow'
-                }
-              >
-                <ButtonGroup>
+              <CardFooter className="flex justify-between">
+                <ButtonGroup className="w-full">
                   {/* Singular link button skeleton */}
-                  <Skeleton className="h-9 w-20 rounded-4xl border border-transparent bg-clip-padding" />
+                  <Skeleton className="h-9 flex-1 rounded-4xl border border-transparent bg-clip-padding" />
                   {/* Entire link button skeleton */}
-                  <Skeleton className="h-9 w-48 rounded-4xl border border-transparent bg-clip-padding" />
+                  <Skeleton className="h-9 flex-[2] rounded-4xl border border-transparent bg-clip-padding" />
                 </ButtonGroup>
               </CardFooter>
             </Card>

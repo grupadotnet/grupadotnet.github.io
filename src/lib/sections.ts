@@ -4,8 +4,23 @@ import {
   RiShieldCheckLine,
 } from '@remixicon/react';
 import { extractTranslation } from './extractTranslation.tsx';
+import type { FileRouteTypes } from '@/routeTree.gen';
 
-export const sections = [
+export type SectionPath = FileRouteTypes['to'] extends infer T
+  ? T extends `/sections/${infer P}`
+    ? P
+    : never
+  : never;
+
+export interface Section {
+  title: string;
+  path: SectionPath;
+  icon: typeof RiCodeBoxLine;
+  description: ReturnType<typeof extractTranslation>;
+  id: number;
+}
+
+export const sections: Section[] = [
   {
     // i18next-instrument-ignore-next-line
     title: 'WebDev',

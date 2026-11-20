@@ -16,7 +16,9 @@ import { Route as IdentityRouteImport } from './routes/identity'
 import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as SectionsRouteImport } from './routes/sections'
 import { Route as Identity2026RouteImport } from './routes/identity/2026'
-import { Route as SectionsWebdevRouteImport } from './routes/sections/Webdev'
+import { Route as SectionsCybersecRouteImport } from './routes/sections/cybersec'
+import { Route as SectionsDataChar38aiRouteImport } from './routes/sections/data&ai'
+import { Route as SectionsWebdevRouteImport } from './routes/sections/webdev'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -53,9 +55,19 @@ const Identity2026Route = Identity2026RouteImport.update({
   path: '/2026',
   getParentRoute: () => IdentityRoute,
 } as any)
+const SectionsCybersecRoute = SectionsCybersecRouteImport.update({
+  id: '/cybersec',
+  path: '/cybersec',
+  getParentRoute: () => SectionsRoute,
+} as any)
+const SectionsDataChar38aiRoute = SectionsDataChar38aiRouteImport.update({
+  id: '/data&ai',
+  path: '/data&ai',
+  getParentRoute: () => SectionsRoute,
+} as any)
 const SectionsWebdevRoute = SectionsWebdevRouteImport.update({
-  id: '/Webdev',
-  path: '/Webdev',
+  id: '/webdev',
+  path: '/webdev',
   getParentRoute: () => SectionsRoute,
 } as any)
 
@@ -67,7 +79,9 @@ export interface FileRoutesByFullPath {
   '/schedule': typeof ScheduleRoute
   '/sections': typeof SectionsRouteWithChildren
   '/identity/2026': typeof Identity2026Route
-  '/sections/Webdev': typeof SectionsWebdevRoute
+  '/sections/cybersec': typeof SectionsCybersecRoute
+  '/sections/data&ai': typeof SectionsDataChar38aiRoute
+  '/sections/webdev': typeof SectionsWebdevRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -77,7 +91,9 @@ export interface FileRoutesByTo {
   '/schedule': typeof ScheduleRoute
   '/sections': typeof SectionsRouteWithChildren
   '/identity/2026': typeof Identity2026Route
-  '/sections/Webdev': typeof SectionsWebdevRoute
+  '/sections/cybersec': typeof SectionsCybersecRoute
+  '/sections/data&ai': typeof SectionsDataChar38aiRoute
+  '/sections/webdev': typeof SectionsWebdevRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -88,7 +104,9 @@ export interface FileRoutesById {
   '/schedule': typeof ScheduleRoute
   '/sections': typeof SectionsRouteWithChildren
   '/identity/2026': typeof Identity2026Route
-  '/sections/Webdev': typeof SectionsWebdevRoute
+  '/sections/cybersec': typeof SectionsCybersecRoute
+  '/sections/data&ai': typeof SectionsDataChar38aiRoute
+  '/sections/webdev': typeof SectionsWebdevRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -100,7 +118,9 @@ export interface FileRouteTypes {
     | '/schedule'
     | '/sections'
     | '/identity/2026'
-    | '/sections/Webdev'
+    | '/sections/cybersec'
+    | '/sections/data&ai'
+    | '/sections/webdev'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -110,7 +130,9 @@ export interface FileRouteTypes {
     | '/schedule'
     | '/sections'
     | '/identity/2026'
-    | '/sections/Webdev'
+    | '/sections/cybersec'
+    | '/sections/data&ai'
+    | '/sections/webdev'
   id:
     | '__root__'
     | '/'
@@ -120,7 +142,9 @@ export interface FileRouteTypes {
     | '/schedule'
     | '/sections'
     | '/identity/2026'
-    | '/sections/Webdev'
+    | '/sections/cybersec'
+    | '/sections/data&ai'
+    | '/sections/webdev'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -183,10 +207,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Identity2026RouteImport
       parentRoute: typeof IdentityRoute
     }
-    '/sections/Webdev': {
-      id: '/sections/Webdev'
-      path: '/Webdev'
-      fullPath: '/sections/Webdev'
+    '/sections/cybersec': {
+      id: '/sections/cybersec'
+      path: '/cybersec'
+      fullPath: '/sections/cybersec'
+      preLoaderRoute: typeof SectionsCybersecRouteImport
+      parentRoute: typeof SectionsRoute
+    }
+    '/sections/data&ai': {
+      id: '/sections/data&ai'
+      path: '/data&ai'
+      fullPath: '/sections/data&ai'
+      preLoaderRoute: typeof SectionsDataChar38aiRouteImport
+      parentRoute: typeof SectionsRoute
+    }
+    '/sections/webdev': {
+      id: '/sections/webdev'
+      path: '/webdev'
+      fullPath: '/sections/webdev'
       preLoaderRoute: typeof SectionsWebdevRouteImport
       parentRoute: typeof SectionsRoute
     }
@@ -206,10 +244,14 @@ const IdentityRouteWithChildren = IdentityRoute._addFileChildren(
 )
 
 interface SectionsRouteChildren {
+  SectionsCybersecRoute: typeof SectionsCybersecRoute
+  SectionsDataChar38aiRoute: typeof SectionsDataChar38aiRoute
   SectionsWebdevRoute: typeof SectionsWebdevRoute
 }
 
 const SectionsRouteChildren: SectionsRouteChildren = {
+  SectionsCybersecRoute: SectionsCybersecRoute,
+  SectionsDataChar38aiRoute: SectionsDataChar38aiRoute,
   SectionsWebdevRoute: SectionsWebdevRoute,
 }
 

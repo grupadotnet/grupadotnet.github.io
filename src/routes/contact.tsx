@@ -158,7 +158,7 @@ function Contact() {
                   <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#5865F2]/15 text-[#5865F2]">
                     <RiDiscordFill className="h-6 w-6" />
                   </div>
-                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-medium text-emerald-950">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-medium text-emerald-950 dark:text-emerald-300">
                     <span className="relative flex h-2 w-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
