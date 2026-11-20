@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="Logo"
+   viewBox="0 0 731.96582 526.18852"
+   version="1.1"
+   width="731.96582"
+   height="526.18854"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3">
+    <style
+       id="style1">
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #1d1d1b;
+      }
+
+      .cls-3 {
+        fill: url(#Gradient_bez_nazwy_28);
+      }
+    </style>
+    <linearGradient
+       id="Gradient_bez_nazwy_28"
+       x1="101.11"
+       y1="324.59"
+       x2="313.89001"
+       y2="111.81"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#2e64ae"
+         id="stop1" />
+      <stop
+         offset=".92"
+         stop-color="#9965a7"
+         id="stop2" />
+      <stop
+         offset="1"
+         stop-color="#9f64a6"
+         id="stop3" />
+    </linearGradient>
+    <rect
+       x="429.47815"
+       y="102.10824"
+       width="1061.9167"
+       height="404.22113"
+       id="rect52-8" />
+    <linearGradient
+       xlink:href="#Gradient_bez_nazwy_28"
+       id="linearGradient13"
+       gradientUnits="userSpaceOnUse"
+       x1="568.47559"
+       y1="381.23447"
+       x2="726.98444"
+       y2="146.23566"
+       spreadMethod="pad" />
+    <linearGradient
+       xlink:href="#Gradient_bez_nazwy_28"
+       id="linearGradient38"
+       gradientUnits="userSpaceOnUse"
+       x1="642.78369"
+       y1="405.37866"
+       x2="652.67633"
+       y2="122.09136"
+       spreadMethod="pad" />
+    <linearGradient
+       xlink:href="#Gradient_bez_nazwy_28"
+       id="linearGradient2"
+       gradientUnits="userSpaceOnUse"
+       x1="568.47559"
+       y1="381.23447"
+       x2="726.98444"
+       y2="146.23566"
+       spreadMethod="pad" />
+    <linearGradient
+       xlink:href="#Gradient_bez_nazwy_28"
+       id="linearGradient3"
+       gradientUnits="userSpaceOnUse"
+       x1="568.47559"
+       y1="381.23447"
+       x2="726.98444"
+       y2="146.23566"
+       spreadMethod="pad" />
+    <linearGradient
+       xlink:href="#Gradient_bez_nazwy_28"
+       id="linearGradient4"
+       gradientUnits="userSpaceOnUse"
+       x1="568.47559"
+       y1="381.23447"
+       x2="726.98444"
+       y2="146.23566"
+       spreadMethod="pad" />
+    <linearGradient
+       xlink:href="#Gradient_bez_nazwy_28"
+       id="linearGradient5"
+       gradientUnits="userSpaceOnUse"
+       x1="568.47559"
+       y1="381.23447"
+       x2="726.98444"
+       y2="146.23566"
+       spreadMethod="pad" />
+    <linearGradient
+       xlink:href="#Gradient_bez_nazwy_28"
+       id="linearGradient6"
+       gradientUnits="userSpaceOnUse"
+       x1="568.47559"
+       y1="381.23447"
+       x2="726.98444"
+       y2="146.23566"
+       spreadMethod="pad" />
+    <linearGradient
+       xlink:href="#Gradient_bez_nazwy_28"
+       id="linearGradient7"
+       gradientUnits="userSpaceOnUse"
+       x1="568.47559"
+       y1="381.23447"
+       x2="726.98444"
+       y2="146.23566"
+       spreadMethod="pad" />
+    <linearGradient
+       xlink:href="#Gradient_bez_nazwy_28"
+       id="linearGradient8"
+       gradientUnits="userSpaceOnUse"
+       x1="568.47559"
+       y1="381.23447"
+       x2="726.98444"
+       y2="146.23566"
+       spreadMethod="pad" />
+    <linearGradient
+       xlink:href="#Gradient_bez_nazwy_28"
+       id="linearGradient9"
+       gradientUnits="userSpaceOnUse"
+       x1="568.47559"
+       y1="381.23447"
+       x2="726.98444"
+       y2="146.23566"
+       spreadMethod="pad" />
+  </defs>
+  <g
+     id="g6"
+     transform="matrix(0.9983772,0,0,0.99834198,-280.69597,-121.79772)"
+     style="fill:url(#linearGradient13);fill-rule:nonzero">
+    <path
+       class="cls-1"
+       d="m 624.4,213.9 c -1.61,-1.61 -4.22,-1.61 -5.82,0 l -14.39,14.39 c -1.61,1.61 -1.61,4.22 0,5.82 l 14.39,14.39 c 1.61,1.61 4.22,1.61 5.82,0 1.61,-1.61 1.61,-4.22 0,-5.82 L 612.91,231.2 624.4,219.71 c 1.61,-1.61 1.61,-4.22 0,-5.82 z"
+       id="path1"
+       style="fill:url(#linearGradient2);fill-rule:nonzero" />
+    <polygon
+       class="cls-1"
+       points="228.69,163.14 228.68,163.15 "
+       id="polygon1"
+       style="fill:url(#linearGradient3);fill-rule:nonzero"
+       transform="translate(435.13,50.76)" />
+    <path
+       class="cls-1"
+       d="m 653.46,198.47 c -2.18,-0.63 -4.46,0.64 -5.09,2.83 l -16.45,57.57 c -0.63,2.18 0.64,4.46 2.83,5.09 2.19,0.63 4.46,-0.64 5.09,-2.83 l 16.45,-57.57 c 0.63,-2.18 -0.64,-4.46 -2.83,-5.09 z"
+       id="path2"
+       style="fill:url(#linearGradient4);fill-rule:nonzero" />
+    <path
+       class="cls-1"
+       d="m 725.73,366.32 c -9.6,0 -17.41,7.81 -17.41,17.41 0,2.29 1.86,4.14 4.14,4.14 h 33.15 c 2.29,0 4.14,-1.86 4.14,-4.14 0,-9.6 -7.81,-17.41 -17.41,-17.41 h -6.63 z m 14.75,13.26 h -22.87 c 1.51,-2.95 4.58,-4.97 8.12,-4.97 h 6.63 c 3.54,0 6.61,2.02 8.12,4.97 z"
+       id="path3"
+       style="fill:url(#linearGradient5);fill-rule:nonzero" />
+    <path
+       class="cls-1"
+       d="m 725.13,356.87 c 0.75,-1.24 0.8,-2.78 0.13,-4.06 l -8.19,-15.75 c -0.71,-1.37 -2.13,-2.23 -3.68,-2.23 H 575.6 c -1.55,0 -2.96,0.86 -3.68,2.23 l -8.19,15.75 c -0.67,1.28 -0.62,2.82 0.13,4.06 0.75,1.24 2.09,1.99 3.54,1.99 h 154.17 c 1.45,0 2.79,-0.76 3.54,-1.99 z m -150.89,-6.3 3.88,-7.46 h 132.76 l 3.88,7.46 z"
+       id="path4"
+       style="fill:url(#linearGradient6);fill-rule:nonzero" />
+    <path
+       class="cls-1"
+       d="M 725.24,172.37 H 563.76 c -8.5,0 -15.41,6.91 -15.41,15.41 v 106.78 c 0,8.5 6.91,15.41 15.41,15.41 h 57.9 l -1.53,14.48 c -0.12,1.17 0.25,2.33 1.04,3.21 0.79,0.87 1.91,1.37 3.08,1.37 h 43.82 c 1.17,0 2.3,-0.5 3.08,-1.37 0.79,-0.87 1.16,-2.04 1.04,-3.21 l -1.53,-14.48 h 54.59 c 8.5,0 15.41,-6.91 15.41,-15.41 V 187.78 c 0,-8.5 -6.91,-15.41 -15.41,-15.41 z m -96.39,148.37 1.14,-10.78 h 32.33 l 1.14,10.78 z m 103.51,-26.18 c 0,3.93 -3.19,7.12 -7.12,7.12 H 563.76 c -3.93,0 -7.12,-3.19 -7.12,-7.12 v -4.49 h 175.72 z m 0,-12.77 H 556.64 v -94 c 0,-3.93 3.19,-7.12 7.12,-7.12 h 161.48 c 3.93,0 7.12,3.19 7.12,7.12 z"
+       id="path5"
+       style="fill:url(#linearGradient7);fill-rule:nonzero" />
+    <path
+       class="cls-1"
+       d="m 669.63,213.91 c -1.6,-1.6 -4.21,-1.61 -5.81,0 -1.6,1.61 -1.6,4.21 0,5.81 l 11.48,11.49 -11.49,11.49 c -1.61,1.61 -1.61,4.22 0,5.82 1.61,1.61 4.22,1.61 5.82,0 l 14.39,-14.39 c 1.61,-1.61 1.61,-4.22 0,-5.82 l -14.39,-14.39 z"
+       id="path6"
+       style="fill:url(#linearGradient8);fill-rule:nonzero" />
+    <path
+       class="cls-1"
+       d="m 789.46,122 h -56.69 v 28.34 H 676.06 V 122 h -56.68 v 28.34 H 562.69 V 122 H 506 v 283.47 h 283.46 z m -7.05,7.14 v 141.65 c 0,0 -0.01,127.59 -0.01,127.59 H 513.05 V 129.09 l 42.53,0.05 v -0.05 c 0,0 0,28.3 0,28.3 h 70.88 v -28.25 h 42.53 v 28.25 h 70.88 v -28.25 z"
+       id="path7"
+       style="fill:url(#linearGradient9);fill-rule:nonzero" />
+  </g>
+  <text
+     xml:space="preserve"
+     id="text52"
+     style="font-size:52.6052px;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect52-8);shape-padding:0.606391;display:inline;fill:url(#linearGradient38);fill-opacity:1;fill-rule:nonzero"
+     transform="matrix(1.0278732,0,0,1,-607.3545,226.80453)"
+     x="582.49951"
+     y="0"><tspan
+       x="753.41075"
+       y="150.57706"
+       id="tspan2"><tspan
+         style="font-weight:bold;font-family:Poppins;-inkscape-font-specification:'Poppins, Bold'"
+         id="tspan1">Koło Naukowe
+</tspan></tspan><tspan
+       x="590.88465"
+       y="218.16818"
+       id="tspan8"><tspan
+         style="font-weight:bold;font-family:Poppins;-inkscape-font-specification:'Poppins, Bold'"
+         id="tspan6"> </tspan><tspan
+         style="font-weight:500;font-family:Poppins;-inkscape-font-specification:'Poppins, Medium'"
+         id="tspan7">Programistów i Miłośników
+</tspan></tspan><tspan
+       x="809.03869"
+       y="285.75931"
+       id="tspan10"><tspan
+         style="font-weight:500;font-family:Poppins;-inkscape-font-specification:'Poppins, Medium'"
+         id="tspan9">Informatyki</tspan></tspan></text>
+</svg>
