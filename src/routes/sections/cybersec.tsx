@@ -2,16 +2,16 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import { extractTranslation } from '@/lib/extractTranslation.tsx';
 
-export const Route = createFileRoute('/sections/Webdev')({
-  component: Webdev,
+export const Route = createFileRoute('/sections/cybersec')({
+  component: Cybersec,
   staticData: {
-    titleData: extractTranslation('Pages.Webdev.navbarTitle', 'Webdev'),
+    titleData: extractTranslation('Cybersec.navbarTitle', 'CyberSec'),
     hideInNav: true,
     order: -1,
   },
 });
 
-function Webdev() {
+function Cybersec() {
   // Call the hook with parentheses to properly initialize it
   const { t } = useTranslation();
 

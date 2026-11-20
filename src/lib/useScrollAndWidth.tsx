@@ -6,49 +6,48 @@ export function useScrollAndWidth(
   mobileBreakpoint = 768,
   fallbackThreshold = 50
 ) {
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth < mobileBreakpoint;
-    }
-    return false;
-  });
-
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [state, setState] = useState(() => ({
+    isMobile:
+      typeof window !== 'undefined'
+        ? window.innerWidth < mobileBreakpoint
+        : false,
+    isScrolled: false,
+  }));
 
   useEffect(() => {
-    const checkOverlap = () => {
+    const updateScrollAndWidth = () => {
+      const nextIsMobile = window.innerWidth < mobileBreakpoint;
       const header = headerRef.current;
-      if (!header) return;
 
-      const target = document.getElementById(targetId);
-
-      // If we are on a different page and the element doesn't exist, fallback to a standard scroll check
-      if (!target) {
-        setIsScrolled(window.scrollY > fallbackThreshold);
-        return;
+      let nextIsScrolled = false;
+      if (header) {
+        const target = document.getElementById(targetId);
+        if (!target) {
+          nextIsScrolled = window.scrollY > fallbackThreshold;
+        } else {
+          const headerRect = header.getBoundingClientRect();
+          const targetRect = target.getBoundingClientRect();
+          nextIsScrolled = targetRect.top <= headerRect.bottom;
+        }
       }
 
-      const headerRect = header.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
-
-      setIsScrolled(targetRect.top <= headerRect.bottom);
+      setState((prev) =>
+        prev.isMobile === nextIsMobile && prev.isScrolled === nextIsScrolled
+          ? prev
+          : { isMobile: nextIsMobile, isScrolled: nextIsScrolled }
+      );
     };
 
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < mobileBreakpoint);
-      checkOverlap();
-    };
+    updateScrollAndWidth();
 
-    checkOverlap();
-
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', checkOverlap, { passive: true });
+    window.addEventListener('resize', updateScrollAndWidth);
+    window.addEventListener('scroll', updateScrollAndWidth, { passive: true });
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', checkOverlap);
+      window.removeEventListener('resize', updateScrollAndWidth);
+      window.removeEventListener('scroll', updateScrollAndWidth);
     };
   }, [headerRef, targetId, mobileBreakpoint, fallbackThreshold]);
 
-  return { isMobile, isScrolled } as const;
+  return state;
 }

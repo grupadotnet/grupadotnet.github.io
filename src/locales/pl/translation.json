@@ -1,57 +1,128 @@
 {
   "About": {
-    "paragraph": "<0>Koło naukowe programistów i miłośników informatyki działa przy Wydziale Mechanicznym Politechniki Krakowskiej. Zrzesza studentów zainteresowanych szeroko rozumianym programowaniem. Organizujemy cotygodniowe zajęcia programowania z <2>zakresu tworzenia aplikacji internetowych, uczenia maszynowego i analizy danych, cyberbezpieczeństwa oraz programowania niskopoziomowego</2>. Zajmujemy się również projektami, które pozwalają uczestnikom na rozwój umiejętności programistycznych.</0>"
+    "badge": "Kim jesteśmy",
+    "paragraph": "<0>Koło Naukowe Programistów i Miłośników Informatyki działa przy Wydziale Mechanicznym Politechniki Krakowskiej. Zrzesza studentów zainteresowanych szeroko rozumianym programowaniem. Organizujemy cotygodniowe zajęcia programowania z <2>zakresu tworzenia aplikacji internetowych, uczenia maszynowego i analizy danych, cyberbezpieczeństwa oraz programowania niskopoziomowego</2>. Zajmujemy się również projektami, które pozwalają uczestnikom na rozwój umiejętności programistycznych.</0>",
+    "title": "O NAS"
+  },
+  "Contact": {
+    "badge": "Bądźmy w kontakcie",
+    "discord": {
+      "description": "Serce naszego koła naukowego. Wpadnij porozmawiać o projektach, zadać pytania starszym studentom i być na bieżąco z życiem sekcji.",
+      "online": "Online",
+      "title": "Społeczność Discord"
+    },
+    "email": {
+      "badge": "Zapytania biznesowe",
+      "copied": "Skopiowano",
+      "copy": "Kopiuj adres",
+      "description": "Kanał bezpośredni do spraw oficjalnych, propozycji współpracy, patronatów oraz zapytań biznesowych.",
+      "title": "Napisz do nas e-mail"
+    },
+    "facebook": {
+      "badge": "Strona oficjalna",
+      "description": "Aktualności, relacje z wydarzeń oraz szybki kontakt przez wiadomość prywatną."
+    },
+    "linkedin": {
+      "badge": "Profil oficjalny",
+      "description": "Poznaj nasze osiągnięcia naukowe, zrealizowane projekty oraz relacje z konferencji i hackathonów."
+    },
+    "mastodon": {
+      "description": "Śledź nasze mikroblogowe wpisy w zdecentralizowanej sieci społecznościowej Fediverse."
+    },
+    "matrix": {
+      "badge": "Szyfrowany / Open Source",
+      "description": "Bezpieczny, zdecentralizowany czat oparty o otwarty protokół."
+    },
+    "paragraph": "Wybierz najwygodniejszy kanał komunikacji i skontaktuj się z nami bezpośrednio lub dołącz do naszej społeczności.",
+    "title": "Gdzie nas znajdziesz?"
   },
   "Footer": {
     "copyright": "© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na Politechnice Krakowskiej",
-    "social": {
-      "title": "Znajdziesz nas też na"
-    }
+    "socialTitle": "Znajdziesz nas też na"
   },
   "Header": {
     "dark": "Ciemny",
     "light": "Jasny",
-    "logo": {
-      "alt": "KNPiMI Logo"
-    },
+    "logoAlt": "KNPiMI Logo",
     "system": "Systemowy",
     "theme": "MOTYW"
   },
   "Hello": {
-    "message": {
-      "1": "Poznaj nasze Koło Naukowe!",
-      "2": "Twórz z nami super projekty!",
-      "3": "Zdobądź praktyczne doświadczenie w zespole!",
-      "4": "Rozwijaj z nami swoje pasje i umiejętności!",
-      "5": "Dołącz do nas i zacznij działać!"
-    }
+    "1": "Poznaj nasze Koło Naukowe!",
+    "2": "Twórz z nami super projekty!",
+    "3": "Zdobądź praktyczne doświadczenie pracy w zespole!",
+    "4": "Rozwijaj z nami swoje pasje i umiejętności!",
+    "5": "Dołącz do nas i zacznij działać!"
   },
   "NotFound": {
     "paragraph": "O nie!! Tej strony jeszcze nie zrobiliśmy, i najprawdoppodobniej nie zrobimy XD",
     "returnButton": "Powróć do Głównej",
     "title": "Ajć! Coś poszło nie tak!"
   },
-  "Pages": {
-    "About": {
-      "badge": "Kim jesteśmy",
-      "title": "O NAS"
-    },
-    "Schedule": {
-      "badge": "Harmonogram spotkań",
-      "notFound": {
-        "paragraph": "Nie mamy zaplanowanych żadnych spotkań, możliwe że w kolejnych dniach to się zmieni.",
-        "title": "O kurcze!!"
+  "Schedule": {
+    "badge": "Harmonogram spotkań",
+    "calendarApps": {
+      "apple": {
+        "name": "Kalendarz Apple (iPhone / Mac)",
+        "preferenceHint": "Plik .ics oraz linki webcal://",
+        "singularHint": "Pobierz plik .ics i otwórz w Apple Calendar",
+        "subscribeHint": "Subskrybuj bezpośrednio przez webcal://"
       },
-      "paragraph": "Lista zaplanowanych spotkań na kolejny miesiąc",
-      "title": "Kiedy się spotykamy?"
+      "google": {
+        "name": "Google Kalendarz",
+        "singularHint": "Otwórz w Google Calendar",
+        "subscribeHint": "Subskrybuj w Google Calendar"
+      },
+      "other": {
+        "name": "Inny kalendarz (.ics / iCal)",
+        "singularHint": "Outlook Desktop, Thunderbird, Proton, Samsung Calendar...",
+        "singularName": "Inny kalendarz (plik .ics)",
+        "subscribeHint": "Otwórz w domyślnej aplikacji (Thunderbird, Outlook Desktop...)",
+        "subscribeName": "Inny kalendarz (webcal://)"
+      },
+      "outlookLive": {
+        "name": "Outlook.com",
+        "singularHint": "Konto prywatne Microsoft (outlook.live.com)",
+        "subscribeHint": "Subskrybuj na koncie prywatnym Microsoft"
+      },
+      "outlookOffice": {
+        "name": "Outlook 365",
+        "singularHint": "Konto uczelniane lub firmowe (Microsoft 365)",
+        "subscribeHint": "Subskrybuj na koncie uczelnianym / firmowym"
+      }
     },
-    "Sections": {
-      "badge": "Ścieżki rozwoju",
-      "title": "Czym się zajmujemy?"
-    }
+    "calendarDialog": {
+      "addDescription": "Wybierz aplikację kalendarza dla spotkania „{{title}}” ({{date}}, {{time}}).",
+      "addTitle": "Dodaj do kalendarza",
+      "close": "Zamknij",
+      "copied": "Skopiowano",
+      "copy": "Kopiuj",
+      "copyFeedLabel": "Lub skopiuj adres iCal (.ics) do wklejenia ręcznie (np. Proton Calendar, Nextcloud):",
+      "rememberChoice": "Zapamiętaj mój wybór na tym urządzeniu",
+      "subscribeDescription": "Wybierz aplikację, aby automatycznie otrzymywać aktualizacje spotkań ({{calendar}}).",
+      "subscribeTitle": "Subskrybuj kalendarz spotkań"
+    },
+    "joinEvent": "Wbijam!!",
+    "notFound": {
+      "paragraph": "Nie mamy zaplanowanych żadnych spotkań, możliwe że w kolejnych dniach to się zmieni.",
+      "title": "O kurcze!!"
+    },
+    "paragraph": "Lista zaplanowanych spotkań na kolejny miesiąc",
+    "preferredApp": {
+      "askEveryTime": "Pytaj za każdym razem",
+      "askEveryTimeHint": "Pokaż listę aplikacji po każdym kliknięciu",
+      "change": "Zmień",
+      "dialogDescription": "Wybrana aplikacja zostanie użyta automatycznie przy dodawaniu i subskrybowaniu spotkań.",
+      "dialogTitle": "Wybierz domyślny kalendarz",
+      "label": "Wybrany kalendarz:"
+    },
+    "subscribeCalendar": "Przypominaj o spotkaniach!",
+    "title": "Kiedy się spotykamy?"
   },
   "Sections": {
-    "paragraph": "Wybierz obszar, który najbardziej Cię interesuje i rozwijaj swoje umiejętności pod okiem starszych studentów."
+    "badge": "Ścieżki rozwoju",
+    "paragraph": "Wybierz obszar, który najbardziej Cię interesuje i rozwijaj swoje umiejętności pod okiem starszych studentów.",
+    "title": "Czym się zajmujemy?"
   },
   "WorkInProgress": {
     "badge": "🚧 WIP",

@@ -1,73 +1,76 @@
-# React + TypeScript + Vite
+# KNPiMI — Website (`grupadotnet.github.io`)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Official website for **Koło Naukowe Programistów i Miłośników Informatyki (KNPiMI)** at the Faculty of Mechanical Engineering, Cracow University of Technology (_Wydział Mechaniczny Politechniki Krakowskiej_).
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Framework & Build:** [React 19](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Vite 8](https://vite.dev/)
+- **Routing & Data:** [TanStack Router](https://tanstack.com/router) (file-based routes in `src/routes/`) & [TanStack Query](https://tanstack.com/query)
+- **Styling & UI:** [Tailwind CSS v4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) (`base-maia` / `@base-ui/react`), [Remix Icon](https://remixicon.com/)
+- **Maps & Carousels:** [MapLibre GL](https://maplibre.org/), [Embla Carousel](https://www.embla-carousel.com/)
+- **Internationalization:** [i18next](https://www.i18next.com/) / `react-i18next` / `i18next-cli` (`pl`, `en`, `ua` configured; Polish default) + [Crowdin](https://crowdin.com/) (`crowdin.yml`)
+- **Tooling:** ESLint, Prettier, [React Doctor](https://github.com/millionco/react-doctor)
 
-## React Compiler
+## Features & Routes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **`/`** — Landing page combining the hero section, schedule, about, sections, and contact
+- **`/about`** — Overview of the club and its activities
+- **`/sections`** — Club tracks (`WebDev`, `Data&AI`, `CyberSec`) and section subpages (e.g. `/sections/Webdev`)
+- **`/schedule`** — Upcoming meetings fetched from Google Calendar (via Google Apps Script) with one-click event export and calendar subscription (Google Calendar, Apple Calendar, Outlook.com, Outlook 365, `.ics`)
+- **`/contact`** — Direct communication channels (Email, Discord, Facebook, Matrix, Mastodon, LinkedIn)
+- **`/identity/2026`** (`/identity` redirects here) — Brand & visual identity guidelines with downloadable SVG logo assets
+- **Theme & Footer** — Light/dark/system theme switcher, interactive MapLibre location map, and partner logos carousel
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- [Node.js](https://nodejs.org/) 24 (matches CI) and `npm` (a `bun.lock` is also present if you use [Bun](https://bun.sh/))
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation & Development
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+`vite.config.ts` binds the dev server with `server.host: true` and optionally reads comma-separated hostnames from `TAILSCALE_HOSTS` in `.env` for Tailscale access.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+### Available Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+| Script                 | Description                                                    |
+| ---------------------- | -------------------------------------------------------------- |
+| `npm run dev`          | Start the Vite development server                              |
+| `npm run build`        | Type-check (`tsc -b`) and build production assets into `dist/` |
+| `npm run preview`      | Preview the production build locally                           |
+| `npm run lint`         | Run ESLint across the repository                               |
+| `npm run format`       | Format files with Prettier                                     |
+| `npm run format:check` | Check formatting with Prettier                                 |
+| `npm run doctor`       | Run `react-doctor` health/lint audit                           |
+
+> During `vite build`, a custom plugin copies `dist/index.html` to `dist/404.html` so client-side routes work on GitHub Pages.
+
+## Project Structure
+
+```text
+├── .github/workflows/   # CI checks (Prettier, ESLint, React Doctor), CodeQL, GitHub Pages deploy
+├── public/              # Static assets (favicon, partner logos, KNPiMI & PK SVG brand marks)
+├── src/
+│   ├── components/      # Shared components (Header, Footer, Hello, theme-provider, ui/)
+│   ├── lib/             # Utilities, calendar link builders, section definitions, custom hooks
+│   ├── locales/         # i18n translation files (pl, en, ua)
+│   ├── routes/          # TanStack Router file-based routes
+│   ├── i18n.ts          # i18next initialization
+│   ├── index.css        # Tailwind CSS v4 & theme variables
+│   └── main.tsx         # App entry point
+├── components.json      # shadcn/ui configuration
+├── crowdin.yml          # Crowdin localization sync config
+├── i18next.config.ts    # i18next-cli extraction config
+└── vite.config.ts       # Vite, TanStack Router, Tailwind, and GitHub Pages 404 plugin config
 ```
+
+## CI/CD & Deployment
+
+- **Pull Requests (`.github/workflows/main.yml`):** Runs Prettier formatting checks, ESLint, and React Doctor on changed files.
+- **Deploy & Release (`.github/workflows/deploy.yml`):** Pushes to `main` build `dist/`, deploy to GitHub Pages, and publish a tagged GitHub Release (`v1.0.<run_number>`) with `release-build.zip`.
+- **Security (`.github/workflows/codeql.yml`):** Runs CodeQL analysis.
