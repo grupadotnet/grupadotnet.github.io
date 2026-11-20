@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    id="Logo"
-   viewBox="0 0 731.96582 526.18852"
+   viewBox="0 0 925 649.99998"
    version="1.1"
-   width="731.96582"
-   height="526.18854"
+   width="925"
+   height="650"
    sodipodi:docname="Logo_KNPiMI_with_text_vertical.svg"
    inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -22,8 +22,8 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="1.0956149"
-     inkscape:cx="371.48089"
-     inkscape:cy="219.51144"
+     inkscape:cx="439.02287"
+     inkscape:cy="275.18793"
      inkscape:window-width="1708"
      inkscape:window-height="1348"
      inkscape:window-x="1724"
@@ -210,7 +210,7 @@
   </defs>
   <g
      id="g6"
-     transform="matrix(0.9983772,0,0,0.99834198,-280.69597,-121.79772)"
+     transform="matrix(0.9983772,0,0,0.99834198,-184.17886,-50.937722)"
      style="fill:url(#linearGradient13);fill-rule:nonzero">
     <path
        class="cls-1"
@@ -219,7 +219,7 @@
        style="fill:url(#linearGradient2);fill-rule:nonzero" />
     <polygon
        class="cls-1"
-       points="228.69,163.14 228.68,163.15 "
+       points="228.68,163.15 228.69,163.14 "
        id="polygon1"
        style="fill:url(#linearGradient3);fill-rule:nonzero"
        transform="translate(435.13,50.76)" />
@@ -257,27 +257,27 @@
   <text
      xml:space="preserve"
      id="text52"
-     style="font-size:52.6052px;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect52-8);shape-padding:0.606391;display:inline;fill-rule:evenodd;stroke-width:1.00015701;stroke-dasharray:none;fill:url(#linearGradient19)"
-     transform="matrix(1.0278732,0,0,1,-607.3545,226.80453)"
+     style="font-size:52.6052px;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect52-8);shape-padding:0.606391;display:inline;fill:url(#linearGradient19);fill-rule:evenodd;stroke-width:1.00016;stroke-dasharray:none"
+     transform="matrix(1.0278732,0,0,1,-510.83739,297.66478)"
      x="582.49951"
      y="0"><tspan
        x="753.41075"
        y="150.57706"
-       id="tspan4"><tspan
+       id="tspan2"><tspan
          style="font-weight:bold;font-family:Poppins;-inkscape-font-specification:'Poppins, Bold'"
-         id="tspan3">Koło Naukowe
+         id="tspan1">Koło Naukowe
 </tspan></tspan><tspan
        x="590.88465"
        y="218.16818"
-       id="tspan12"><tspan
+       id="tspan8"><tspan
          style="font-weight:bold;font-family:Poppins;-inkscape-font-specification:'Poppins, Bold'"
-         id="tspan5"> </tspan><tspan
+         id="tspan6"> </tspan><tspan
          style="font-weight:500;font-family:Poppins;-inkscape-font-specification:'Poppins, Medium'"
-         id="tspan11">Programistów i Miłośników
+         id="tspan7">Programistów i Miłośników
 </tspan></tspan><tspan
        x="809.03869"
        y="285.75931"
-       id="tspan14"><tspan
+       id="tspan10"><tspan
          style="font-weight:500;font-family:Poppins;-inkscape-font-specification:'Poppins, Medium'"
-         id="tspan13">Informatyki</tspan></tspan></text>
+         id="tspan9">Informatyki</tspan></tspan></text>
 </svg>
