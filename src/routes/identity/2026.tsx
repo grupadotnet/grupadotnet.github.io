@@ -69,6 +69,18 @@ const logoAssets: LogoAsset[] = [
     format: 'SVG (Wektor)',
   },
   {
+    id: 'mark-black',
+    name: 'Sygnet Monochromatyczny (Ciemny)',
+    category: 'Wersja monochromatyczna',
+    description:
+      'Monochromatyczny wariant sygnetu w kolorze grafitowym (#1D1D1B). Dedykowany na jasne tła, do druku jednobarwnego, pieczątek oraz graweru.',
+    path: '/svg/KNPIMI/Logo_KNPiMI_black.svg',
+    filename: 'Logo_KNPiMI_black.svg',
+    previewBg: 'light',
+    aspectRatio: '1:1 (Kwadrat)',
+    format: 'SVG (Wektor)',
+  },
+  {
     id: 'mark-white',
     name: 'Sygnet Monochromatyczny (Biały)',
     category: 'Wersja inwersyjna',
@@ -93,6 +105,18 @@ const logoAssets: LogoAsset[] = [
     format: 'SVG (Wektor)',
   },
   {
+    id: 'full-black',
+    name: 'Logotyp Pełny (Monochromatyczny)',
+    category: 'Logotyp horyzontalny (Mono)',
+    description:
+      'Jednobarwny logotyp horyzontalny w kolorze grafitowym (#1D1D1B). Przeznaczony do druku czarno-białego, dokumentów formalnych i jasnych materiałów bez gradientu.',
+    path: '/svg/KNPIMI/Logo_KNPiMI_black_with_text.svg',
+    filename: 'Logo_KNPiMI_black_with_text.svg',
+    previewBg: 'light',
+    aspectRatio: '3.4:1 (Horyzontalny)',
+    format: 'SVG (Wektor)',
+  },
+  {
     id: 'full-white',
     name: 'Logotyp Pełny (Wersja biała)',
     category: 'Logotyp horyzontalny (Inwersja)',
@@ -112,6 +136,18 @@ const logoAssets: LogoAsset[] = [
       'Pionowy układ znaku z sygnetem nad typografią w kolorze grafitowym (#1D1D1B). Idealny na plakaty, roll-upy, okładki oraz materiały o węższym formacie na jasnych tłach.',
     path: '/svg/KNPIMI/Logo_KNPiMI_with_text_vertical.svg',
     filename: 'Logo_KNPiMI_with_text_vertical.svg',
+    previewBg: 'light',
+    aspectRatio: '1.4:1 (Wertykalny)',
+    format: 'SVG (Wektor)',
+  },
+  {
+    id: 'vertical-black',
+    name: 'Logotyp Wertykalny (Monochromatyczny)',
+    category: 'Logotyp wertykalny (Mono)',
+    description:
+      'Jednobarwny pionowy układ znaku w kolorze grafitowym (#1D1D1B). Przeznaczony do druku monochromatycznego, certyfikatów oraz jasnych materiałów bez gradientu.',
+    path: '/svg/KNPIMI/Logo_KNPiMI_black_with_text_vertical.svg',
+    filename: 'Logo_KNPiMI_black_with_text_vertical.svg',
     previewBg: 'light',
     aspectRatio: '1.4:1 (Wertykalny)',
     format: 'SVG (Wektor)',
@@ -320,9 +356,11 @@ function LogoAssetCard({
         </div>
 
         <div className="flex flex-wrap items-center justify-between text-xs text-muted-foreground gap-2 pt-1">
-          <div className="flex items-center gap-1.5 font-mono">
-            <span className="font-semibold text-foreground">Plik:</span>
-            <span>{asset.filename}</span>
+          <div className="flex items-center gap-1.5 font-mono min-w-0">
+            <span className="font-semibold text-foreground shrink-0">
+              Plik:
+            </span>
+            <span className="break-all">{asset.filename}</span>
           </div>
           <div className="flex items-center gap-1.5 font-mono">
             <span className="font-semibold text-foreground">Proporcje:</span>
@@ -415,7 +453,7 @@ function LogoAssetsSection({ copiedKey, onCopy }: CopyHandlerProps) {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {logoAssets.map((asset) => (
             <LogoAssetCard
               key={asset.id}
