@@ -5,11 +5,69 @@
    version="1.1"
    width="731.96582"
    height="526.18854"
+   sodipodi:docname="Logo_KNPiMI_with_text_vertical.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.0956149"
+     inkscape:cx="371.48089"
+     inkscape:cy="219.51144"
+     inkscape:window-width="1708"
+     inkscape:window-height="1348"
+     inkscape:window-x="1724"
+     inkscape:window-y="84"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Logo" />
   <defs
      id="defs3">
+    <linearGradient
+       id="linearGradient17"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#2e64ae;stop-opacity:1;"
+         offset="0"
+         id="stop18" />
+      <stop
+         style="stop-color:#9f64a6;stop-opacity:1;"
+         offset="1"
+         id="stop19" />
+    </linearGradient>
+    <linearGradient
+       id="swatch17"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop17" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient10"
+       x1="101.11"
+       y1="324.59"
+       x2="313.89001"
+       y2="111.81"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#2e64ae"
+         id="stop4" />
+      <stop
+         offset="1"
+         stop-color="#9f64a6"
+         id="stop6" />
+    </linearGradient>
     <style
        id="style1">
       .cls-1 {
@@ -54,19 +112,19 @@
        xlink:href="#Gradient_bez_nazwy_28"
        id="linearGradient13"
        gradientUnits="userSpaceOnUse"
-       x1="568.47559"
-       y1="381.23447"
-       x2="726.98444"
-       y2="146.23566"
+       x1="547.51184"
+       y1="363.95325"
+       x2="747.94818"
+       y2="163.51686"
        spreadMethod="pad" />
     <linearGradient
-       xlink:href="#Gradient_bez_nazwy_28"
+       xlink:href="#linearGradient10"
        id="linearGradient38"
        gradientUnits="userSpaceOnUse"
-       x1="642.78369"
-       y1="405.37866"
-       x2="652.67633"
-       y2="122.09136"
+       x1="547.51166"
+       y1="363.95331"
+       x2="747.9483"
+       y2="163.51666"
        spreadMethod="pad" />
     <linearGradient
        xlink:href="#Gradient_bez_nazwy_28"
@@ -140,6 +198,15 @@
        x2="726.98444"
        y2="146.23566"
        spreadMethod="pad" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient17"
+       id="linearGradient19"
+       x1="695.17175"
+       y1="457.28793"
+       x2="1198.7144"
+       y2="-46.2547"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <g
      id="g6"
@@ -190,27 +257,27 @@
   <text
      xml:space="preserve"
      id="text52"
-     style="font-size:52.6052px;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect52-8);shape-padding:0.606391;display:inline;fill:url(#linearGradient38);fill-opacity:1;fill-rule:nonzero"
+     style="font-size:52.6052px;text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect52-8);shape-padding:0.606391;display:inline;fill-rule:evenodd;stroke-width:1.00015701;stroke-dasharray:none;fill:url(#linearGradient19)"
      transform="matrix(1.0278732,0,0,1,-607.3545,226.80453)"
      x="582.49951"
      y="0"><tspan
        x="753.41075"
        y="150.57706"
-       id="tspan2"><tspan
+       id="tspan4"><tspan
          style="font-weight:bold;font-family:Poppins;-inkscape-font-specification:'Poppins, Bold'"
-         id="tspan1">Koło Naukowe
+         id="tspan3">Koło Naukowe
 </tspan></tspan><tspan
        x="590.88465"
        y="218.16818"
-       id="tspan8"><tspan
+       id="tspan12"><tspan
          style="font-weight:bold;font-family:Poppins;-inkscape-font-specification:'Poppins, Bold'"
-         id="tspan6"> </tspan><tspan
+         id="tspan5"> </tspan><tspan
          style="font-weight:500;font-family:Poppins;-inkscape-font-specification:'Poppins, Medium'"
-         id="tspan7">Programistów i Miłośników
+         id="tspan11">Programistów i Miłośników
 </tspan></tspan><tspan
        x="809.03869"
        y="285.75931"
-       id="tspan10"><tspan
+       id="tspan14"><tspan
          style="font-weight:500;font-family:Poppins;-inkscape-font-specification:'Poppins, Medium'"
-         id="tspan9">Informatyki</tspan></tspan></text>
+         id="tspan13">Informatyki</tspan></tspan></text>
 </svg>
