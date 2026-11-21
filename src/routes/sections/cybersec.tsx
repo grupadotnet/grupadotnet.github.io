@@ -20,7 +20,7 @@ export const Route = createFileRoute('/sections/cybersec')({
   component: Cybersec,
   staticData: {
     titleData: extractTranslation('Cybersec.navbarTitle', 'CyberSec'),
-    hideInNav: true,
+    hideInNav: false,
     order: -1,
   },
 });

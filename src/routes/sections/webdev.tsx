@@ -20,7 +20,7 @@ export const Route = createFileRoute('/sections/webdev')({
   component: Webdev,
   staticData: {
     titleData: extractTranslation('Webdev.navbarTitle', 'Webdev'),
-    hideInNav: true,
+    hideInNav: false,
     order: -1,
   },
 });

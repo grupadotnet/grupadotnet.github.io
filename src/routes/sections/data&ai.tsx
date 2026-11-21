@@ -20,7 +20,7 @@ export const Route = createFileRoute('/sections/data&ai')({
   component: DataAndAi,
   staticData: {
     titleData: extractTranslation('Data&Ai.navbarTitle', 'Data&Ai'),
-    hideInNav: true,
+    hideInNav: false,
     order: -1,
   },
 });
