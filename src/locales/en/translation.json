@@ -36,6 +36,176 @@
     "paragraph": "",
     "title": ""
   },
+  "Cybersec": {
+    "cta": {
+      "description": "",
+      "title": ""
+    },
+    "hero": {
+      "badge": "",
+      "subtitle": "",
+      "titleHighlight": "",
+      "titlePrefix": ""
+    },
+    "highlights": {
+      "focus": {
+        "label": "",
+        "value": ""
+      },
+      "format": {
+        "label": "",
+        "value": ""
+      },
+      "level": {
+        "label": "",
+        "value": ""
+      }
+    },
+    "pillars": {
+      "badge": "",
+      "ctf": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "osint": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "pentest": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "systems": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "title": ""
+    },
+    "tech": {
+      "analysis": {
+        "description": "",
+        "title": ""
+      },
+      "badge": "",
+      "ctf": {
+        "description": "",
+        "title": ""
+      },
+      "pentest": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "workflow": {
+      "badge": "",
+      "step1": {
+        "description": "",
+        "title": ""
+      },
+      "step2": {
+        "description": "",
+        "title": ""
+      },
+      "step3": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    }
+  },
+  "DataAndAi": {
+    "cta": {
+      "description": "",
+      "title": ""
+    },
+    "hero": {
+      "badge": "",
+      "subtitle": "",
+      "titleHighlight": "",
+      "titlePrefix": ""
+    },
+    "highlights": {
+      "focus": {
+        "label": "",
+        "value": ""
+      },
+      "format": {
+        "label": "",
+        "value": ""
+      },
+      "level": {
+        "label": "",
+        "value": ""
+      }
+    },
+    "pillars": {
+      "badge": "",
+      "cv": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "data": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "llm": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "ml": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "tech": {
+      "ai": {
+        "description": "",
+        "title": ""
+      },
+      "badge": "",
+      "data": {
+        "description": "",
+        "title": ""
+      },
+      "mlops": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "workflow": {
+      "badge": "",
+      "step1": {
+        "description": "",
+        "title": ""
+      },
+      "step2": {
+        "description": "",
+        "title": ""
+      },
+      "step3": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    }
+  },
   "Footer": {
     "copyright": "",
     "socialTitle": ""
@@ -53,6 +223,47 @@
     "3": "",
     "4": "",
     "5": ""
+  },
+  "Identity2026": {
+    "affiliation": {
+      "description": "",
+      "pkLink": "",
+      "title": "",
+      "wmLink": ""
+    },
+    "anatomy": {
+      "badge": "",
+      "title": ""
+    },
+    "badge": "",
+    "colorsSection": {
+      "badge": "",
+      "paragraph": "",
+      "title": ""
+    },
+    "copyPath": "",
+    "downloadSvg": "",
+    "heroColors": "",
+    "heroCta": "",
+    "heroRules": "",
+    "logosSection": {
+      "badge": "",
+      "paragraph": "",
+      "title": ""
+    },
+    "openInTab": "",
+    "rules": {
+      "badge": "",
+      "paragraph": "",
+      "title": ""
+    },
+    "subtitle": "",
+    "titlePrefix": "",
+    "typography": {
+      "badge": "",
+      "paragraph": "",
+      "title": ""
+    }
   },
   "NotFound": {
     "paragraph": "",
@@ -119,14 +330,116 @@
     "subscribeCalendar": "",
     "title": ""
   },
+  "SectionPage": {
+    "allSections": "",
+    "backToSections": "",
+    "ctaContact": "",
+    "ctaSchedule": "",
+    "heroAreas": "",
+    "heroJoin": "",
+    "heroNextMeeting": "",
+    "nextEvent": {
+      "badge": "",
+      "checkDiscord": "",
+      "emptyDescription": "",
+      "emptyTitle": "",
+      "fullSchedule": "",
+      "moreUpcoming": "",
+      "spotlightBadge": "",
+      "subtitle": "",
+      "title": "",
+      "viewAllSchedule": ""
+    },
+    "otherSections": ""
+  },
   "Sections": {
     "badge": "",
     "paragraph": "",
     "title": ""
   },
-  "WorkInProgress": {
-    "badge": "",
-    "description": "",
-    "title": ""
+  "Webdev": {
+    "cta": {
+      "description": "",
+      "title": ""
+    },
+    "hero": {
+      "badge": "",
+      "subtitle": "",
+      "titleHighlight": "",
+      "titlePrefix": ""
+    },
+    "highlights": {
+      "focus": {
+        "label": "",
+        "value": ""
+      },
+      "format": {
+        "label": "",
+        "value": ""
+      },
+      "level": {
+        "label": "",
+        "value": ""
+      }
+    },
+    "pillars": {
+      "backend": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "badge": "",
+      "devops": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "frontend": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "projects": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "tech": {
+      "backend": {
+        "description": "",
+        "title": ""
+      },
+      "badge": "",
+      "frontend": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": "",
+      "tooling": {
+        "description": "",
+        "title": ""
+      }
+    },
+    "workflow": {
+      "badge": "",
+      "step1": {
+        "description": "",
+        "title": ""
+      },
+      "step2": {
+        "description": "",
+        "title": ""
+      },
+      "step3": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    }
   }
 }
