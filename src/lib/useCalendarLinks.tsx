@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import type { TFunction } from 'i18next';
 
 export interface EventLinks {
   googleTemplateUrl: string;
@@ -403,3 +404,113 @@ export function buildCalendarTargets(
 export function useCalendarLinks(event: CalendarEventData): CalendarTargets {
   return useMemo(() => buildCalendarTargets(event), [event]);
 }
+
+export interface EventType extends CalendarEventData {
+  eventLinks: EventLinks;
+}
+
+interface RawEventType {
+  id: string;
+  title: string;
+  description: string;
+  start: string | number | Date;
+  end: string | number | Date;
+  calendarName: string;
+  eventLinks: EventLinks;
+}
+
+export type ActionMode = 'singular' | 'subscribe';
+
+export type DialogState =
+  | { type: 'action'; event: EventType; mode: ActionMode }
+  | { type: 'preference' }
+  | null;
+
+const POLISH_LOCALE = 'pl-PL';
+const POLISH_TIME_ZONE = 'Europe/Warsaw';
+
+const polishTimeFormatter = new Intl.DateTimeFormat(POLISH_LOCALE, {
+  hour: '2-digit',
+  minute: '2-digit',
+  timeZone: POLISH_TIME_ZONE,
+});
+
+const polishDateFormatter = new Intl.DateTimeFormat(POLISH_LOCALE, {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: POLISH_TIME_ZONE,
+});
+
+const polishDayKeyFormatter = new Intl.DateTimeFormat(POLISH_LOCALE, {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  timeZone: POLISH_TIME_ZONE,
+});
+
+export function formatEventSchedule(start: Date, end: Date) {
+  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+    return { timeLabel: '', dateLabel: '' };
+  }
+
+  const startTime = polishTimeFormatter.format(start);
+  const endTime = polishTimeFormatter.format(end);
+  const isSameDay =
+    polishDayKeyFormatter.format(start) === polishDayKeyFormatter.format(end);
+
+  if (isSameDay) {
+    return {
+      timeLabel: `${startTime} – ${endTime}`,
+      dateLabel: polishDateFormatter.format(start),
+    };
+  }
+
+  return {
+    timeLabel: `${polishDateFormatter.format(start)}, ${startTime}`,
+    dateLabel: `– ${polishDateFormatter.format(end)}, ${endTime}`,
+  };
+}
+
+export function getCalendarAppLabel(app: CalendarApp, t: TFunction): string {
+  switch (app) {
+    case 'google':
+      return t('Schedule.calendarApps.google.name', 'Google Kalendarz');
+    case 'apple':
+      return t(
+        'Schedule.calendarApps.apple.name',
+        'Kalendarz Apple (iPhone / Mac)'
+      );
+    case 'outlook-live':
+      return t('Schedule.calendarApps.outlookLive.name', 'Outlook.com');
+    case 'outlook-office':
+      return t('Schedule.calendarApps.outlookOffice.name', 'Outlook 365');
+    case 'other':
+      return t(
+        'Schedule.calendarApps.other.name',
+        'Inny kalendarz (.ics / iCal)'
+      );
+  }
+}
+
+export const fetchCalendarEvents = async (): Promise<EventType[]> => {
+  // We still keep the cache buster because Google Apps Script is notoriously sticky
+  const scriptUrl =
+    'https://script.google.com/macros/s/AKfycbzeFQDs7qwoKq2qZKYkn4BEX4mCY22FQYdGHYEnb_mDffa4ydn1AOQ71CM7d-zgxZV2JA/exec';
+  const res = await fetch(`${scriptUrl}`);
+
+  if (!res.ok) throw new Error('Failed to fetch events');
+
+  const data: RawEventType[] = await res.json();
+
+  return data.map((item) => ({
+    calendarName: item.calendarName,
+    id: item.id,
+    title: item.title,
+    description: item.description,
+    start: new Date(item.start),
+    end: new Date(item.end),
+    eventLinks: item.eventLinks,
+  }));
+};

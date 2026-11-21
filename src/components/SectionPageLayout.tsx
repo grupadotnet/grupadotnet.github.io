@@ -17,20 +17,20 @@ import {
 
 import { sections, type SectionPath } from '@/lib/sections.ts';
 import {
-  useCalendarLinks,
-  usePreferredCalendarApp,
-  type CalendarApp,
-} from '@/lib/useCalendarLinks.tsx';
-import {
-  CalendarPickerDialog,
   fetchCalendarEvents,
   formatEventSchedule,
   getCalendarAppLabel,
-  renderCalendarActionButton,
+  useCalendarLinks,
+  usePreferredCalendarApp,
   type ActionMode,
+  type CalendarApp,
   type DialogState,
   type EventType,
-} from '@/routes/schedule.tsx';
+} from '@/lib/useCalendarLinks.tsx';
+import {
+  CalendarActionButton,
+  CalendarPickerDialog,
+} from '@/components/ScheduleCalendarDialog.tsx';
 import { Badge } from '@/components/ui/badge.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { ButtonGroup } from '@/components/ui/button-group.tsx';
@@ -306,21 +306,21 @@ function SpotlightEventCard({
 
       <CardFooter className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <ButtonGroup className="w-full sm:w-auto">
-          {renderCalendarActionButton({
-            label: t('Schedule.joinEvent', 'Wbijam!!'),
-            href: singularHref,
-            external: Boolean(singularHref),
-            onClick: singularOnClick,
-          })}
-          {renderCalendarActionButton({
-            label: t(
+          <CalendarActionButton
+            label={t('Schedule.joinEvent', 'Wbijam!!')}
+            href={singularHref}
+            external={Boolean(singularHref)}
+            onClick={singularOnClick}
+          />
+          <CalendarActionButton
+            label={t(
               'Schedule.subscribeCalendar',
               'Przypominaj o spotkaniach!'
-            ),
-            href: subscribeTarget?.href,
-            external: subscribeTarget?.external,
-            onClick: () => onRequestAppChoice(event, 'subscribe'),
-          })}
+            )}
+            href={subscribeTarget?.href}
+            external={subscribeTarget?.external}
+            onClick={() => onRequestAppChoice(event, 'subscribe')}
+          />
         </ButtonGroup>
 
         <Button
@@ -387,12 +387,12 @@ function UpcomingSectionEventCard({
         </div>
       </CardContent>
       <CardFooter>
-        {renderCalendarActionButton({
-          label: t('Schedule.joinEvent', 'Wbijam!!'),
-          href: singularHref,
-          external: Boolean(singularHref),
-          onClick: singularOnClick,
-        })}
+        <CalendarActionButton
+          label={t('Schedule.joinEvent', 'Wbijam!!')}
+          href={singularHref}
+          external={Boolean(singularHref)}
+          onClick={singularOnClick}
+        />
       </CardFooter>
     </Card>
   );
