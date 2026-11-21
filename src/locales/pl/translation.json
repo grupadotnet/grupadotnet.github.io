@@ -36,6 +36,176 @@
     "paragraph": "Wybierz najwygodniejszy kanał komunikacji i skontaktuj się z nami bezpośrednio lub dołącz do naszej społeczności.",
     "title": "Gdzie nas znajdziesz?"
   },
+  "Cybersec": {
+    "cta": {
+      "description": "Dołącz do naszego kolejnego spotkania lub odezwij się na kanale sekcji na Discordzie KNPiMI — nie wymagamy wcześniejszego doświadczenia w CTF-ach.",
+      "title": "Chcesz sprawdzić się w świecie CyberSec?"
+    },
+    "hero": {
+      "badge": "Sekcja CyberSec",
+      "subtitle": "Łączymy solidną wiedzę teoretyczną z praktyką — skupiamy się na testach penetracyjnych, systemie Kali Linux, technikach OSINT oraz wspólnym rozwiązywaniu wyzwań CTF.",
+      "titleHighlight": "cyberbezpieczeństwo",
+      "titlePrefix": "Ofensywne i defensywne"
+    },
+    "highlights": {
+      "focus": {
+        "label": "Główny profil",
+        "value": "Pentesty, OSINT & Zawody CTF"
+      },
+      "format": {
+        "label": "Forma zajęć",
+        "value": "Laby praktyczne & Walkthrough"
+      },
+      "level": {
+        "label": "Dla kogo",
+        "value": "Od podstaw Linuksa po CTF-y"
+      }
+    },
+    "pillars": {
+      "badge": "Obszary specjalizacji",
+      "ctf": {
+        "badge": "Rywalizacja",
+        "description": "Wspólnie rozwiązujemy maszyny na platformach treningowych, startujemy w zawodach Capture The Flag i bierzemy udział w konferencjach oraz hackathonach.",
+        "title": "Turnieje CTF i Konferencje"
+      },
+      "osint": {
+        "badge": "Biały Wywiad",
+        "description": "Pozyskujemy i weryfikujemy informacje z otwartych źródeł, analizujemy metadane, infrastrukturę domenową oraz ślad cyfrowy w sieci.",
+        "title": "Techniki OSINT"
+      },
+      "pentest": {
+        "badge": "Web & Pentesting",
+        "description": "Analizujemy najczęstsze podatności aplikacji webowych (OWASP Top 10, SQLi, XSS, błędy autoryzacji) oraz uczymy się metodycznego przeprowadzania testów bezpieczeństwa.",
+        "title": "Testy Penetracyjne i OWASP"
+      },
+      "subtitle": "Uczymy się rozumieć podatności, aby skutecznie je wykrywać i budować bezpieczniejsze systemy informatyczne.",
+      "systems": {
+        "badge": "Sieci & Linux",
+        "description": "Pracujemy w środowisku Kali Linux, badamy ruch sieciowy, poznajemy protokoły, podstawy kryptografii oraz metody zabezpieczania serwerów.",
+        "title": "Kali Linux, Sieci i Hardening"
+      },
+      "title": "Co robimy w sekcji CyberSec?"
+    },
+    "tech": {
+      "analysis": {
+        "description": "Środowiska operacyjne, analiza pakietów i inżynieria wsteczna.",
+        "title": "Systemy & Analiza"
+      },
+      "badge": "Warsztat",
+      "ctf": {
+        "description": "Trening praktycznych scenariuszy oraz klasyfikacja podatności.",
+        "title": "Platformy CTF & Standardy"
+      },
+      "pentest": {
+        "description": "Analiza ruchu HTTP, rekonesans i automatyzacja testów bezpieczeństwa.",
+        "title": "Narzędzia Pentestingowe"
+      },
+      "subtitle": "Oprogramowanie, środowiska laboratoryjne i standardy, z którymi pracujemy wyłącznie w kontrolowanych i etycznych warunkach.",
+      "title": "Narzędzia i platformy"
+    },
+    "workflow": {
+      "badge": "Zasady i praktyka",
+      "step1": {
+        "description": "Ćwiczymy wyłącznie na dedykowanych środowiskach testowych, kontenerach i legalnych platformach treningowych.",
+        "title": "Izolowane laboratoria"
+      },
+      "step2": {
+        "description": "Krok po kroku rozkładamy na czynniki pierwsze podatności webowe, zadania kryptograficzne oraz scenariusze OSINT.",
+        "title": "Wspólne Walkthrough i analiza"
+      },
+      "step3": {
+        "description": "Budujemy zespół na zawody Capture The Flag i jeździmy na konferencje bezpieczeństwa, wymieniając się wiedzą z branżą.",
+        "title": "Drużyna CTF i konferencje"
+      },
+      "subtitle": "Bezpieczna nauka w izolowanych laboratoriach, etyczne podejście i wsparcie doświadczonych członków sekcji.",
+      "title": "Jak rozwijamy umiejętności"
+    }
+  },
+  "DataAndAi": {
+    "cta": {
+      "description": "Dołącz do najbliższego spotkania sekcji Data&AI lub napisz do nas na Discordzie — pokażemy Ci aktualne projekty i pomożemy zacząć.",
+      "title": "Interesuje Cię uczenie maszynowe i analiza danych?"
+    },
+    "hero": {
+      "badge": "Sekcja Data&AI",
+      "subtitle": "Przekuwamy teoretyczną wiedzę z uczenia maszynowego, analizy danych i sztucznej inteligencji w praktyczne projekty badawcze oraz przemysłowe.",
+      "titleHighlight": "innowacyjne prototypy",
+      "titlePrefix": "Zamieniamy dane i AI w"
+    },
+    "highlights": {
+      "focus": {
+        "label": "Główny profil",
+        "value": "ML, Deep Learning & Data Science"
+      },
+      "format": {
+        "label": "Forma zajęć",
+        "value": "Notebooki + Projekty R&D"
+      },
+      "level": {
+        "label": "Dla kogo",
+        "value": "Dla początkujących i pasjonatów ML"
+      }
+    },
+    "pillars": {
+      "badge": "Obszary badawcze",
+      "cv": {
+        "badge": "Computer Vision",
+        "description": "Realizujemy projekty detekcji obiektów, segmentacji oraz przetwarzania obrazu w czasie rzeczywistym z wykorzystaniem OpenCV i modeli YOLO.",
+        "title": "Wizja Komputerowa i Analiza Obrazu"
+      },
+      "data": {
+        "badge": "Data Science",
+        "description": "Czyścimy zbiory danych, prowadzimy analizę eksploracyjną (EDA), tworzymy czytelne wizualizacje i przygotowujemy powtarzalne pipeline’y.",
+        "title": "Analiza Danych i Inżynieria Cech"
+      },
+      "llm": {
+        "badge": "NLP & LLM",
+        "description": "Eksperymentujemy z transformerami, osadzeniami wektorowymi, systemami RAG oraz lokalnym uruchamianiem otwartych modeli językowych.",
+        "title": "Przetwarzanie Języka i Modele LLM"
+      },
+      "ml": {
+        "badge": "ML & Deep Learning",
+        "description": "Uczymy się budować, trenować i ewaluować modele klasyfikacji, regresji oraz głębokie architektury neuronowe w PyTorch i Scikit-learn.",
+        "title": "Uczenie Maszynowe i Sieci Neuronowe"
+      },
+      "subtitle": "Od eksploracyjnej analizy danych i klasycznych algorytmów ML po współczesne sieci neuronowe, Computer Vision i modele językowe.",
+      "title": "Czym zajmujemy się w Data&AI?"
+    },
+    "tech": {
+      "ai": {
+        "description": "Frameworki do trenowania sieci neuronowych, wizji komputerowej i NLP.",
+        "title": "AI & Deep Learning"
+      },
+      "badge": "Narzędzia i biblioteki",
+      "data": {
+        "description": "Przetwarzanie tabel, obliczenia numeryczne oraz wizualizacja wyników.",
+        "title": "Data Science & Analiza"
+      },
+      "mlops": {
+        "description": "Praca z notebookami, śledzenie metryk i wdrażanie modeli.",
+        "title": "Środowiska & Eksperymenty"
+      },
+      "subtitle": "Technologie, w których powstają nasze eksperymenty, analizy oraz działające prototypy.",
+      "title": "Ekosystem Data & AI"
+    },
+    "workflow": {
+      "badge": "Ścieżka rozwoju",
+      "step1": {
+        "description": "Omawiamy intuicję matematyczną i od razu przekładamy ją na interaktywne ćwiczenia w Pythonie oraz Jupyter Notebooku.",
+        "title": "Teoria w notebookach"
+      },
+      "step2": {
+        "description": "Łączymy się w małe zespoły, tworząc autorskie rozwiązania z pogranicza mechaniki, informatyki i sztucznej inteligencji.",
+        "title": "Prototypy i projekty badawcze"
+      },
+      "step3": {
+        "description": "Prezentujemy wyniki naszych prac na konferencjach naukowych oraz sprawdzamy się w konkursach analizy danych i hackathonach AI.",
+        "title": "Konferencje, Kaggle i hackathony"
+      },
+      "subtitle": "Stawiamy na zrozumienie działania modeli od środka oraz weryfikację pomysłów na realnych zbiorach danych.",
+      "title": "Od hipotezy do prototypu"
+    }
+  },
   "Footer": {
     "copyright": "© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na Politechnice Krakowskiej",
     "socialTitle": "Znajdziesz nas też na"
@@ -53,6 +223,47 @@
     "3": "Zdobądź praktyczne doświadczenie pracy w zespole!",
     "4": "Rozwijaj z nami swoje pasje i umiejętności!",
     "5": "Dołącz do nas i zacznij działać!"
+  },
+  "Identity2026": {
+    "affiliation": {
+      "description": "KNPiMI działa przy Wydziale Mechanicznym Politechniki Krakowskiej. W materiałach partnerskich dopuszcza się współwystępowanie znaku KNPiMI z oficjalnymi znakami uczelni i wydziału zgodnie z ich księgą identyfikacji wizualnej.",
+      "pkLink": "Identyfikacja PK",
+      "title": "Politechnika Krakowska & Wydział Mechaniczny",
+      "wmLink": "Identyfikacja WM PK"
+    },
+    "anatomy": {
+      "badge": "Anatomia Znaku",
+      "title": "Symbolika & Konstrukcja"
+    },
+    "badge": "Księga Znaku & Identyfikacja Wizualna",
+    "colorsSection": {
+      "badge": "Kolorystyka Marki",
+      "paragraph": "Barwy identyfikacji wizualnej oparte są o charakterystyczny gradient przechodzący z inżynieryjnego błękitu w kreatywny fiolet.",
+      "title": "Oficjalna Paleta Barw"
+    },
+    "copyPath": "Kopiuj ścieżkę do pliku",
+    "downloadSvg": "Pobierz SVG",
+    "heroColors": "Kolorystyka & Kody",
+    "heroCta": "Pobierz pliki logo",
+    "heroRules": "Zasady stosowania",
+    "logosSection": {
+      "badge": "Zasoby Wektorowe",
+      "paragraph": "Zbiór oficjalnych wektorowych plików znaku KNPiMI. Każdy wariant został zoptymalizowany pod kątem skalowalności i precyzji renderowania na ekranie oraz w druku.",
+      "title": "Oficjalne Warianty Logotypu"
+    },
+    "openInTab": "Otwórz w nowej karcie",
+    "rules": {
+      "badge": "Dobre Praktyki",
+      "paragraph": "Aby zachować spójność wizualną marki KNPiMI, prosimy o przestrzeganie poniższych reguł.",
+      "title": "Zasady Stosowania Znaku"
+    },
+    "subtitle": "Oficjalny przewodnik po identyfikacji wizualnej Koła Naukowego Programistów i Miłośników Informatyki działającego przy Wydziale Mechanicznym Politechniki Krakowskiej. Poznaj zasady kompozycji, oficjalne kolory i pobierz aktualne pliki wektorowe SVG.",
+    "titlePrefix": "Identyfikacja Wizualna",
+    "typography": {
+      "badge": "Typografia",
+      "paragraph": "Wybrane kroje pisma odzwierciedlają techniczny, a zarazem przystępny charakter koła programistycznego.",
+      "title": "Kroje Pisma & Hierarchia"
+    }
   },
   "NotFound": {
     "paragraph": "O nie!! Tej strony jeszcze nie zrobiliśmy, i najprawdoppodobniej nie zrobimy XD",
@@ -119,14 +330,116 @@
     "subscribeCalendar": "Przypominaj o spotkaniach!",
     "title": "Kiedy się spotykamy?"
   },
+  "SectionPage": {
+    "allSections": "Wszystkie",
+    "backToSections": "Wszystkie sekcje",
+    "ctaContact": "Skontaktuj się z nami",
+    "ctaSchedule": "Zobacz harmonogram",
+    "heroAreas": "Obszary tematyczne",
+    "heroJoin": "Dołącz do sekcji",
+    "heroNextMeeting": "Najbliższe spotkanie",
+    "nextEvent": {
+      "badge": "Harmonogram sekcji",
+      "checkDiscord": "Sprawdź ogłoszenia na Discordzie",
+      "emptyDescription": "Dla tej sekcji nie ma jeszcze dodanego terminu na najbliższe tygodnie. Sprawdź pełny harmonogram koła albo wpadnij na naszego Discorda, gdzie na bieżąco ustalamy tematy i godziny.",
+      "emptyTitle": "Brak zaplanowanych spotkań w kalendarzu",
+      "fullSchedule": "Pełny harmonogram",
+      "moreUpcoming": "Kolejne zaplanowane spotkania",
+      "spotlightBadge": "Najbliższe spotkanie",
+      "subtitle": "Aktualne terminy spotkań sekcji pobierane bezpośrednio z kalendarza KNPiMI.",
+      "title": "Najbliższe spotkanie",
+      "viewAllSchedule": "Zobacz pełny harmonogram"
+    },
+    "otherSections": "Poznaj też inne sekcje"
+  },
   "Sections": {
     "badge": "Ścieżki rozwoju",
     "paragraph": "Wybierz obszar, który najbardziej Cię interesuje i rozwijaj swoje umiejętności pod okiem starszych studentów.",
     "title": "Czym się zajmujemy?"
   },
-  "WorkInProgress": {
-    "badge": "🚧 WIP",
-    "description": "Ekipa budowlana już wylewa fundamenty pod tę stronę. Za kilka dni powinny być widoczne rezultaty.",
-    "title": "W trakcie prac"
+  "Webdev": {
+    "cta": {
+      "description": "Wpadnij na najbliższe spotkanie sekcji WebDev lub odezwij się na Discordzie KNPiMI — pomożemy Ci wybrać pierwszy projekt i wdrożyć się w zespół.",
+      "title": "Chcesz zbudować z nami kolejny projekt?"
+    },
+    "hero": {
+      "badge": "Sekcja WebDev",
+      "subtitle": "W sekcji WebDev uczymy się praktycznego tworzenia aplikacji internetowych — od projektowania interfejsu i dostępności, przez backend oraz bazy danych, aż po wdrażanie projektów zespołowych w chmurze.",
+      "titleHighlight": "aplikacje webowe",
+      "titlePrefix": "Tworzymy nowoczesne"
+    },
+    "highlights": {
+      "focus": {
+        "label": "Główny profil",
+        "value": "Full-stack & Architektura Web"
+      },
+      "format": {
+        "label": "Forma zajęć",
+        "value": "Warsztaty + Praca projektowa"
+      },
+      "level": {
+        "label": "Dla kogo",
+        "value": "Od podstaw HTML/JS po produkcję"
+      }
+    },
+    "pillars": {
+      "backend": {
+        "badge": "Backend & API",
+        "description": "Projektujemy wydajne usługi backendowe w .NET (C#) i Node.js, pracujemy z REST API, uwierzytelnianiem oraz relacyjnymi i dokumentowymi bazami danych.",
+        "title": "Architektura API i Bazy Danych"
+      },
+      "badge": "Czego się uczymy",
+      "devops": {
+        "badge": "Git & CI/CD",
+        "description": "Pracujemy na co dzień z Git Flow, Pull Requestami, Code Review, konteneryzacją w Dockerze oraz potokami GitHub Actions.",
+        "title": "Automatyzacja, Testy i Wdrożenia"
+      },
+      "frontend": {
+        "badge": "Frontend & UI",
+        "description": "Budujemy responsywne interfejsy w React i TypeScript z użyciem Tailwind CSS, dbając o zarządzanie stanem, routing oraz standardy WCAG.",
+        "title": "Nowoczesny Frontend i Dostępność"
+      },
+      "projects": {
+        "badge": "Zespół",
+        "description": "Rozwijamy własne aplikacje dla studentów i infrastrukturę koła naukowego, zdobywając doświadczenie w pracy zespołowej jak w prawdziwym software housie.",
+        "title": "Realne Projekty Koła"
+      },
+      "subtitle": "Łączymy solidne podstawy inżynierii oprogramowania z narzędziami wykorzystywanymi w codziennej pracy zespołów produktowych.",
+      "title": "Główne obszary sekcji WebDev"
+    },
+    "tech": {
+      "backend": {
+        "description": "Tworzenie API, logiki biznesowej oraz warstw dostępu do danych.",
+        "title": "Backend & Dane"
+      },
+      "badge": "Technologie",
+      "frontend": {
+        "description": "Komponenty, typowanie statyczne i nowoczesny styling aplikacji przeglądarkowych.",
+        "title": "Frontend & UI"
+      },
+      "subtitle": "Narzędzia i biblioteki, z których korzystamy podczas spotkań warsztatowych i w projektach koła.",
+      "title": "Nasz stos technologiczny",
+      "tooling": {
+        "description": "Współpraca nad kodem, kontrola jakości i ciągłe dostarczanie aplikacji.",
+        "title": "Narzędzia & DevOps"
+      }
+    },
+    "workflow": {
+      "badge": "Jak działamy",
+      "step1": {
+        "description": "Na cotygodniowych spotkaniach omawiamy konkretne zagadnienia na żywym kodzie i budujemy wspólne mini-aplikacje.",
+        "title": "Warsztaty i fundamenty"
+      },
+      "step2": {
+        "description": "Dołączasz do wybranego projektu koła, bierzesz zadania z tablicy i uczysz się pracy z GitHubem oraz Code Review.",
+        "title": "Praca w zespole projektowym"
+      },
+      "step3": {
+        "description": "Publikujemy gotowe rozwiązania, dzielimy się wiedzą na uczelni i wystawiamy drużyny na ogólnopolskich hackathonach.",
+        "title": "Wdrożenia i hackathony"
+      },
+      "subtitle": "Nie musisz znać wszystkich frameworków na start — liczy się chęć nauki i wspólnego budowania.",
+      "title": "Od pierwszych linii do produkcji"
+    }
   }
 }

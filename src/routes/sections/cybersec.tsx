@@ -1,6 +1,20 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
+import {
+  RiBugLine,
+  RiFlagLine,
+  RiLockPasswordLine,
+  RiSearchEyeLine,
+  RiServerLine,
+  RiShieldCheckLine,
+  RiTerminalLine,
+} from '@remixicon/react';
+
 import { extractTranslation } from '@/lib/extractTranslation.tsx';
+import {
+  SectionPageLayout,
+  type SectionPageData,
+} from '@/components/SectionPageLayout.tsx';
 
 export const Route = createFileRoute('/sections/cybersec')({
   component: Cybersec,
@@ -12,25 +26,197 @@ export const Route = createFileRoute('/sections/cybersec')({
 });
 
 function Cybersec() {
-  // Call the hook with parentheses to properly initialize it
   const { t } = useTranslation();
 
-  return (
-    <div className="flex flex-col items-center justify-center text-center px-4 bg-background py-30">
-      <div className="max-w-md space-y-3 border border-border/40 bg-muted/50 p-6 rounded-xl backdrop-blur-sm">
-        <span className="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">
-          {t('WorkInProgress.badge', '🚧 WIP')}
-        </span>
-        <h2 className="text-lg font-medium tracking-tight">
-          {t('WorkInProgress.title', 'W trakcie prac')}
-        </h2>
-        <p className="text-xs text-muted-foreground">
-          {t(
-            'WorkInProgress.description',
-            'Ekipa budowlana już wylewa fundamenty pod tę stronę. Za kilka dni powinny być widoczne rezultaty.'
-          )}
-        </p>
-      </div>
-    </div>
-  );
+  const data: SectionPageData = {
+    sectionPath: 'cybersec',
+    badge: t('Cybersec.hero.badge', 'Sekcja CyberSec'),
+    titlePrefix: t('Cybersec.hero.titlePrefix', 'Ofensywne i defensywne'),
+    titleHighlight: t('Cybersec.hero.titleHighlight', 'cyberbezpieczeństwo'),
+    subtitle: t(
+      'Cybersec.hero.subtitle',
+      'Łączymy solidną wiedzę teoretyczną z praktyką — skupiamy się na testach penetracyjnych, systemie Kali Linux, technikach OSINT oraz wspólnym rozwiązywaniu wyzwań CTF.'
+    ),
+    highlights: [
+      {
+        id: 'focus',
+        label: t('Cybersec.highlights.focus.label', 'Główny profil'),
+        value: t(
+          'Cybersec.highlights.focus.value',
+          'Pentesty, OSINT & Zawody CTF'
+        ),
+      },
+      {
+        id: 'format',
+        label: t('Cybersec.highlights.format.label', 'Forma zajęć'),
+        value: t(
+          'Cybersec.highlights.format.value',
+          'Laby praktyczne & Walkthrough'
+        ),
+      },
+      {
+        id: 'level',
+        label: t('Cybersec.highlights.level.label', 'Dla kogo'),
+        value: t(
+          'Cybersec.highlights.level.value',
+          'Od podstaw Linuksa po CTF-y'
+        ),
+      },
+    ],
+    pillarsBadge: t('Cybersec.pillars.badge', 'Obszary specjalizacji'),
+    pillarsTitle: t('Cybersec.pillars.title', 'Co robimy w sekcji CyberSec?'),
+    pillarsSubtitle: t(
+      'Cybersec.pillars.subtitle',
+      'Uczymy się rozumieć podatności, aby skutecznie je wykrywać i budować bezpieczniejsze systemy informatyczne.'
+    ),
+    pillars: [
+      {
+        id: 'pentest',
+        icon: RiBugLine,
+        badge: t('Cybersec.pillars.pentest.badge', 'Web & Pentesting'),
+        title: t(
+          'Cybersec.pillars.pentest.title',
+          'Testy Penetracyjne i OWASP'
+        ),
+        description: t(
+          'Cybersec.pillars.pentest.description',
+          'Analizujemy najczęstsze podatności aplikacji webowych (OWASP Top 10, SQLi, XSS, błędy autoryzacji) oraz uczymy się metodycznego przeprowadzania testów bezpieczeństwa.'
+        ),
+      },
+      {
+        id: 'osint',
+        icon: RiSearchEyeLine,
+        badge: t('Cybersec.pillars.osint.badge', 'Biały Wywiad'),
+        title: t('Cybersec.pillars.osint.title', 'Techniki OSINT'),
+        description: t(
+          'Cybersec.pillars.osint.description',
+          'Pozyskujemy i weryfikujemy informacje z otwartych źródeł, analizujemy metadane, infrastrukturę domenową oraz ślad cyfrowy w sieci.'
+        ),
+      },
+      {
+        id: 'systems',
+        icon: RiServerLine,
+        badge: t('Cybersec.pillars.systems.badge', 'Sieci & Linux'),
+        title: t(
+          'Cybersec.pillars.systems.title',
+          'Kali Linux, Sieci i Hardening'
+        ),
+        description: t(
+          'Cybersec.pillars.systems.description',
+          'Pracujemy w środowisku Kali Linux, badamy ruch sieciowy, poznajemy protokoły, podstawy kryptografii oraz metody zabezpieczania serwerów.'
+        ),
+      },
+      {
+        id: 'ctf',
+        icon: RiFlagLine,
+        badge: t('Cybersec.pillars.ctf.badge', 'Rywalizacja'),
+        title: t('Cybersec.pillars.ctf.title', 'Turnieje CTF i Konferencje'),
+        description: t(
+          'Cybersec.pillars.ctf.description',
+          'Wspólnie rozwiązujemy maszyny na platformach treningowych, startujemy w zawodach Capture The Flag i bierzemy udział w konferencjach oraz hackathonach.'
+        ),
+      },
+    ],
+    techBadge: t('Cybersec.tech.badge', 'Warsztat'),
+    techTitle: t('Cybersec.tech.title', 'Narzędzia i platformy'),
+    techSubtitle: t(
+      'Cybersec.tech.subtitle',
+      'Oprogramowanie, środowiska laboratoryjne i standardy, z którymi pracujemy wyłącznie w kontrolowanych i etycznych warunkach.'
+    ),
+    techGroups: [
+      {
+        id: 'pentest',
+        title: t('Cybersec.tech.pentest.title', 'Narzędzia Pentestingowe'),
+        description: t(
+          'Cybersec.tech.pentest.description',
+          'Analiza ruchu HTTP, rekonesans i automatyzacja testów bezpieczeństwa.'
+        ),
+        items: [
+          'Burp Suite',
+          'Nmap',
+          'Gobuster / ffuf',
+          'Metasploit',
+          'SQLmap',
+        ],
+      },
+      {
+        id: 'analysis',
+        title: t('Cybersec.tech.analysis.title', 'Systemy & Analiza'),
+        description: t(
+          'Cybersec.tech.analysis.description',
+          'Środowiska operacyjne, analiza pakietów i inżynieria wsteczna.'
+        ),
+        items: [
+          'Kali Linux',
+          'Wireshark',
+          'Bash & Python',
+          'Ghidra',
+          'Docker Labs',
+        ],
+      },
+      {
+        id: 'ctf',
+        title: t('Cybersec.tech.ctf.title', 'Platformy CTF & Standardy'),
+        description: t(
+          'Cybersec.tech.ctf.description',
+          'Trening praktycznych scenariuszy oraz klasyfikacja podatności.'
+        ),
+        items: [
+          'Hack The Box',
+          'TryHackMe',
+          'OWASP Top 10',
+          'PortSwigger Academy',
+          'OSINT Framework',
+        ],
+      },
+    ],
+    workflowBadge: t('Cybersec.workflow.badge', 'Zasady i praktyka'),
+    workflowTitle: t('Cybersec.workflow.title', 'Jak rozwijamy umiejętności'),
+    workflowSubtitle: t(
+      'Cybersec.workflow.subtitle',
+      'Bezpieczna nauka w izolowanych laboratoriach, etyczne podejście i wsparcie doświadczonych członków sekcji.'
+    ),
+    workflowSteps: [
+      {
+        step: '01',
+        icon: RiLockPasswordLine,
+        title: t('Cybersec.workflow.step1.title', 'Izolowane laboratoria'),
+        description: t(
+          'Cybersec.workflow.step1.description',
+          'Ćwiczymy wyłącznie na dedykowanych środowiskach testowych, kontenerach i legalnych platformach treningowych.'
+        ),
+      },
+      {
+        step: '02',
+        icon: RiTerminalLine,
+        title: t(
+          'Cybersec.workflow.step2.title',
+          'Wspólne Walkthrough i analiza'
+        ),
+        description: t(
+          'Cybersec.workflow.step2.description',
+          'Krok po kroku rozkładamy na czynniki pierwsze podatności webowe, zadania kryptograficzne oraz scenariusze OSINT.'
+        ),
+      },
+      {
+        step: '03',
+        icon: RiShieldCheckLine,
+        title: t('Cybersec.workflow.step3.title', 'Drużyna CTF i konferencje'),
+        description: t(
+          'Cybersec.workflow.step3.description',
+          'Budujemy zespół na zawody Capture The Flag i jeździmy na konferencje bezpieczeństwa, wymieniając się wiedzą z branżą.'
+        ),
+      },
+    ],
+    ctaTitle: t(
+      'Cybersec.cta.title',
+      'Chcesz sprawdzić się w świecie CyberSec?'
+    ),
+    ctaDescription: t(
+      'Cybersec.cta.description',
+      'Dołącz do naszego kolejnego spotkania lub odezwij się na kanale sekcji na Discordzie KNPiMI — nie wymagamy wcześniejszego doświadczenia w CTF-ach.'
+    ),
+  };
+
+  return <SectionPageLayout data={data} />;
 }

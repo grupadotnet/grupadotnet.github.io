@@ -54,7 +54,7 @@ export const Route = createFileRoute('/schedule')({
   },
 });
 
-interface EventType extends CalendarEventData {
+export interface EventType extends CalendarEventData {
   eventLinks: EventLinks;
 }
 
@@ -68,9 +68,9 @@ interface RawEventType {
   eventLinks: EventLinks;
 }
 
-type ActionMode = 'singular' | 'subscribe';
+export type ActionMode = 'singular' | 'subscribe';
 
-type DialogState =
+export type DialogState =
   | { type: 'action'; event: EventType; mode: ActionMode }
   | { type: 'preference' }
   | null;
@@ -99,7 +99,7 @@ const polishDayKeyFormatter = new Intl.DateTimeFormat(POLISH_LOCALE, {
   timeZone: POLISH_TIME_ZONE,
 });
 
-function formatEventSchedule(start: Date, end: Date) {
+export function formatEventSchedule(start: Date, end: Date) {
   if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
     return { timeLabel: '', dateLabel: '' };
   }
@@ -122,7 +122,7 @@ function formatEventSchedule(start: Date, end: Date) {
   };
 }
 
-function getCalendarAppLabel(app: CalendarApp, t: TFunction): string {
+export function getCalendarAppLabel(app: CalendarApp, t: TFunction): string {
   switch (app) {
     case 'google':
       return t('Schedule.calendarApps.google.name', 'Google Kalendarz');
@@ -143,7 +143,7 @@ function getCalendarAppLabel(app: CalendarApp, t: TFunction): string {
   }
 }
 
-const fetchCalendarEvents = async (): Promise<EventType[]> => {
+export const fetchCalendarEvents = async (): Promise<EventType[]> => {
   // We still keep the cache buster because Google Apps Script is notoriously sticky
   const scriptUrl =
     'https://script.google.com/macros/s/AKfycbzeFQDs7qwoKq2qZKYkn4BEX4mCY22FQYdGHYEnb_mDffa4ydn1AOQ71CM7d-zgxZV2JA/exec';
@@ -298,7 +298,7 @@ function LoadedCarousel() {
 const scheduleActionButtonClassName =
   'grow h-auto min-h-9 py-1.5 whitespace-normal text-center leading-tight';
 
-function renderCalendarActionButton({
+export function renderCalendarActionButton({
   label,
   href,
   external = false,
@@ -497,7 +497,7 @@ function CalendarOptionRow({
   );
 }
 
-function CalendarPickerDialog({
+export function CalendarPickerDialog({
   dialogState,
   preferredApp,
   onClose,

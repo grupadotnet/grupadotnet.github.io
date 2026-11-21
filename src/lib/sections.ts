@@ -6,12 +6,11 @@ import {
 import { extractTranslation } from './extractTranslation.tsx';
 import type { FileRouteTypes } from '@/routeTree.gen';
 
-export type SectionPath =
-  FileRouteTypes['to'] extends infer T
-    ? T extends `/sections/${infer P}`
-      ? P
-      : never
-    : never;
+export type SectionPath = FileRouteTypes['to'] extends infer T
+  ? T extends `/sections/${infer P}`
+    ? P
+    : never
+  : never;
 
 export interface Section {
   title: string;
