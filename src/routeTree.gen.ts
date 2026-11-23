@@ -13,9 +13,15 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IdentityRouteImport } from './routes/identity'
+import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as SectionsRouteImport } from './routes/sections'
 import { Route as Identity2026RouteImport } from './routes/identity/2026'
+import { Route as ProjectsAquasharpRouteImport } from './routes/projects/aquasharp'
+import { Route as ProjectsCodewarehouseRouteImport } from './routes/projects/codewarehouse'
+import { Route as ProjectsEAkademikRouteImport } from './routes/projects/e-akademik'
+import { Route as ProjectsPkwmmapRouteImport } from './routes/projects/pkwmmap'
+import { Route as ProjectsVetlinkRouteImport } from './routes/projects/vetlink'
 import { Route as SectionsCybersecRouteImport } from './routes/sections/cybersec'
 import { Route as SectionsDataChar38aiRouteImport } from './routes/sections/data&ai'
 import { Route as SectionsWebdevRouteImport } from './routes/sections/webdev'
@@ -40,6 +46,11 @@ const IdentityRoute = IdentityRouteImport.update({
   path: '/identity',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScheduleRoute = ScheduleRouteImport.update({
   id: '/schedule',
   path: '/schedule',
@@ -54,6 +65,31 @@ const Identity2026Route = Identity2026RouteImport.update({
   id: '/2026',
   path: '/2026',
   getParentRoute: () => IdentityRoute,
+} as any)
+const ProjectsAquasharpRoute = ProjectsAquasharpRouteImport.update({
+  id: '/aquasharp',
+  path: '/aquasharp',
+  getParentRoute: () => ProjectsRoute,
+} as any)
+const ProjectsCodewarehouseRoute = ProjectsCodewarehouseRouteImport.update({
+  id: '/codewarehouse',
+  path: '/codewarehouse',
+  getParentRoute: () => ProjectsRoute,
+} as any)
+const ProjectsEAkademikRoute = ProjectsEAkademikRouteImport.update({
+  id: '/e-akademik',
+  path: '/e-akademik',
+  getParentRoute: () => ProjectsRoute,
+} as any)
+const ProjectsPkwmmapRoute = ProjectsPkwmmapRouteImport.update({
+  id: '/pkwmmap',
+  path: '/pkwmmap',
+  getParentRoute: () => ProjectsRoute,
+} as any)
+const ProjectsVetlinkRoute = ProjectsVetlinkRouteImport.update({
+  id: '/vetlink',
+  path: '/vetlink',
+  getParentRoute: () => ProjectsRoute,
 } as any)
 const SectionsCybersecRoute = SectionsCybersecRouteImport.update({
   id: '/cybersec',
@@ -76,9 +112,15 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/identity': typeof IdentityRouteWithChildren
+  '/projects': typeof ProjectsRouteWithChildren
   '/schedule': typeof ScheduleRoute
   '/sections': typeof SectionsRouteWithChildren
   '/identity/2026': typeof Identity2026Route
+  '/projects/aquasharp': typeof ProjectsAquasharpRoute
+  '/projects/codewarehouse': typeof ProjectsCodewarehouseRoute
+  '/projects/e-akademik': typeof ProjectsEAkademikRoute
+  '/projects/pkwmmap': typeof ProjectsPkwmmapRoute
+  '/projects/vetlink': typeof ProjectsVetlinkRoute
   '/sections/cybersec': typeof SectionsCybersecRoute
   '/sections/data&ai': typeof SectionsDataChar38aiRoute
   '/sections/webdev': typeof SectionsWebdevRoute
@@ -88,9 +130,15 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/identity': typeof IdentityRouteWithChildren
+  '/projects': typeof ProjectsRouteWithChildren
   '/schedule': typeof ScheduleRoute
   '/sections': typeof SectionsRouteWithChildren
   '/identity/2026': typeof Identity2026Route
+  '/projects/aquasharp': typeof ProjectsAquasharpRoute
+  '/projects/codewarehouse': typeof ProjectsCodewarehouseRoute
+  '/projects/e-akademik': typeof ProjectsEAkademikRoute
+  '/projects/pkwmmap': typeof ProjectsPkwmmapRoute
+  '/projects/vetlink': typeof ProjectsVetlinkRoute
   '/sections/cybersec': typeof SectionsCybersecRoute
   '/sections/data&ai': typeof SectionsDataChar38aiRoute
   '/sections/webdev': typeof SectionsWebdevRoute
@@ -101,9 +149,15 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/identity': typeof IdentityRouteWithChildren
+  '/projects': typeof ProjectsRouteWithChildren
   '/schedule': typeof ScheduleRoute
   '/sections': typeof SectionsRouteWithChildren
   '/identity/2026': typeof Identity2026Route
+  '/projects/aquasharp': typeof ProjectsAquasharpRoute
+  '/projects/codewarehouse': typeof ProjectsCodewarehouseRoute
+  '/projects/e-akademik': typeof ProjectsEAkademikRoute
+  '/projects/pkwmmap': typeof ProjectsPkwmmapRoute
+  '/projects/vetlink': typeof ProjectsVetlinkRoute
   '/sections/cybersec': typeof SectionsCybersecRoute
   '/sections/data&ai': typeof SectionsDataChar38aiRoute
   '/sections/webdev': typeof SectionsWebdevRoute
@@ -115,9 +169,15 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/identity'
+    | '/projects'
     | '/schedule'
     | '/sections'
     | '/identity/2026'
+    | '/projects/aquasharp'
+    | '/projects/codewarehouse'
+    | '/projects/e-akademik'
+    | '/projects/pkwmmap'
+    | '/projects/vetlink'
     | '/sections/cybersec'
     | '/sections/data&ai'
     | '/sections/webdev'
@@ -127,9 +187,15 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/identity'
+    | '/projects'
     | '/schedule'
     | '/sections'
     | '/identity/2026'
+    | '/projects/aquasharp'
+    | '/projects/codewarehouse'
+    | '/projects/e-akademik'
+    | '/projects/pkwmmap'
+    | '/projects/vetlink'
     | '/sections/cybersec'
     | '/sections/data&ai'
     | '/sections/webdev'
@@ -139,9 +205,15 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/identity'
+    | '/projects'
     | '/schedule'
     | '/sections'
     | '/identity/2026'
+    | '/projects/aquasharp'
+    | '/projects/codewarehouse'
+    | '/projects/e-akademik'
+    | '/projects/pkwmmap'
+    | '/projects/vetlink'
     | '/sections/cybersec'
     | '/sections/data&ai'
     | '/sections/webdev'
@@ -152,6 +224,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   IdentityRoute: typeof IdentityRouteWithChildren
+  ProjectsRoute: typeof ProjectsRouteWithChildren
   ScheduleRoute: typeof ScheduleRoute
   SectionsRoute: typeof SectionsRouteWithChildren
 }
@@ -186,6 +259,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IdentityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/schedule': {
       id: '/schedule'
       path: '/schedule'
@@ -206,6 +286,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/identity/2026'
       preLoaderRoute: typeof Identity2026RouteImport
       parentRoute: typeof IdentityRoute
+    }
+    '/projects/aquasharp': {
+      id: '/projects/aquasharp'
+      path: '/aquasharp'
+      fullPath: '/projects/aquasharp'
+      preLoaderRoute: typeof ProjectsAquasharpRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
+    '/projects/codewarehouse': {
+      id: '/projects/codewarehouse'
+      path: '/codewarehouse'
+      fullPath: '/projects/codewarehouse'
+      preLoaderRoute: typeof ProjectsCodewarehouseRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
+    '/projects/e-akademik': {
+      id: '/projects/e-akademik'
+      path: '/e-akademik'
+      fullPath: '/projects/e-akademik'
+      preLoaderRoute: typeof ProjectsEAkademikRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
+    '/projects/pkwmmap': {
+      id: '/projects/pkwmmap'
+      path: '/pkwmmap'
+      fullPath: '/projects/pkwmmap'
+      preLoaderRoute: typeof ProjectsPkwmmapRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
+    '/projects/vetlink': {
+      id: '/projects/vetlink'
+      path: '/vetlink'
+      fullPath: '/projects/vetlink'
+      preLoaderRoute: typeof ProjectsVetlinkRouteImport
+      parentRoute: typeof ProjectsRoute
     }
     '/sections/cybersec': {
       id: '/sections/cybersec'
@@ -243,6 +358,26 @@ const IdentityRouteWithChildren = IdentityRoute._addFileChildren(
   IdentityRouteChildren,
 )
 
+interface ProjectsRouteChildren {
+  ProjectsAquasharpRoute: typeof ProjectsAquasharpRoute
+  ProjectsCodewarehouseRoute: typeof ProjectsCodewarehouseRoute
+  ProjectsEAkademikRoute: typeof ProjectsEAkademikRoute
+  ProjectsPkwmmapRoute: typeof ProjectsPkwmmapRoute
+  ProjectsVetlinkRoute: typeof ProjectsVetlinkRoute
+}
+
+const ProjectsRouteChildren: ProjectsRouteChildren = {
+  ProjectsAquasharpRoute: ProjectsAquasharpRoute,
+  ProjectsCodewarehouseRoute: ProjectsCodewarehouseRoute,
+  ProjectsEAkademikRoute: ProjectsEAkademikRoute,
+  ProjectsPkwmmapRoute: ProjectsPkwmmapRoute,
+  ProjectsVetlinkRoute: ProjectsVetlinkRoute,
+}
+
+const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
+  ProjectsRouteChildren,
+)
+
 interface SectionsRouteChildren {
   SectionsCybersecRoute: typeof SectionsCybersecRoute
   SectionsDataChar38aiRoute: typeof SectionsDataChar38aiRoute
@@ -264,6 +399,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   IdentityRoute: IdentityRouteWithChildren,
+  ProjectsRoute: ProjectsRouteWithChildren,
   ScheduleRoute: ScheduleRoute,
   SectionsRoute: SectionsRouteWithChildren,
 }
