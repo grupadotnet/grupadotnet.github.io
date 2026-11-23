@@ -4,6 +4,245 @@
     "paragraph": "<0>Koło Naukowe Programistów i Miłośników Informatyki działa przy Wydziale Mechanicznym Politechniki Krakowskiej. Zrzesza studentów zainteresowanych szeroko rozumianym programowaniem. Organizujemy cotygodniowe zajęcia programowania z <2>zakresu tworzenia aplikacji internetowych, uczenia maszynowego i analizy danych, cyberbezpieczeństwa oraz programowania niskopoziomowego</2>. Zajmujemy się również projektami, które pozwalają uczestnikom na rozwój umiejętności programistycznych.</0>",
     "title": "O NAS"
   },
+  "AquaSharp": {
+    "architecture": {
+      "badge": "Przepływ danych",
+      "step1": {
+        "description": "Mikrokontroler z firmware Aqua-Sharp-Embedded cyklicznie próbkuje wodę i publikuje pomiary do brokera MQTT.",
+        "title": "Odczyt z czujników (C++)"
+      },
+      "step2": {
+        "description": "Backend w C# zapisuje historię w bazie danych i rozsyła aktualizacje do klientów przez SignalR.",
+        "title": "Agregacja i API (.NET)"
+      },
+      "step3": {
+        "description": "Dashboard webowy rysuje wykresy zmian parametrów i pozwala kontrolować konfigurację komputera akwarystycznego.",
+        "title": "Wizualizacja (React)"
+      },
+      "subtitle": "Trzy współpracujące warstwy rozdzielone na dedykowane repozytoria w organizacji grupadotnet.",
+      "title": "Od czujnika w akwarium do wykresu w przeglądarce"
+    },
+    "cta": {
+      "description": "Sprawdź kod źródłowy AquaSharp na GitHubie i porozmawiaj z nami na Discordzie KNPiMI o projektach łączących software z elektroniką.",
+      "title": "Interesuje Cię połączenie IoT, C# i Reacta?"
+    },
+    "features": {
+      "badge": "Możliwości systemu",
+      "dashboard": {
+        "badge": "Frontend",
+        "description": "Aplikacja w React i Chart.js prezentuje trendy parametrów, stan urządzeń akwariowych oraz umożliwia wielojęzyczną obsługę (i18next).",
+        "title": "Wykresy Historyczne i Panel Sterowania"
+      },
+      "docker": {
+        "badge": "Orkiestracja",
+        "description": "Cały stos — baza danych, broker MQTT oraz API w .NET wraz z testami jednostkowymi — uruchamia się spójnie jednym poleceniem Docker Compose.",
+        "title": "Kontenerowe Środowisko Uruchomieniowe"
+      },
+      "realtime": {
+        "badge": "MQTT & SignalR",
+        "description": "Broker Eclipse Mosquitto i połączenia SignalR błyskawicznie przekazują odczyty z urządzenia do backendu oraz przeglądarki użytkownika.",
+        "title": "Strumieniowanie Danych Na Żywo"
+      },
+      "sensors": {
+        "badge": "Hardware & TDS",
+        "description": "Moduł embedded w C++ odczytuje kluczowe parametry wody (m.in. przewodność / TDS oraz temperaturę) bezpośrednio z czujników zanurzonych w akwarium.",
+        "title": "Pomiary Jakości Wody w Czasie Rzeczywistym"
+      },
+      "subtitle": "Automatyzacja opieki nad zbiornikiem wodnym dzięki ciągłym pomiarom parametrów i zdalnemu podglądowi na żywo.",
+      "title": "Co potrafi AquaSharp?"
+    },
+    "hero": {
+      "badge": "Projekt AquaSharp",
+      "busApi": "Serwer & Real-Time",
+      "busBroker": "Broker Kolejkowy",
+      "busSensor": "Czujnik TDS / Temp",
+      "busTitle": "aquasharp-telemetry.bus",
+      "busUi": "Panel Wykresów",
+      "status": "IoT • .NET • React • C++",
+      "subtitle": "Kompleksowy system do monitorowania i sterowania akwarium łączący elektronikę opartą o mikrokontrolery C++/Arduino, komunikację MQTT, backend w C#/.NET z SignalR oraz webowy panel wizualizacji danych w React.",
+      "titleHighlight": "akwarystyczny IoT",
+      "titlePrefix": "Inteligentny komputer"
+    },
+    "highlights": {
+      "domain": {
+        "label": "Profil projektu",
+        "value": "IoT, Embedded & Web Telemetry"
+      },
+      "modules": {
+        "label": "Architektura",
+        "value": "Embedded + .NET API + React UI"
+      },
+      "presentation": {
+        "label": "Prezentacja",
+        "value": "Sesja Kół Naukowych WM PK"
+      }
+    },
+    "repos": {
+      "backend": {
+        "description": "Serwer API w C# / .NET wraz z modelami domenowymi i testami jednostkowymi kontrolerów oraz serwisów."
+      },
+      "badge": "Ekosystem 4 repozytoriów",
+      "core": {
+        "description": "Główne repozytorium projektu z konfiguracją Docker Compose (baza danych, Eclipse Mosquitto, backend)."
+      },
+      "embedded": {
+        "description": "Oprogramowanie wbudowane dla mikrokontrolera (Arduino/C++) obsługujące m.in. czujnik TDS."
+      },
+      "frontend": {
+        "description": "Aplikacja webowa w React + TypeScript + Vite z wykresami Chart.js i komunikacją SignalR."
+      },
+      "subtitle": "Firmware embedded, orkiestracja Docker, backend C#/.NET oraz dashboard React rozwijane są w czterech współpracujących repozytoriach.",
+      "title": "Modułowa architektura na GitHubie"
+    },
+    "tech": {
+      "backend": {
+        "description": "Przetwarzanie danych z czujników, API oraz powiadomienia real-time.",
+        "title": "Backend & Testy"
+      },
+      "badge": "Technologie",
+      "embedded": {
+        "description": "Firmware mikrokontrolera, obsługa przetworników oraz transmisja telemetryczna.",
+        "title": "Embedded & IoT"
+      },
+      "frontend": {
+        "description": "Interfejs operatora z wykresami czasu rzeczywistego i wsparciem i18n.",
+        "title": "Frontend Web"
+      },
+      "subtitle": "Połączenie programowania niskopoziomowego, usług w .NET oraz nowoczesnego frontendu.",
+      "title": "Wielowarstwowy stack technologiczny"
+    }
+  },
+  "CodeWarehouse": {
+    "architecture": {
+      "badge": "Architektura",
+      "step1": {
+        "description": "Pracownik loguje się kartą NFC lub hasłem i skanuje barcode. Istniejące produkty aktualizuje lub przenosi, a dla nowych zleca druk etykiety.",
+        "title": "Hala: NFC i Skanowanie (Compose)"
+      },
+      "step2": {
+        "description": "Backend w Javie weryfikuje token JWT, zapisuje ruchy magazynowe w MySQL i udostępnia udokumentowane endpointy Swagger.",
+        "title": "API i Baza Danych (Spring Boot)"
+      },
+      "step3": {
+        "description": "Kierownik w panelu React śledzi tabelę produktów na żywo, filtruje stany, edytuje rekordy i przegląda prognozy Prophet.",
+        "title": "Biuro: Panel Live i Prophet"
+      },
+      "subtitle": "Praca nad CodeWarehouse odwzorowuje realny podział ról w zespołach produktowych — od mobile po backend i analitykę.",
+      "title": "Od hali magazynowej do biura kierownika"
+    },
+    "cta": {
+      "description": "CodeWarehouse to świetny przykład zespołowego projektu full-stack. Zobacz repozytoria lub odezwij się na Discordzie KNPiMI.",
+      "title": "Chcesz rozwinąć swoje umiejętności w React, Javie lub Kotlinie?"
+    },
+    "features": {
+      "badge": "Kluczowe moduły",
+      "filtering": {
+        "badge": "Filtrowanie",
+        "description": "Panel boczny z listami wielokrotnego wyboru pozwala filtrować stany według producenta, lokalizacji (np. Section C) oraz kategorii produktów.",
+        "title": "Wielokryterialne Filtrowanie Zasobów"
+      },
+      "scanner": {
+        "badge": "Hala & Mobile",
+        "description": "Po zalogowaniu kartą NFC lub hasłem pracownik skanuje kod produktu: zmienia ilość, przenosi towar między sekcjami albo drukuje nową etykietę, jeśli produktu nie ma jeszcze w bazie.",
+        "title": "Skanowanie Barcode i Druk Etykiet"
+      },
+      "security": {
+        "badge": "API & Prognozy",
+        "description": "Backend w Javie zapewnia uwierzytelnianie JWT, dokumentację Swagger i bazę MySQL/H2, a moduł analityczny wspiera kierownika prognozami zapotrzebowania Prophet.",
+        "title": "Spring Boot API, JWT i Prognozy Prophet"
+      },
+      "subtitle": "Kompletne narzędzie dla pracowników hali i kierowników biura: od skanowania produktów oraz druku etykiet po analizę stanów i prognozy.",
+      "table": {
+        "badge": "Panel Web",
+        "description": "Dashboard w React oferuje paginację, sortowanie kolumn (SKU, nazwa, kategoria, ilość, status), wyszukiwanie na żywo oraz wysuwany panel boczny do szybkiej edycji.",
+        "title": "Tabela Produktów Live i Edycja Inline"
+      },
+      "title": "Funkcjonalności CodeWarehouse"
+    },
+    "hero": {
+      "badge": "Projekt CodeWarehouse",
+      "status": "3 zespoły: Backend • Frontend • Mobile",
+      "subtitle": "Intuicyjny system klasy WMS do zarządzania produktami i ich lokalizacją w przestrzeni magazynowej z wykorzystaniem kodów kreskowych. Łączy aplikację skanera na Androida (Kotlin + Jetpack Compose), serwer REST API w Java Spring Boot 3, panel administratora w React i TypeScript oraz prognozowanie Prophet.",
+      "titleHighlight": "magazynem i kodami",
+      "titlePrefix": "System zarządzania"
+    },
+    "highlights": {
+      "auth": {
+        "label": "Dostęp i etykiety",
+        "value": "Karta NFC / Hasło & Druk etykiet"
+      },
+      "domain": {
+        "label": "Profil systemu",
+        "value": "WMS, Barcode & Prognozy Prophet"
+      },
+      "platforms": {
+        "label": "Platformy",
+        "value": "Web Admin + Jetpack Compose + API"
+      }
+    },
+    "repos": {
+      "backend": {
+        "description": "REST API w Java 17 i Spring Boot 3 z JWT, obsługą MySQL/H2, Swaggerem oraz Docker Compose."
+      },
+      "frontend": {
+        "description": "Webowy panel administracyjny w React + TypeScript + Vite z tabelą danych, filtrowaniem i edycją w szufladzie bocznej."
+      },
+      "mobile": {
+        "description": "Aplikacja na Androida w Kotlinie i Jetpack Compose (Clean Architecture, MVVM, Hilt) do skanowania kodów kreskowych."
+      }
+    },
+    "tech": {
+      "backend": {
+        "description": "Aplikacja serwerowa, uwierzytelnianie JWT, baza danych oraz prognozowanie.",
+        "title": "Zespół Backend & Analityka"
+      },
+      "badge": "Technologie",
+      "frontend": {
+        "description": "Panel administracyjny kierownika z tabelą Live, filtrami i szufladą edycji.",
+        "title": "Zespół Frontend (Web)"
+      },
+      "mobile": {
+        "description": "Aplikacja pracownika hali do skanowania kodów kreskowych i obsługi operacji.",
+        "title": "Zespół Mobile (Android)"
+      },
+      "subtitle": "Projekt realizowany równolegle przez trzy zespoły — Backend, Frontend i Mobile — spięte wspólnym kontraktem REST API.",
+      "title": "Stack webowy, mobilny i serwerowy"
+    },
+    "visuals": {
+      "adminUi": {
+        "alt": "Makieta głównego interfejsu administratora CodeWarehouse z tabelą produktów, filtrami oraz szufladą edycji rekordu",
+        "badge": "Web Admin UI",
+        "caption": "Panel webowy w React i TypeScript z wyszukiwarką na żywo, wielokryterialnym panelem filtrów (producent, lokalizacja, kategoria), sortowalną tabelą SKU z paginacją oraz wysuwaną szufladą edycji produktu.",
+        "title": "Główny interfejs administratora"
+      },
+      "badge": "Wizualizacje z prezentacji",
+      "scannerUi": {
+        "alt": "Makieta aplikacji mobilnej skanera kodów kreskowych CodeWarehouse z celownikiem kamery i przyciskiem latarki oraz wprowadzania ręcznego",
+        "badge": "Mobile Scanner",
+        "caption": "Natywny ekran skanowania na Androida (Kotlin + Jetpack Compose) z podglądem kamery, celownikiem barcode, przełącznikiem latarki oraz ręcznym wprowadzaniem kodu.",
+        "title": "Interfejs aplikacji skanera"
+      },
+      "subtitle": "Makiety panelu administratora, aplikacji mobilnej skanera oraz kompletny przepływ operacji między halą magazynową a biurem. Kliknij dowolny widok, aby powiększyć.",
+      "systemFlow": {
+        "alt": "Schemat działania systemu CodeWarehouse łączący logowanie kartą NFC lub hasłem, pracę na hali magazynowej i widok kierownika w biurze",
+        "badge": "Schemat systemu",
+        "caption": "Kompletny przepływ: logowanie kartą NFC lub hasłem, skanowanie na hali (zmiana ilości/przeniesienie lub druk nowej etykiety, gdy produktu brak w bazie), synchronizacja z bazą API oraz tabela Live i prognozy Prophet dla kierownika.",
+        "title": "Schemat działania systemu"
+      },
+      "title": "Interfejs użytkownika i schemat systemu"
+    },
+    "zones": {
+      "api": {
+        "badge": "02 • Baza Danych & REST API"
+      },
+      "hall": {
+        "badge": "01 • Hala (Pracownik)"
+      },
+      "office": {
+        "badge": "03 • Biuro (Prophet)"
+      }
+    }
+  },
   "Contact": {
     "badge": "Bądźmy w kontakcie",
     "discord": {
@@ -206,6 +445,106 @@
       "title": "Od hipotezy do prototypu"
     }
   },
+  "EAkademik": {
+    "architecture": {
+      "badge": "Ewolucja projektu",
+      "step1": {
+        "description": "Pierwotna koncepcja systemu digitalizującego pracę akademików powstała w kole jako aplikacja w C# i backend/frontend.",
+        "title": "Pierwsza wersja (eAkademik C#)"
+      },
+      "step2": {
+        "description": "Rozbudowa warstwy serwerowej w katalogu backend/ nowego repozytorium e-akademik pod obsługę klientów mobilnych.",
+        "title": "Nowy backend w Javie"
+      },
+      "step3": {
+        "description": "Wspólny kod w React Native + Expo Router pozwala jednocześnie dostarczać aplikację na Androida, iOS oraz web.",
+        "title": "Klient mobilny Expo"
+      },
+      "subtitle": "e-Akademik pokazuje, jak projekty koła rozwijają się wraz z kolejnymi rocznikami studentów.",
+      "title": "Od idei studenckiej po nowoczesne monorepo"
+    },
+    "cta": {
+      "description": "Dołącz do zespołu e-Akademika w KNPiMI — rozwijamy zarówno warstwę mobilną w React Native/Expo, jak i backend API.",
+      "title": "Mieszkasz w akademiku i masz pomysł na nową funkcję?"
+    },
+    "features": {
+      "badge": "Obszary systemu",
+      "communication": {
+        "badge": "Komunikacja",
+        "description": "Bezpośredni kanał informacyjny między mieszkańcami a obsługą domu studenckiego z przejrzystym statusem spraw.",
+        "title": "Sprawny Kontakt z Administracją"
+      },
+      "mobile": {
+        "badge": "Mobile First",
+        "description": "Nowoczesny klient mobilny oparty o React Native, Expo Router i TypeScript działający na Androidzie, iOS oraz w przeglądarce.",
+        "title": "Aplikacja Mieszkańca w Expo"
+      },
+      "requests": {
+        "badge": "Zgłoszenia",
+        "description": "Szybkie zgłaszanie spraw technicznych i formalności administracyjnych bez konieczności osobistych wizyt w portierni lub biurze.",
+        "title": "Elektroniczny Obieg Spraw i Usterek"
+      },
+      "reservations": {
+        "badge": "Zasoby wspólne",
+        "description": "Uporządkowanie dostępu do wspólnych pomieszczeń, ogłoszeń rady mieszkańców oraz informacji organizacyjnych akademika.",
+        "title": "Organizacja Przestrzeni i Harmonogramów"
+      },
+      "subtitle": "Zastępujemy papierowe obiegi i rozproszone komunikaty jednym narzędziem dostępnym w kieszeni każdego studenta.",
+      "title": "Co usprawnia e-Akademik?"
+    },
+    "hero": {
+      "badge": "Projekt e-Akademik",
+      "evolutionHeader": "e-akademik // v1 → v2",
+      "status": "Expo Mobile • Java Backend",
+      "subtitle": "System digitalizujący codzienną pracę akademików i ułatwiający życie mieszkańcom — od obsługi zgłoszeń oraz spraw administracyjnych po wieloplatformową aplikację mobilną tworzoną w React Native i Expo.",
+      "titleHighlight": "domów studenckich",
+      "titlePrefix": "Cyfrowa obsługa",
+      "v1Label": "Wersja 1.0 • Prototyp",
+      "v2Label": "Wersja 2.0 • Aktualna"
+    },
+    "highlights": {
+      "backend": {
+        "label": "Zaplecze",
+        "value": "Backend Java & Prototyp C#"
+      },
+      "clients": {
+        "label": "Aplikacja",
+        "value": "Expo / React Native (iOS, Android, Web)"
+      },
+      "domain": {
+        "label": "Cel projektu",
+        "value": "Digitalizacja Domów Studenckich"
+      }
+    },
+    "repos": {
+      "badge": "Ewolucja kodu",
+      "current": {
+        "description": "Aktualne monorepo projektu łączące backend w Javie oraz aplikację mobilną w React Native / Expo."
+      },
+      "legacy": {
+        "description": "Pierwsza wersja systemu digitalizującego pracę akademików przygotowana w C#."
+      },
+      "subtitle": "Porównaj historyczną pierwszą edycję systemu z aktualnym repozytorium rozwijanym przez obecny zespół.",
+      "title": "Od prototypu C# do monorepo Java + Expo"
+    },
+    "tech": {
+      "backend": {
+        "description": "Logika biznesowa, obsługa użytkowników i baza danych systemu.",
+        "title": "Backend & API"
+      },
+      "badge": "Technologie",
+      "mobile": {
+        "description": "Wieloplatformowy interfejs użytkownika w ekosystemie Expo.",
+        "title": "Aplikacja Mobilna"
+      },
+      "subtitle": "Projekt rozwijany etapowo — od pierwszego systemu w C# po aktualną architekturę Java + React Native Expo.",
+      "title": "Wykorzystywane narzędzia i frameworki",
+      "tooling": {
+        "description": "Monorepo łączące aplikację mobilną z backendem oraz automatyzacją CI.",
+        "title": "Jakość & Współpraca"
+      }
+    }
+  },
   "Footer": {
     "copyright": "© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na Politechnice Krakowskiej",
     "socialTitle": "Znajdziesz nas też na"
@@ -269,6 +608,135 @@
     "paragraph": "O nie!! Tej strony jeszcze nie zrobiliśmy, i najprawdoppodobniej nie zrobimy XD",
     "returnButton": "Powróć do Głównej",
     "title": "Ajć! Coś poszło nie tak!"
+  },
+  "PKWMmap": {
+    "architecture": {
+      "badge": "Jak to działa",
+      "step1": {
+        "description": "Moduły natywne Android/iOS odbierają pakiety BLE i na podstawie siły sygnału RSSI wyznaczają pozycję (x, y) na aktualnym piętrze.",
+        "title": "Skanowanie beaconów iNode"
+      },
+      "step2": {
+        "description": "Klient Ktor odpytuje backend (GET /route), który oblicza najkrótszą drogę przez korytarze, windy, schody i łączniki międzybudynkowe.",
+        "title": "Wyznaczenie trasy w Go API"
+      },
+      "step3": {
+        "description": "Compose Multiplatform rysuje ścieżkę bezpośrednio na wyciętych schematach budynków A, B, C, D, E, G, J i K.",
+        "title": "Prowadzenie po 25 planach pięter"
+      },
+      "subtitle": "Architektura thin-client przenosi obliczenia tras i dane kampusowe na serwer, zapewniając płynne działanie na smartfonach.",
+      "title": "Od sygnału radiowego BLE do trasy na planie piętra"
+    },
+    "atlas": {
+      "badge": "Mapa kampusu Czyżyny",
+      "floorPlural": "PKWMmap.atlas.floorPlural",
+      "floorSingular": "PKWMmap.atlas.floorSingular",
+      "subtitle": "Każdy budynek WM PK ma własne plany pięter spięte wspólnym grafem przejść wewnętrznych i zewnętrznych.",
+      "title": "8 budynków, 25 odwzorowanych kondygnacji"
+    },
+    "cta": {
+      "description": "Zajrzyj do repozytorium PKWMmap na GitHubie — rozwijamy aplikację w Kotlin Multiplatform, backend w Go oraz mapowanie kolejnych sal i beaconów.",
+      "title": "Chcesz współtworzyć mapę Wydziału Mechanicznego?"
+    },
+    "features": {
+      "accessibility": {
+        "badge": "Dostępność",
+        "description": "Projekt zakłada natywne komunikaty głosowe Text-to-Speech na Androidzie i iOS, ułatwiające poruszanie się po kampusie osobom z problemami wzroku.",
+        "title": "Wsparcie Nawigacji Głosowej (TTS)"
+      },
+      "badge": "Możliwości nawigacji",
+      "ble": {
+        "badge": "iNode BLE",
+        "description": "Aplikacja skanuje pobliskie nadajniki Bluetooth Low Energy iNode (ID/MAC, RSSI) i wyznacza współrzędne użytkownika (x, y) w czasie rzeczywistym.",
+        "title": "Lokalizacja Wewnątrzbudynkowa BLE"
+      },
+      "routing": {
+        "badge": "Graf tras",
+        "description": "Backend przechowuje graf korytarzy, klatek schodowych, wind, łączników na 1. piętrze i przejść zewnętrznych, wyznaczając najkrótszą ścieżkę dla budynków A, B, C, D, E, G, J i K.",
+        "title": "Nawigacja Między Piętrami i Budynkami"
+      },
+      "search": {
+        "badge": "Baza sal",
+        "description": "Podgląd szczegółów pomieszczeń: typ sali zajęciowej, osoby urzędujące w pokoju, godziny otwarcia jednostek oraz rozkłady zajęć i konsultacji.",
+        "title": "Wyszukiwarka Sal, Biur i Harmonogramów"
+      },
+      "subtitle": "Od wyznaczania aktualnej pozycji w budynku po prowadzenie do konkretnej sali, dziekanatu czy konsultacji prowadzącego.",
+      "title": "Jak pomaga PKWMmap?"
+    },
+    "hero": {
+      "badge": "Projekt PKWMmap",
+      "routeConnector": "Łącznik 1P",
+      "routeEnd": "Sala G121",
+      "routeStart": "Budynek A",
+      "status": "KMP • Go • 25 planów pięter",
+      "subtitle": "Interaktywny system nawigacji wewnątrzbudynkowej i kampusowej dla Wydziału Mechanicznego Politechniki Krakowskiej. Wykorzystuje sieć nadajników BLE iNode, wieloplatformową aplikację mobilną w Kotlin Multiplatform (Android & iOS) oraz wydajny backend w języku Go.",
+      "titleHighlight": "Wydziału Mechanicznego PK",
+      "titlePrefix": "Nawigacja wewnątrz"
+    },
+    "highlights": {
+      "coverage": {
+        "label": "Zasięg mapy",
+        "value": "8 budynków (A–K), 25 planów pięter"
+      },
+      "positioning": {
+        "label": "Pozycjonowanie",
+        "value": "Beacony iNode BLE (RSSI)"
+      },
+      "stack": {
+        "label": "Technologia",
+        "value": "Kotlin Multiplatform + Go"
+      }
+    },
+    "repos": {
+      "main": {
+        "description": "Monorepo zawierające aplikację Kotlin Multiplatform, backend w Go, 25 planów pięter budynków WM PK oraz pełną specyfikację REST API."
+      }
+    },
+    "tech": {
+      "backend": {
+        "description": "REST API, baza beaconów, plany pięter i wyznaczanie tras.",
+        "title": "Backend & Algorytmy"
+      },
+      "badge": "Technologie",
+      "hardware": {
+        "description": "Fizyczna sieć nadajników oraz 25 schematów pięter kampusu Czyżyny.",
+        "title": "Infrastruktura & Mapy"
+      },
+      "mobile": {
+        "description": "Współdzielony interfejs oraz natywne moduły Bluetooth i TTS.",
+        "title": "Frontend Mobilny (KMP)"
+      },
+      "subtitle": "Współdzielona logika biznesowa i UI dla obu platform mobilnych połączona z lekkim serwerem grafowym w Go.",
+      "title": "Architektura KMP, Compose i Go"
+    }
+  },
+  "ProjectPage": {
+    "allProjects": "Wszystkie",
+    "backToProjects": "Wszystkie projekty",
+    "blueprintStack": "Kluczowy stack",
+    "ctaContact": "Skontaktuj się z nami",
+    "ctaSections": "Zobacz sekcje koła",
+    "heroFeatures": "Kluczowe funkcje",
+    "heroJoin": "Dołącz do projektu",
+    "heroRepos": "Repozytoria GitHub",
+    "heroVisuals": "Podgląd interfejsu",
+    "otherProjects": "Poznaj też inne projekty",
+    "repos": {
+      "badge": "Kod źródłowy",
+      "subtitle": "Zobacz kod źródłowy, architekturę oraz postępy prac w oficjalnej organizacji KNPiMI.",
+      "title": "Repozytoria na GitHubie"
+    },
+    "visuals": {
+      "badge": "Wizualizacje i makiety",
+      "title": "Interfejs i przepływ systemu"
+    },
+    "zoomShort": "Powiększ",
+    "zoomVisual": "Powiększ podgląd"
+  },
+  "Projects": {
+    "badge": "Nasze realizacje",
+    "paragraph": "Poznaj aplikacje webowe, mobilne i systemy IoT tworzone przez studentów KNPiMI od pomysłu aż po wdrożenie.",
+    "title": "Projekty koła"
   },
   "Schedule": {
     "badge": "Harmonogram spotkań",
@@ -357,6 +825,102 @@
     "paragraph": "Wybierz obszar, który najbardziej Cię interesuje i rozwijaj swoje umiejętności pod okiem starszych studentów.",
     "title": "Czym się zajmujemy?"
   },
+  "VetLink": {
+    "architecture": {
+      "badge": "Przepływ pracy",
+      "step1": {
+        "description": "Opiekun lub gabinet tworzy ustrukturyzowany profil psa z kompletem wpisów o szczepieniach, lekach i przebytych konsultacjach.",
+        "title": "Profil i historia danych"
+      },
+      "step2": {
+        "description": "System pilnuje terminów profilaktyki oraz analizuje wprowadzane parametry, przypominając o nadchodzących działaniach.",
+        "title": "Monitoring i alerty"
+      },
+      "step3": {
+        "description": "Podczas wizyty weterynarz otrzymuje spójny kontekst zdrowotny pacjenta bez konieczności przeszukiwania papierowych książeczek.",
+        "title": "Współdzielona wiedza"
+      },
+      "subtitle": "Od wprowadzenia profilu pupila po inteligentne wsparcie w codziennej opiece i kontakt z weterynarzem.",
+      "title": "Jak działa ekosystem VetLink"
+    },
+    "cta": {
+      "description": "Odezwij się na Discordzie KNPiMI lub przyjdź na spotkanie sekcji WebDev — opowiemy o aktualnych zadaniach i planach rozwoju.",
+      "title": "Chcesz współtworzyć projekt VetLink w KNPiMI?"
+    },
+    "features": {
+      "badge": "Funkcjonalności",
+      "care": {
+        "badge": "Profilaktyka",
+        "description": "Śledzenie szczepień, odrobaczania, wagi oraz codziennej aktywności z automatycznymi powiadomieniami dla opiekuna.",
+        "title": "Inteligentny Harmonogram Opieki"
+      },
+      "records": {
+        "badge": "Dokumentacja",
+        "description": "Centralne miejsce na historię wizyt, wyniki badań, przebyte zabiegi, alergie oraz aktualnie przyjmowane leki.",
+        "title": "Cyfrowa Karta Zdrowia Zwierzęcia"
+      },
+      "sharing": {
+        "badge": "Współpraca",
+        "description": "Ułatwione udostępnianie kompletnej historii medycznej psa lekarzowi weterynarii podczas nagłej lub kolejnej wizyty.",
+        "title": "Szybki Dostęp dla Gabinetu"
+      },
+      "subtitle": "Zaprojektowany z myślą o uporządkowaniu dokumentacji medycznej zwierząt i ułatwieniu systematycznej opieki.",
+      "title": "Co oferuje VetLink?",
+      "visits": {
+        "badge": "Wizyty",
+        "description": "Przejrzyste zestawienie zaplanowanych konsultacji oraz zaleceń pozabiegowych dostępnych w jednym widoku.",
+        "title": "Zarządzanie Wizytami i Zaleceniami"
+      }
+    },
+    "hero": {
+      "badge": "Projekt VetLink",
+      "dossierNote": "Wystąpienie na Wydziałowej Sesji Kół Naukowych PK.",
+      "dossierTitle": "karta-pacjenta.schema",
+      "fieldClinic": "Wgląd gabinetu",
+      "fieldClinicMeta": "Wizyta i zalecenia",
+      "fieldLabs": "Wyniki badań",
+      "fieldLabsMeta": "Historia leczenia",
+      "fieldMeds": "Leki i alergie",
+      "fieldMedsMeta": "Dawkowanie",
+      "fieldVaccines": "Szczepienia",
+      "fieldVaccinesMeta": "Alerty cykliczne",
+      "status": "Sesja Kół Naukowych PK 2025",
+      "subtitle": "VetLink to aplikacja wspierająca zarządzanie danymi weterynaryjnymi oraz codzienną opiekę nad psem — łącząca historię leczenia, przypomnienia profilaktyczne i komunikację na linii opiekun–lekarz. Projekt został zaprezentowany na Wydziałowej Sesji Kół Naukowych PK.",
+      "titleHighlight": "opieki i danych vet",
+      "titlePrefix": "Inteligentny system"
+    },
+    "highlights": {
+      "domain": {
+        "label": "Dziedzina",
+        "value": "PetTech & Dane Weterynaryjne"
+      },
+      "presentation": {
+        "label": "Wyróżnienie",
+        "value": "Sesja Kół Naukowych WM PK"
+      },
+      "scope": {
+        "label": "Zakres",
+        "value": "Karta pacjenta, wizyty & profilaktyka"
+      }
+    },
+    "tech": {
+      "backend": {
+        "description": "Warstwa API odpowiedzialna za bezpieczne przechowywanie kartotek i logikę przypomnień.",
+        "title": "Backend & Logika"
+      },
+      "badge": "Technologie",
+      "data": {
+        "description": "Modelowanie relacyjnych danych medycznych oraz konteneryzacja usług.",
+        "title": "Dane & Środowisko"
+      },
+      "frontend": {
+        "description": "Responsywny widok dla opiekunów zwierząt oraz panel zarządzania danymi.",
+        "title": "Interfejs Użytkownika"
+      },
+      "subtitle": "Architektura projektowana przez członków koła z naciskiem na niezawodność danych i czytelny interfejs.",
+      "title": "Stos technologiczny projektu"
+    }
+  },
   "Webdev": {
     "cta": {
       "description": "Wpadnij na najbliższe spotkanie sekcji WebDev lub odezwij się na Discordzie KNPiMI — pomożemy Ci wybrać pierwszy projekt i wdrożyć się w zespół.",
@@ -364,6 +928,7 @@
     },
     "hero": {
       "badge": "Sekcja WebDev",
+      "pipelineHeader": "webdev-stack.flow",
       "subtitle": "W sekcji WebDev uczymy się praktycznego tworzenia aplikacji internetowych — od projektowania interfejsu i dostępności, przez backend oraz bazy danych, aż po wdrażanie projektów zespołowych w chmurze.",
       "titleHighlight": "aplikacje webowe",
       "titlePrefix": "Tworzymy nowoczesne"

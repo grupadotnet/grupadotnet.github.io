@@ -4,6 +4,245 @@
     "paragraph": "",
     "title": ""
   },
+  "AquaSharp": {
+    "architecture": {
+      "badge": "",
+      "step1": {
+        "description": "",
+        "title": ""
+      },
+      "step2": {
+        "description": "",
+        "title": ""
+      },
+      "step3": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "cta": {
+      "description": "",
+      "title": ""
+    },
+    "features": {
+      "badge": "",
+      "dashboard": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "docker": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "realtime": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "sensors": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "hero": {
+      "badge": "",
+      "busApi": "",
+      "busBroker": "",
+      "busSensor": "",
+      "busTitle": "",
+      "busUi": "",
+      "status": "",
+      "subtitle": "",
+      "titleHighlight": "",
+      "titlePrefix": ""
+    },
+    "highlights": {
+      "domain": {
+        "label": "",
+        "value": ""
+      },
+      "modules": {
+        "label": "",
+        "value": ""
+      },
+      "presentation": {
+        "label": "",
+        "value": ""
+      }
+    },
+    "repos": {
+      "backend": {
+        "description": ""
+      },
+      "badge": "",
+      "core": {
+        "description": ""
+      },
+      "embedded": {
+        "description": ""
+      },
+      "frontend": {
+        "description": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "tech": {
+      "backend": {
+        "description": "",
+        "title": ""
+      },
+      "badge": "",
+      "embedded": {
+        "description": "",
+        "title": ""
+      },
+      "frontend": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    }
+  },
+  "CodeWarehouse": {
+    "architecture": {
+      "badge": "",
+      "step1": {
+        "description": "",
+        "title": ""
+      },
+      "step2": {
+        "description": "",
+        "title": ""
+      },
+      "step3": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "cta": {
+      "description": "",
+      "title": ""
+    },
+    "features": {
+      "badge": "",
+      "filtering": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "scanner": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "security": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "table": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "title": ""
+    },
+    "hero": {
+      "badge": "",
+      "status": "",
+      "subtitle": "",
+      "titleHighlight": "",
+      "titlePrefix": ""
+    },
+    "highlights": {
+      "auth": {
+        "label": "",
+        "value": ""
+      },
+      "domain": {
+        "label": "",
+        "value": ""
+      },
+      "platforms": {
+        "label": "",
+        "value": ""
+      }
+    },
+    "repos": {
+      "backend": {
+        "description": ""
+      },
+      "frontend": {
+        "description": ""
+      },
+      "mobile": {
+        "description": ""
+      }
+    },
+    "tech": {
+      "backend": {
+        "description": "",
+        "title": ""
+      },
+      "badge": "",
+      "frontend": {
+        "description": "",
+        "title": ""
+      },
+      "mobile": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "visuals": {
+      "adminUi": {
+        "alt": "",
+        "badge": "",
+        "caption": "",
+        "title": ""
+      },
+      "badge": "",
+      "scannerUi": {
+        "alt": "",
+        "badge": "",
+        "caption": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "systemFlow": {
+        "alt": "",
+        "badge": "",
+        "caption": "",
+        "title": ""
+      },
+      "title": ""
+    },
+    "zones": {
+      "api": {
+        "badge": ""
+      },
+      "hall": {
+        "badge": ""
+      },
+      "office": {
+        "badge": ""
+      }
+    }
+  },
   "Contact": {
     "badge": "",
     "discord": {
@@ -206,6 +445,106 @@
       "title": ""
     }
   },
+  "EAkademik": {
+    "architecture": {
+      "badge": "",
+      "step1": {
+        "description": "",
+        "title": ""
+      },
+      "step2": {
+        "description": "",
+        "title": ""
+      },
+      "step3": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "cta": {
+      "description": "",
+      "title": ""
+    },
+    "features": {
+      "badge": "",
+      "communication": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "mobile": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "requests": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "reservations": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "hero": {
+      "badge": "",
+      "evolutionHeader": "",
+      "status": "",
+      "subtitle": "",
+      "titleHighlight": "",
+      "titlePrefix": "",
+      "v1Label": "",
+      "v2Label": ""
+    },
+    "highlights": {
+      "backend": {
+        "label": "",
+        "value": ""
+      },
+      "clients": {
+        "label": "",
+        "value": ""
+      },
+      "domain": {
+        "label": "",
+        "value": ""
+      }
+    },
+    "repos": {
+      "badge": "",
+      "current": {
+        "description": ""
+      },
+      "legacy": {
+        "description": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "tech": {
+      "backend": {
+        "description": "",
+        "title": ""
+      },
+      "badge": "",
+      "mobile": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": "",
+      "tooling": {
+        "description": "",
+        "title": ""
+      }
+    }
+  },
   "Footer": {
     "copyright": "",
     "socialTitle": ""
@@ -268,6 +607,135 @@
   "NotFound": {
     "paragraph": "",
     "returnButton": "",
+    "title": ""
+  },
+  "PKWMmap": {
+    "architecture": {
+      "badge": "",
+      "step1": {
+        "description": "",
+        "title": ""
+      },
+      "step2": {
+        "description": "",
+        "title": ""
+      },
+      "step3": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "atlas": {
+      "badge": "",
+      "floorPlural": "",
+      "floorSingular": "",
+      "subtitle": "",
+      "title": ""
+    },
+    "cta": {
+      "description": "",
+      "title": ""
+    },
+    "features": {
+      "accessibility": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "badge": "",
+      "ble": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "routing": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "search": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "hero": {
+      "badge": "",
+      "routeConnector": "",
+      "routeEnd": "",
+      "routeStart": "",
+      "status": "",
+      "subtitle": "",
+      "titleHighlight": "",
+      "titlePrefix": ""
+    },
+    "highlights": {
+      "coverage": {
+        "label": "",
+        "value": ""
+      },
+      "positioning": {
+        "label": "",
+        "value": ""
+      },
+      "stack": {
+        "label": "",
+        "value": ""
+      }
+    },
+    "repos": {
+      "main": {
+        "description": ""
+      }
+    },
+    "tech": {
+      "backend": {
+        "description": "",
+        "title": ""
+      },
+      "badge": "",
+      "hardware": {
+        "description": "",
+        "title": ""
+      },
+      "mobile": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    }
+  },
+  "ProjectPage": {
+    "allProjects": "",
+    "backToProjects": "",
+    "blueprintStack": "",
+    "ctaContact": "",
+    "ctaSections": "",
+    "heroFeatures": "",
+    "heroJoin": "",
+    "heroRepos": "",
+    "heroVisuals": "",
+    "otherProjects": "",
+    "repos": {
+      "badge": "",
+      "subtitle": "",
+      "title": ""
+    },
+    "visuals": {
+      "badge": "",
+      "title": ""
+    },
+    "zoomShort": "",
+    "zoomVisual": ""
+  },
+  "Projects": {
+    "badge": "",
+    "paragraph": "",
     "title": ""
   },
   "Schedule": {
@@ -357,6 +825,102 @@
     "paragraph": "",
     "title": ""
   },
+  "VetLink": {
+    "architecture": {
+      "badge": "",
+      "step1": {
+        "description": "",
+        "title": ""
+      },
+      "step2": {
+        "description": "",
+        "title": ""
+      },
+      "step3": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    },
+    "cta": {
+      "description": "",
+      "title": ""
+    },
+    "features": {
+      "badge": "",
+      "care": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "records": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "sharing": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": "",
+      "visits": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      }
+    },
+    "hero": {
+      "badge": "",
+      "dossierNote": "",
+      "dossierTitle": "",
+      "fieldClinic": "",
+      "fieldClinicMeta": "",
+      "fieldLabs": "",
+      "fieldLabsMeta": "",
+      "fieldMeds": "",
+      "fieldMedsMeta": "",
+      "fieldVaccines": "",
+      "fieldVaccinesMeta": "",
+      "status": "",
+      "subtitle": "",
+      "titleHighlight": "",
+      "titlePrefix": ""
+    },
+    "highlights": {
+      "domain": {
+        "label": "",
+        "value": ""
+      },
+      "presentation": {
+        "label": "",
+        "value": ""
+      },
+      "scope": {
+        "label": "",
+        "value": ""
+      }
+    },
+    "tech": {
+      "backend": {
+        "description": "",
+        "title": ""
+      },
+      "badge": "",
+      "data": {
+        "description": "",
+        "title": ""
+      },
+      "frontend": {
+        "description": "",
+        "title": ""
+      },
+      "subtitle": "",
+      "title": ""
+    }
+  },
   "Webdev": {
     "cta": {
       "description": "",
@@ -364,6 +928,7 @@
     },
     "hero": {
       "badge": "",
+      "pipelineHeader": "",
       "subtitle": "",
       "titleHighlight": "",
       "titlePrefix": ""

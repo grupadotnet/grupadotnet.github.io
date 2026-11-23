@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import {
+  RiArrowRightLine,
   RiCodeSSlashLine,
   RiGitBranchLine,
   RiLayoutMasonryLine,
@@ -12,9 +13,15 @@ import {
 
 import { extractTranslation } from '@/lib/extractTranslation.tsx';
 import {
-  SectionPageLayout,
+  SectionHero,
+  SectionNextEventSection,
+  SectionOtherAndCta,
+  SectionPillars,
+  SectionTechStack,
+  SectionWorkflow,
   type SectionPageData,
 } from '@/components/SectionPageLayout.tsx';
+import { Card, CardContent } from '@/components/ui/card.tsx';
 
 export const Route = createFileRoute('/sections/webdev')({
   component: Webdev,
@@ -220,5 +227,47 @@ function Webdev() {
     ),
   };
 
-  return <SectionPageLayout data={data} />;
+  const stackFlowSlot = (
+    <Card className="overflow-hidden border border-border/60 bg-muted/40 py-0 shadow-sm">
+      <div className="flex items-center justify-between border-b border-border/50 bg-background/80 px-4 py-2.5">
+        <span className="font-mono text-xs font-semibold text-foreground">
+          {t('Webdev.hero.pipelineHeader', 'webdev-stack.flow')}
+        </span>
+        <span className="font-mono text-[11px] text-blue-600 dark:text-blue-400">
+          CI/CD Ready
+        </span>
+      </div>
+      <CardContent className="space-y-2.5 p-4">
+        <div className="flex items-center justify-between gap-2 rounded-lg border border-border/50 bg-background/70 px-3 py-2 text-xs">
+          <span className="font-mono font-semibold">React + TypeScript</span>
+          <span className="text-muted-foreground">UI / WCAG</span>
+        </div>
+        <div className="flex justify-center text-muted-foreground">
+          <RiArrowRightLine className="h-3.5 w-3.5 rotate-90" />
+        </div>
+        <div className="flex items-center justify-between gap-2 rounded-lg border border-border/50 bg-background/70 px-3 py-2 text-xs">
+          <span className="font-mono font-semibold">.NET / Node.js</span>
+          <span className="text-muted-foreground">REST API + SQL</span>
+        </div>
+        <div className="flex justify-center text-muted-foreground">
+          <RiArrowRightLine className="h-3.5 w-3.5 rotate-90" />
+        </div>
+        <div className="flex items-center justify-between gap-2 rounded-lg border border-border/50 bg-background/70 px-3 py-2 text-xs">
+          <span className="font-mono font-semibold">Docker + Actions</span>
+          <span className="text-muted-foreground">Deploy</span>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  return (
+    <div className="min-h-screen bg-background">
+      <SectionHero data={data} variant="split" rightSlot={stackFlowSlot} />
+      <SectionPillars data={data} variant="bento" />
+      <SectionTechStack data={data} variant="matrix" />
+      <SectionWorkflow data={data} variant="card-3" />
+      <SectionNextEventSection sectionPath="webdev" variant="split-row" />
+      <SectionOtherAndCta data={data} />
+    </div>
+  );
 }
