@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +12,7 @@ import {
   RiDiscordFill,
   RiSparklingLine,
   RiStackLine,
+  RiTerminalLine,
   RiTimeLine,
 } from '@remixicon/react';
 
@@ -31,6 +32,10 @@ import {
   CalendarActionButton,
   CalendarPickerDialog,
 } from '@/components/ScheduleCalendarDialog.tsx';
+import {
+  NumberedStepCard,
+  TechGroupsMatrixSheet,
+} from '@/components/PageBlocks.tsx';
 import { Badge } from '@/components/ui/badge.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { ButtonGroup } from '@/components/ui/button-group.tsx';
@@ -120,33 +125,221 @@ const cardClass =
 const iconBoxClass =
   'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400';
 
-function SectionHero({ data }: { data: SectionPageData }) {
+function SectionHeroBackLink() {
   const { t } = useTranslation();
-  const currentSection = sections.find((s) => s.path === data.sectionPath);
+
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      nativeButton={false}
+      className="gap-1.5 text-muted-foreground hover:text-foreground"
+      render={
+        <Link to="/sections">
+          <RiArrowLeftLine className="h-4 w-4" />
+          <span>{t('SectionPage.backToSections', 'Wszystkie sekcje')}</span>
+        </Link>
+      }
+    />
+  );
+}
+
+function SectionHeroBadge({
+  sectionPath,
+  badge,
+  compact,
+}: {
+  sectionPath: SectionPath;
+  badge: string;
+  compact?: boolean;
+}) {
+  const currentSection = sections.find((s) => s.path === sectionPath);
   const SectionIcon = currentSection?.icon;
 
   return (
+    <Badge
+      variant="secondary"
+      className={
+        compact ? 'px-2.5 py-0.5 text-xs' : 'px-3 py-1 text-sm font-medium'
+      }
+    >
+      {SectionIcon && (
+        <SectionIcon
+          className={compact ? 'mr-1.5 h-3.5 w-3.5' : 'mr-2 h-4 w-4'}
+        />
+      )}
+      {badge}
+    </Badge>
+  );
+}
+
+function SectionHeroActions({
+  className = 'flex flex-wrap items-center gap-3 pt-1',
+}: {
+  className?: string;
+}) {
+  const { t } = useTranslation();
+
+  return (
+    <div className={className}>
+      <Button
+        nativeButton={false}
+        className="cursor-pointer gap-2"
+        render={
+          <a href="#spotkania">
+            <RiCalendarEventLine className="h-4 w-4" />
+            <span>
+              {t('SectionPage.heroNextMeeting', 'Najbliższe spotkanie')}
+            </span>
+          </a>
+        }
+      />
+      <Button
+        variant="outline"
+        nativeButton={false}
+        className="cursor-pointer gap-2"
+        render={
+          <Link to="/contact">
+            <RiDiscordFill className="h-4 w-4" />
+            <span>{t('SectionPage.heroJoin', 'Dołącz do sekcji')}</span>
+          </Link>
+        }
+      />
+      <Button
+        variant="secondary"
+        nativeButton={false}
+        className="cursor-pointer gap-2"
+        render={
+          <a href="#obszary">
+            <RiCompass3Line className="h-4 w-4" />
+            <span>{t('SectionPage.heroAreas', 'Obszary tematyczne')}</span>
+          </a>
+        }
+      />
+    </div>
+  );
+}
+
+function SectionHeroSplit({
+  data,
+  rightSlot,
+}: {
+  data: SectionPageData;
+  rightSlot?: ReactNode;
+}) {
+  return (
+    <section className="container mx-auto max-w-6xl px-4 pt-10 pb-12 md:pt-16 md:pb-16">
+      <div className="mb-8 flex items-center justify-between">
+        <SectionHeroBackLink />
+      </div>
+
+      <div className="grid items-center gap-10 lg:grid-cols-12">
+        <div className="space-y-6 lg:col-span-7">
+          <SectionHeroBadge sectionPath={data.sectionPath} badge={data.badge} />
+
+          <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            {data.titlePrefix}{' '}
+            <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+              {data.titleHighlight}
+            </span>
+          </h1>
+
+          <p className="max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground">
+            {data.subtitle}
+          </p>
+
+          <SectionHeroActions />
+        </div>
+
+        <div className="space-y-4 lg:col-span-5">
+          {rightSlot}
+          <div className="grid gap-3">
+            {data.highlights.map((item) => (
+              <Card key={item.id} className="border-none bg-muted/50 shadow-sm">
+                <CardContent className="flex items-center justify-between gap-4 p-4">
+                  <span className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
+                    {item.label}
+                  </span>
+                  <span className="text-right text-sm font-semibold text-foreground">
+                    {item.value}
+                  </span>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SectionHeroTerminal({ data }: { data: SectionPageData }) {
+  return (
+    <section className="container mx-auto max-w-6xl px-4 pt-10 pb-12 md:pt-16 md:pb-16">
+      <div className="mb-8 flex justify-between">
+        <SectionHeroBackLink />
+        <Badge variant="outline" className="gap-1.5 font-mono text-xs">
+          <RiTerminalLine className="h-3.5 w-3.5 text-emerald-500" />
+          <span>~/sections/{data.sectionPath}</span>
+        </Badge>
+      </div>
+
+      <Card className="overflow-hidden border border-border/60 bg-muted/40 shadow-sm">
+        <div className="flex items-center justify-between border-b border-border/50 bg-background/70 px-4 py-2.5">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-rose-400/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+          </div>
+          <SectionHeroBadge
+            sectionPath={data.sectionPath}
+            badge={data.badge}
+            compact
+          />
+        </div>
+
+        <CardContent className="space-y-8 p-6 md:p-10">
+          <div className="space-y-4">
+            <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl md:text-6xl">
+              {data.titlePrefix}{' '}
+              <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+                {data.titleHighlight}
+              </span>
+            </h1>
+            <p className="max-w-3xl text-lg leading-relaxed text-pretty text-muted-foreground">
+              {data.subtitle}
+            </p>
+          </div>
+
+          <SectionHeroActions className="flex flex-wrap items-center gap-3" />
+
+          <div className="grid divide-y divide-border/50 rounded-xl border border-border/50 bg-background/70 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {data.highlights.map((item) => (
+              <div key={item.id} className="p-4">
+                <p className="font-mono text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">
+                  {item.label}
+                </p>
+                <p className="mt-1 text-sm font-semibold text-foreground">
+                  {item.value}
+                </p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </section>
+  );
+}
+
+function SectionHeroCentered({ data }: { data: SectionPageData }) {
+  return (
     <section className="container mx-auto max-w-6xl px-4 pt-12 pb-12 md:pt-20 md:pb-16">
       <div className="mb-8 flex justify-center">
-        <Button
-          variant="ghost"
-          size="sm"
-          nativeButton={false}
-          className="gap-1.5 text-muted-foreground hover:text-foreground"
-          render={
-            <Link to="/sections">
-              <RiArrowLeftLine className="h-4 w-4" />
-              <span>{t('SectionPage.backToSections', 'Wszystkie sekcje')}</span>
-            </Link>
-          }
-        />
+        <SectionHeroBackLink />
       </div>
 
       <div className="flex flex-col items-center space-y-6 text-center">
-        <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
-          {SectionIcon && <SectionIcon className="mr-2 h-4 w-4" />}
-          {data.badge}
-        </Badge>
+        <SectionHeroBadge sectionPath={data.sectionPath} badge={data.badge} />
 
         <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl md:text-6xl">
           {data.titlePrefix}{' '}
@@ -159,42 +352,7 @@ function SectionHero({ data }: { data: SectionPageData }) {
           {data.subtitle}
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <Button
-            nativeButton={false}
-            className="cursor-pointer gap-2"
-            render={
-              <a href="#spotkania">
-                <RiCalendarEventLine className="h-4 w-4" />
-                <span>
-                  {t('SectionPage.heroNextMeeting', 'Najbliższe spotkanie')}
-                </span>
-              </a>
-            }
-          />
-          <Button
-            variant="outline"
-            nativeButton={false}
-            className="cursor-pointer gap-2"
-            render={
-              <Link to="/contact">
-                <RiDiscordFill className="h-4 w-4" />
-                <span>{t('SectionPage.heroJoin', 'Dołącz do sekcji')}</span>
-              </Link>
-            }
-          />
-          <Button
-            variant="secondary"
-            nativeButton={false}
-            className="cursor-pointer gap-2"
-            render={
-              <a href="#obszary">
-                <RiCompass3Line className="h-4 w-4" />
-                <span>{t('SectionPage.heroAreas', 'Obszary tematyczne')}</span>
-              </a>
-            }
-          />
-        </div>
+        <SectionHeroActions className="flex flex-wrap items-center justify-center gap-3 pt-2" />
 
         <div className="grid w-full max-w-4xl gap-4 pt-6 sm:grid-cols-3">
           {data.highlights.map((item) => (
@@ -216,6 +374,26 @@ function SectionHero({ data }: { data: SectionPageData }) {
       </div>
     </section>
   );
+}
+
+export function SectionHero({
+  data,
+  variant = 'centered',
+  rightSlot,
+}: {
+  data: SectionPageData;
+  variant?: 'centered' | 'split' | 'terminal';
+  rightSlot?: ReactNode;
+}) {
+  if (variant === 'split') {
+    return <SectionHeroSplit data={data} rightSlot={rightSlot} />;
+  }
+
+  if (variant === 'terminal') {
+    return <SectionHeroTerminal data={data} />;
+  }
+
+  return <SectionHeroCentered data={data} />;
 }
 
 function SpotlightEventCard({
@@ -477,10 +655,12 @@ function NextEventEmptyCard() {
   );
 }
 
-function SectionNextEventSection({
+export function SectionNextEventSection({
   sectionPath,
+  variant = 'centered',
 }: {
   sectionPath: SectionPath;
+  variant?: 'centered' | 'split-row';
 }) {
   const { t } = useTranslation();
   const {
@@ -511,89 +691,123 @@ function SectionNextEventSection({
   const nextEvent = displayEvents[0];
   const moreEvents = displayEvents.slice(1, 4);
 
+  const preferenceBar = preferredApp && !isLoading && !isError && nextEvent && (
+    <div
+      className={`flex flex-wrap items-center gap-2 text-sm text-muted-foreground ${
+        variant === 'centered' ? 'justify-center' : 'justify-start'
+      }`}
+    >
+      <span>
+        {t('Schedule.preferredApp.label', 'Wybrany kalendarz:')}{' '}
+        <strong className="font-medium text-foreground">
+          {getCalendarAppLabel(preferredApp, t)}
+        </strong>
+      </span>
+      <Button
+        type="button"
+        variant="outline"
+        size="xs"
+        className="cursor-pointer"
+        onClick={() => setDialogState({ type: 'preference' })}
+      >
+        {t('Schedule.preferredApp.change', 'Zmień')}
+      </Button>
+    </div>
+  );
+
+  const spotlightBlock = isLoading ? (
+    <NextEventLoadingCard />
+  ) : isError || !nextEvent ? (
+    <NextEventEmptyCard />
+  ) : (
+    <SpotlightEventCard
+      event={nextEvent}
+      sectionTitle={sectionTitle}
+      preferredApp={preferredApp}
+      onRequestAppChoice={(event, mode) =>
+        setDialogState({ type: 'action', event, mode })
+      }
+    />
+  );
+
   return (
     <section
       id="spotkania"
       className="container mx-auto max-w-6xl scroll-mt-20 px-4 py-12 md:py-16"
     >
       <div className="flex flex-col space-y-8">
-        <div className="flex flex-col items-center space-y-3 text-center">
-          <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
-            <RiCalendarEventLine className="mr-2 h-4 w-4" />
-            {t('SectionPage.nextEvent.badge', 'Harmonogram sekcji')}
-          </Badge>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            {t('SectionPage.nextEvent.title', 'Najbliższe spotkanie')}
-          </h2>
-          <p className="max-w-2xl text-base text-muted-foreground">
-            {t(
-              'SectionPage.nextEvent.subtitle',
-              'Aktualne terminy spotkań sekcji pobierane bezpośrednio z kalendarza KNPiMI.'
-            )}
-          </p>
-        </div>
-
-        {preferredApp && !isLoading && !isError && nextEvent && (
-          <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground">
-            <span>
-              {t('Schedule.preferredApp.label', 'Wybrany kalendarz:')}{' '}
-              <strong className="font-medium text-foreground">
-                {getCalendarAppLabel(preferredApp, t)}
-              </strong>
-            </span>
-            <Button
-              type="button"
-              variant="outline"
-              size="xs"
-              className="cursor-pointer"
-              onClick={() => setDialogState({ type: 'preference' })}
-            >
-              {t('Schedule.preferredApp.change', 'Zmień')}
-            </Button>
+        {variant === 'split-row' ? (
+          <div className="grid items-start gap-8 lg:grid-cols-12">
+            <div className="space-y-4 lg:col-span-4">
+              <Badge
+                variant="secondary"
+                className="px-3 py-1 text-sm font-medium"
+              >
+                <RiCalendarEventLine className="mr-2 h-4 w-4" />
+                {t('SectionPage.nextEvent.badge', 'Harmonogram sekcji')}
+              </Badge>
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+                {t('SectionPage.nextEvent.title', 'Najbliższe spotkanie')}
+              </h2>
+              <p className="text-base leading-relaxed text-muted-foreground">
+                {t(
+                  'SectionPage.nextEvent.subtitle',
+                  'Aktualne terminy spotkań sekcji pobierane bezpośrednio z kalendarza KNPiMI.'
+                )}
+              </p>
+              {preferenceBar}
+            </div>
+            <div className="lg:col-span-8">{spotlightBlock}</div>
           </div>
+        ) : (
+          <>
+            <div className="flex flex-col items-center space-y-3 text-center">
+              <Badge
+                variant="secondary"
+                className="px-3 py-1 text-sm font-medium"
+              >
+                <RiCalendarEventLine className="mr-2 h-4 w-4" />
+                {t('SectionPage.nextEvent.badge', 'Harmonogram sekcji')}
+              </Badge>
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+                {t('SectionPage.nextEvent.title', 'Najbliższe spotkanie')}
+              </h2>
+              <p className="max-w-2xl text-base text-muted-foreground">
+                {t(
+                  'SectionPage.nextEvent.subtitle',
+                  'Aktualne terminy spotkań sekcji pobierane bezpośrednio z kalendarza KNPiMI.'
+                )}
+              </p>
+            </div>
+            {preferenceBar}
+            {spotlightBlock}
+          </>
         )}
 
-        {isLoading ? (
-          <NextEventLoadingCard />
-        ) : isError || !nextEvent ? (
-          <NextEventEmptyCard />
-        ) : (
-          <div className="space-y-6">
-            <SpotlightEventCard
-              event={nextEvent}
-              sectionTitle={sectionTitle}
-              preferredApp={preferredApp}
-              onRequestAppChoice={(event, mode) =>
-                setDialogState({ type: 'action', event, mode })
-              }
-            />
-
-            {moreEvents.length > 0 && (
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold tracking-tight">
-                  {t(
-                    'SectionPage.nextEvent.moreUpcoming',
-                    'Kolejne zaplanowane spotkania'
-                  )}
-                </h3>
-                <div className="grid gap-4 md:grid-cols-3">
-                  {moreEvents.map((event) => (
-                    <UpcomingSectionEventCard
-                      key={`${event.id}-${event.start.getTime()}`}
-                      event={event}
-                      preferredApp={preferredApp}
-                      onRequestAppChoice={(selected, mode) =>
-                        setDialogState({
-                          type: 'action',
-                          event: selected,
-                          mode,
-                        })
-                      }
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
+        {!isLoading && !isError && moreEvents.length > 0 && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold tracking-tight">
+              {t(
+                'SectionPage.nextEvent.moreUpcoming',
+                'Kolejne zaplanowane spotkania'
+              )}
+            </h3>
+            <div className="grid gap-4 md:grid-cols-3">
+              {moreEvents.map((event) => (
+                <UpcomingSectionEventCard
+                  key={`${event.id}-${event.start.getTime()}`}
+                  event={event}
+                  preferredApp={preferredApp}
+                  onRequestAppChoice={(selected, mode) =>
+                    setDialogState({
+                      type: 'action',
+                      event: selected,
+                      mode,
+                    })
+                  }
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -608,106 +822,432 @@ function SectionNextEventSection({
   );
 }
 
-function SectionPillars({ data }: { data: SectionPageData }) {
+export function SectionPillars({
+  data,
+  variant = 'grid-2x2',
+}: {
+  data: SectionPageData;
+  variant?: 'grid-2x2' | 'bento' | 'notebook' | 'briefing';
+}) {
   return (
     <section
       id="obszary"
       className="container mx-auto max-w-6xl scroll-mt-20 px-4 py-12 md:py-16"
     >
       <div className="flex flex-col space-y-10">
-        <div className="flex flex-col items-center space-y-3 text-center">
-          <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
-            <RiStackLine className="mr-2 h-4 w-4" />
-            {data.pillarsBadge}
-          </Badge>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            {data.pillarsTitle}
-          </h2>
-          <p className="max-w-2xl text-base text-muted-foreground">
-            {data.pillarsSubtitle}
-          </p>
-        </div>
+        {variant === 'bento' || variant === 'briefing' ? (
+          <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+            <div className="space-y-3">
+              <Badge
+                variant="secondary"
+                className="px-3 py-1 text-sm font-medium"
+              >
+                <RiStackLine className="mr-2 h-4 w-4" />
+                {data.pillarsBadge}
+              </Badge>
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+                {data.pillarsTitle}
+              </h2>
+            </div>
+            <p className="max-w-xl text-base text-muted-foreground">
+              {data.pillarsSubtitle}
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center space-y-3 text-center">
+            <Badge
+              variant="secondary"
+              className="px-3 py-1 text-sm font-medium"
+            >
+              <RiStackLine className="mr-2 h-4 w-4" />
+              {data.pillarsBadge}
+            </Badge>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+              {data.pillarsTitle}
+            </h2>
+            <p className="max-w-2xl text-base text-muted-foreground">
+              {data.pillarsSubtitle}
+            </p>
+          </div>
+        )}
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {data.pillars.map((pillar) => {
-            const Icon = pillar.icon;
-            return (
-              <Card key={pillar.id} className={cardClass}>
-                <CardHeader className="space-y-3">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className={iconBoxClass}>
-                      <Icon className="h-5 w-5" />
+        {variant === 'bento' ? (
+          <div className="grid gap-6 md:grid-cols-12">
+            {data.pillars.map((pillar, index) => {
+              const Icon = pillar.icon;
+              const isWide = index === 0 || index === 3;
+              return (
+                <Card
+                  key={pillar.id}
+                  className={`relative overflow-hidden ${cardClass} ${
+                    isWide ? 'md:col-span-7' : 'md:col-span-5'
+                  }`}
+                >
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-1 bg-(image:--primary-gradient) opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  />
+                  <CardHeader className="space-y-3">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <div className={iconBoxClass}>
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <span className="font-mono text-xs font-bold text-muted-foreground">
+                          0{index + 1}
+                        </span>
+                      </div>
+                      <Badge variant="outline" className="text-xs font-medium">
+                        {pillar.badge}
+                      </Badge>
                     </div>
-                    <Badge variant="outline" className="text-xs font-medium">
-                      {pillar.badge}
-                    </Badge>
+                    <CardTitle className="text-xl transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      {pillar.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="leading-relaxed text-muted-foreground">
+                      {pillar.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        ) : variant === 'notebook' ? (
+          <div className="space-y-4">
+            {data.pillars.map((pillar, index) => {
+              const Icon = pillar.icon;
+              return (
+                <Card
+                  key={pillar.id}
+                  className="group overflow-hidden border border-border/50 bg-muted/40 py-0 shadow-sm transition-colors hover:border-blue-500/30 hover:bg-muted/60"
+                >
+                  <div className="grid md:grid-cols-12">
+                    <div className="flex flex-col justify-between gap-3 border-b border-border/40 bg-background/60 p-5 md:col-span-5 md:border-r md:border-b-0">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="font-mono text-xs font-semibold text-blue-600 dark:text-blue-400">
+                          In [{String(index + 1).padStart(2, '0')}]:
+                        </span>
+                        <Badge
+                          variant="outline"
+                          className="font-mono text-xs font-medium"
+                        >
+                          {pillar.badge}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className={iconBoxClass}>
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <h3 className="text-lg font-bold tracking-tight transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                          {pillar.title}
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="flex items-center p-5 md:col-span-7 md:p-6">
+                      <p className="leading-relaxed text-muted-foreground">
+                        {pillar.description}
+                      </p>
+                    </div>
                   </div>
-                  <CardTitle className="text-xl transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                    {pillar.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="leading-relaxed text-muted-foreground">
-                    {pillar.description}
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+                </Card>
+              );
+            })}
+          </div>
+        ) : variant === 'briefing' ? (
+          <Card className="overflow-hidden border border-border/50 bg-muted/40 py-0 shadow-sm">
+            <div className="divide-y divide-border/50">
+              {data.pillars.map((pillar, index) => {
+                const Icon = pillar.icon;
+                return (
+                  <div
+                    key={pillar.id}
+                    className="group grid items-start gap-4 p-6 transition-colors hover:bg-muted/70 md:grid-cols-12"
+                  >
+                    <div className="flex items-center gap-3 md:col-span-4">
+                      <span className="font-mono text-sm font-bold text-muted-foreground">
+                        [{String(index + 1).padStart(2, '0')}]
+                      </span>
+                      <div className={iconBoxClass}>
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <Badge
+                        variant="outline"
+                        className="font-mono text-xs font-medium"
+                      >
+                        {pillar.badge}
+                      </Badge>
+                    </div>
+                    <div className="space-y-1.5 md:col-span-8">
+                      <h3 className="text-lg font-bold transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                        {pillar.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+                        {pillar.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2">
+            {data.pillars.map((pillar) => {
+              const Icon = pillar.icon;
+              return (
+                <Card key={pillar.id} className={cardClass}>
+                  <CardHeader className="space-y-3">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className={iconBoxClass}>
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <Badge variant="outline" className="text-xs font-medium">
+                        {pillar.badge}
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-xl transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      {pillar.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="leading-relaxed text-muted-foreground">
+                      {pillar.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-function SectionTechStack({ data }: { data: SectionPageData }) {
+export function SectionTechStack({
+  data,
+  variant = 'cards-3',
+}: {
+  data: SectionPageData;
+  variant?: 'cards-3' | 'matrix' | 'terminal-grid';
+}) {
   return (
     <section className="container mx-auto max-w-6xl px-4 py-12 md:py-16">
       <div className="flex flex-col space-y-10">
-        <div className="flex flex-col items-center space-y-3 text-center">
-          <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
-            <RiCodeBoxLine className="mr-2 h-4 w-4" />
-            {data.techBadge}
-          </Badge>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            {data.techTitle}
-          </h2>
-          <p className="max-w-2xl text-base text-muted-foreground">
-            {data.techSubtitle}
-          </p>
-        </div>
+        {variant === 'matrix' ? (
+          <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+            <div className="space-y-3">
+              <Badge
+                variant="secondary"
+                className="px-3 py-1 text-sm font-medium"
+              >
+                <RiCodeBoxLine className="mr-2 h-4 w-4" />
+                {data.techBadge}
+              </Badge>
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+                {data.techTitle}
+              </h2>
+            </div>
+            <p className="max-w-xl text-base text-muted-foreground">
+              {data.techSubtitle}
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center space-y-3 text-center">
+            <Badge
+              variant="secondary"
+              className="px-3 py-1 text-sm font-medium"
+            >
+              <RiCodeBoxLine className="mr-2 h-4 w-4" />
+              {data.techBadge}
+            </Badge>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+              {data.techTitle}
+            </h2>
+            <p className="max-w-2xl text-base text-muted-foreground">
+              {data.techSubtitle}
+            </p>
+          </div>
+        )}
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {data.techGroups.map((group) => (
-            <Card key={group.id} className="border-none bg-muted/50 shadow-sm">
-              <CardHeader className="space-y-2">
-                <CardTitle className="text-lg">{group.title}</CardTitle>
-                <CardDescription className="text-sm leading-relaxed">
-                  {group.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <Badge
-                      key={item}
-                      variant="secondary"
-                      className="px-2.5 py-1 font-mono text-xs font-medium"
-                    >
-                      {item}
-                    </Badge>
-                  ))}
+        {variant === 'matrix' ? (
+          <TechGroupsMatrixSheet groups={data.techGroups} />
+        ) : variant === 'terminal-grid' ? (
+          <div className="grid gap-6 md:grid-cols-3">
+            {data.techGroups.map((group) => (
+              <Card
+                key={group.id}
+                className="overflow-hidden border border-border/60 bg-muted/40 py-0 shadow-sm"
+              >
+                <div className="flex items-center justify-between border-b border-border/50 bg-background/70 px-4 py-2.5">
+                  <span className="font-mono text-xs font-semibold text-foreground">
+                    $ ls ./{group.id}
+                  </span>
+                  <span className="h-2 w-2 rounded-full bg-emerald-500/80" />
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                <CardHeader className="space-y-1.5 pt-5">
+                  <CardTitle className="text-base">{group.title}</CardTitle>
+                  <CardDescription className="text-sm leading-relaxed">
+                    {group.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="pb-6">
+                  <div className="flex flex-wrap gap-2">
+                    {group.items.map((item) => (
+                      <Badge
+                        key={item}
+                        variant="outline"
+                        className="bg-background/70 px-2.5 py-1 font-mono text-xs font-medium"
+                      >
+                        {item}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-3">
+            {data.techGroups.map((group) => (
+              <Card
+                key={group.id}
+                className="border-none bg-muted/50 shadow-sm"
+              >
+                <CardHeader className="space-y-2">
+                  <CardTitle className="text-lg">{group.title}</CardTitle>
+                  <CardDescription className="text-sm leading-relaxed">
+                    {group.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {group.items.map((item) => (
+                      <Badge
+                        key={item}
+                        variant="secondary"
+                        className="px-2.5 py-1 font-mono text-xs font-medium"
+                      >
+                        {item}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-function SectionWorkflow({ data }: { data: SectionPageData }) {
+export function SectionWorkflow({
+  data,
+  variant = 'card-3',
+}: {
+  data: SectionPageData;
+  variant?: 'card-3' | 'pipeline' | 'checklist';
+}) {
+  if (variant === 'pipeline') {
+    return (
+      <section className="container mx-auto max-w-6xl px-4 py-12 md:py-16">
+        <div className="flex flex-col space-y-10">
+          <div className="flex flex-col items-center space-y-3 text-center">
+            <Badge
+              variant="secondary"
+              className="px-3 py-1 text-sm font-medium"
+            >
+              <RiCompass3Line className="mr-2 h-4 w-4" />
+              {data.workflowBadge}
+            </Badge>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+              {data.workflowTitle}
+            </h2>
+            <p className="max-w-2xl text-base text-muted-foreground">
+              {data.workflowSubtitle}
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {data.workflowSteps.map((step, index) => {
+              const Icon = step.icon;
+              return (
+                <div key={step.step} className="relative flex flex-col">
+                  <Card className="relative h-full border border-border/50 bg-muted/40 shadow-sm">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <div className={iconBoxClass}>
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <span className="font-mono text-3xl font-black tracking-tighter text-blue-600/20 select-none dark:text-blue-400/20">
+                          {step.step}
+                        </span>
+                      </div>
+                      <CardTitle className="pt-2 text-lg">
+                        {step.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {step.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+
+                  {index < data.workflowSteps.length - 1 && (
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute top-1/2 -right-5 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border/60 bg-background text-muted-foreground shadow-xs md:flex"
+                    >
+                      <RiArrowRightLine className="h-4 w-4" />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (variant === 'checklist') {
+    return (
+      <section className="container mx-auto max-w-6xl px-4 py-12 md:py-16">
+        <div className="grid items-start gap-8 lg:grid-cols-12">
+          <div className="space-y-4 lg:sticky lg:top-28 lg:col-span-5">
+            <Badge
+              variant="secondary"
+              className="px-3 py-1 text-sm font-medium"
+            >
+              <RiCompass3Line className="mr-2 h-4 w-4" />
+              {data.workflowBadge}
+            </Badge>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+              {data.workflowTitle}
+            </h2>
+            <p className="text-base leading-relaxed text-muted-foreground">
+              {data.workflowSubtitle}
+            </p>
+          </div>
+
+          <div className="space-y-4 lg:col-span-7">
+            {data.workflowSteps.map((step) => (
+              <NumberedStepCard
+                key={step.step}
+                step={step}
+                iconBoxClassName={iconBoxClass}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="container mx-auto max-w-6xl px-4 py-12 md:py-16">
       <Card className="border-none bg-muted/50 p-6 shadow-sm md:p-10">
@@ -758,7 +1298,7 @@ function SectionWorkflow({ data }: { data: SectionPageData }) {
   );
 }
 
-function SectionOtherAndCta({ data }: { data: SectionPageData }) {
+export function SectionOtherAndCta({ data }: { data: SectionPageData }) {
   const { t } = useTranslation();
   const otherSections = sections.filter((s) => s.path !== data.sectionPath);
 

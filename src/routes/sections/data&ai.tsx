@@ -12,7 +12,12 @@ import {
 
 import { extractTranslation } from '@/lib/extractTranslation.tsx';
 import {
-  SectionPageLayout,
+  SectionHero,
+  SectionNextEventSection,
+  SectionOtherAndCta,
+  SectionPillars,
+  SectionTechStack,
+  SectionWorkflow,
   type SectionPageData,
 } from '@/components/SectionPageLayout.tsx';
 
@@ -216,5 +221,14 @@ function DataAndAi() {
     ),
   };
 
-  return <SectionPageLayout data={data} />;
+  return (
+    <div className="min-h-screen bg-background">
+      <SectionHero data={data} variant="centered" />
+      <SectionWorkflow data={data} variant="pipeline" />
+      <SectionPillars data={data} variant="notebook" />
+      <SectionNextEventSection sectionPath="data&ai" variant="centered" />
+      <SectionTechStack data={data} variant="cards-3" />
+      <SectionOtherAndCta data={data} />
+    </div>
+  );
 }

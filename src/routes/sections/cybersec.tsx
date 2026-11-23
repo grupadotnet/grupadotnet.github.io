@@ -12,7 +12,12 @@ import {
 
 import { extractTranslation } from '@/lib/extractTranslation.tsx';
 import {
-  SectionPageLayout,
+  SectionHero,
+  SectionNextEventSection,
+  SectionOtherAndCta,
+  SectionPillars,
+  SectionTechStack,
+  SectionWorkflow,
   type SectionPageData,
 } from '@/components/SectionPageLayout.tsx';
 
@@ -218,5 +223,14 @@ function Cybersec() {
     ),
   };
 
-  return <SectionPageLayout data={data} />;
+  return (
+    <div className="min-h-screen bg-background">
+      <SectionHero data={data} variant="terminal" />
+      <SectionNextEventSection sectionPath="cybersec" variant="split-row" />
+      <SectionPillars data={data} variant="briefing" />
+      <SectionWorkflow data={data} variant="checklist" />
+      <SectionTechStack data={data} variant="terminal-grid" />
+      <SectionOtherAndCta data={data} />
+    </div>
+  );
 }
