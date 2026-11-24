@@ -13,7 +13,9 @@ import {
   RiLinkedinBoxLine,
   RiMailSendLine,
   RiMastodonLine,
+  RiPaletteLine,
 } from '@remixicon/react';
+import { Link } from '@tanstack/react-router';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card.tsx';
 //import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
 import { useTranslation } from 'react-i18next';
@@ -380,10 +382,8 @@ export default function Footer() {
           'grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 justify-items-stretch content-stretch gap-5'
         }
       >
-        <Card
-          className={`flex flex-col items-center gap-8 py-8 sm:items-start bg-background w-full min-w-fit`}
-        >
-          <CardHeader>
+        <Card className="flex w-full min-w-0 flex-col items-center gap-8 py-8 sm:items-start sm:text-left bg-background">
+          <CardHeader className="w-full">
             <CardTitle>
               <span className="text-foreground">
                 {t('Footer.socialTitle', 'Znajdziesz nas też na')}
@@ -391,17 +391,17 @@ export default function Footer() {
             </CardTitle>
           </CardHeader>
           <CardContent className="w-full">
-            <div className="grid grid-cols-3 justify-items-center gap-x-10 gap-y-6 sm:grid-cols-2 sm:justify-items-start lg:grid-cols-3 lg:gap-x-14 lg:gap-y-8">
+            <div className="grid grid-cols-3 justify-items-center gap-x-10 gap-y-6 sm:grid-cols-2 sm:justify-items-start md:grid-cols-1 md:gap-y-4 xl:grid-cols-2 xl:gap-x-8 xl:gap-y-6 2xl:grid-cols-3 2xl:gap-x-5 2xl:gap-y-8">
               {socials.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel={social.me ? 'me noreferrer' : 'noreferrer'}
-                  className="group flex items-center gap-4 text-foreground transition-colors duration-500"
+                  className="group flex min-w-0 items-center gap-3 2xl:gap-2.5 text-foreground transition-colors duration-500"
                   aria-label={social.name}
                 >
-                  <social.icon className="h-5 w-5 stroke-[1.5] " />
+                  <social.icon className="h-5 w-5 shrink-0 stroke-[1.5]" />
 
                   <span className="hidden text-[11px] font-light uppercase tracking-[0.2em] transition-transform duration-500 group-hover:translate-x-1 sm:block after:content-[''] relative after:absolute after:border-b-2 after:inset-0 after:scale-x-[0.01] after:opacity-0 group-hover:after:scale-x-100 group-hover:after:opacity-100 after:transition-[scale,opacity] after:duration-300 after:ease-in-out after-gradient-border">
                     {social.name}
@@ -411,7 +411,7 @@ export default function Footer() {
             </div>
           </CardContent>
         </Card>
-        <div className=" relative min-w-fit">
+        <div className="relative min-w-0">
           <div
             ref={mapContainerRef}
             className="absolute size-full inset-0 rounded-xl"
@@ -423,12 +423,21 @@ export default function Footer() {
           </CardContent>
         </Card>
       </section>
-      <span>
-        {t(
-          'Footer.copyright',
-          '© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na Politechnice Krakowskiej'
-        )}
-      </span>
+      <div className="flex flex-col items-center justify-center gap-3 text-sm sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2">
+        <span>
+          {t(
+            'Footer.copyright',
+            '© 2025-2026 Koło Naukowe Programistów i Miłośników Informatyki na Politechnice Krakowskiej'
+          )}
+        </span>
+        <Link
+          to="/identity/2026"
+          className="inline-flex items-center gap-1.5 font-medium text-white/90 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          <RiPaletteLine className="h-4 w-4" />
+          <span>{t('Footer.identityLink', 'Identyfikacja wizualna')}</span>
+        </Link>
+      </div>
     </footer>
   );
 }
