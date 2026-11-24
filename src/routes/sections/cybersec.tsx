@@ -4,6 +4,7 @@ import {
   RiBugLine,
   RiFlagLine,
   RiLockPasswordLine,
+  RiRadarLine,
   RiSearchEyeLine,
   RiServerLine,
   RiShieldCheckLine,
@@ -40,7 +41,7 @@ function Cybersec() {
     titleHighlight: t('Cybersec.hero.titleHighlight', 'cyberbezpieczeństwo'),
     subtitle: t(
       'Cybersec.hero.subtitle',
-      'Łączymy solidną wiedzę teoretyczną z praktyką — skupiamy się na testach penetracyjnych, systemie Kali Linux, technikach OSINT oraz wspólnym rozwiązywaniu wyzwań CTF.'
+      'Łączymy solidną wiedzę teoretyczną z praktyką — skupiamy się na testach penetracyjnych, działaniach Blue Team (SIEM/XDR z Wazuh), systemie Kali Linux, technikach OSINT oraz wspólnym rozwiązywaniu wyzwań CTF.'
     ),
     highlights: [
       {
@@ -48,7 +49,7 @@ function Cybersec() {
         label: t('Cybersec.highlights.focus.label', 'Główny profil'),
         value: t(
           'Cybersec.highlights.focus.value',
-          'Pentesty, OSINT & Zawody CTF'
+          'Red & Blue Team, Wazuh, OSINT & CTF'
         ),
       },
       {
@@ -112,6 +113,19 @@ function Cybersec() {
         ),
       },
       {
+        id: 'blueteam',
+        icon: RiRadarLine,
+        badge: t('Cybersec.pillars.blueteam.badge', 'Blue Team & SIEM'),
+        title: t(
+          'Cybersec.pillars.blueteam.title',
+          'Blue Team, Monitoring i Wazuh'
+        ),
+        description: t(
+          'Cybersec.pillars.blueteam.description',
+          'Wdrażamy i konfigurujemy platformę Wazuh (SIEM / XDR) do zbierania logów, detekcji zagrożeń, analizy podatności i monitorowania integralności plików (FIM) oraz ćwiczymy reagowanie na incydenty (Incident Response).'
+        ),
+      },
+      {
         id: 'ctf',
         icon: RiFlagLine,
         badge: t('Cybersec.pillars.ctf.badge', 'Rywalizacja'),
@@ -149,10 +163,11 @@ function Cybersec() {
         title: t('Cybersec.tech.analysis.title', 'Systemy & Analiza'),
         description: t(
           'Cybersec.tech.analysis.description',
-          'Środowiska operacyjne, analiza pakietów i inżynieria wsteczna.'
+          'Środowiska operacyjne, monitoring SIEM/XDR, analiza pakietów i inżynieria wsteczna.'
         ),
         items: [
           'Kali Linux',
+          'Wazuh (SIEM / XDR)',
           'Wireshark',
           'Bash & Python',
           'Ghidra',
@@ -200,7 +215,7 @@ function Cybersec() {
         ),
         description: t(
           'Cybersec.workflow.step2.description',
-          'Krok po kroku rozkładamy na czynniki pierwsze podatności webowe, zadania kryptograficzne oraz scenariusze OSINT.'
+          'Krok po kroku rozkładamy na czynniki pierwsze podatności webowe, alerty z Wazuh, zadania kryptograficzne oraz scenariusze OSINT.'
         ),
       },
       {
@@ -219,7 +234,7 @@ function Cybersec() {
     ),
     ctaDescription: t(
       'Cybersec.cta.description',
-      'Dołącz do naszego kolejnego spotkania lub odezwij się na kanale sekcji na Discordzie KNPiMI — nie wymagamy wcześniejszego doświadczenia w CTF-ach.'
+      'Dołącz do naszego kolejnego spotkania lub odezwij się na kanale sekcji na Discordzie KNPiMI — nie wymagamy wcześniejszego doświadczenia w sektorze cyberbezpieczeństwa.'
     ),
   };
 
