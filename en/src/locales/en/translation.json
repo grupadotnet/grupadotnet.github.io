@@ -277,19 +277,19 @@
   },
   "Cybersec": {
     "cta": {
-      "description": "Dołącz do naszego kolejnego spotkania lub odezwij się na kanale sekcji na Discordzie KNPiMI — nie wymagamy wcześniejszego doświadczenia w CTF-ach.",
+      "description": "Dołącz do naszego kolejnego spotkania lub odezwij się na kanale sekcji na Discordzie KNPiMI — nie wymagamy wcześniejszego doświadczenia w sektorze cyberbezpieczeństwa.",
       "title": "Chcesz sprawdzić się w świecie CyberSec?"
     },
     "hero": {
       "badge": "Sekcja CyberSec",
-      "subtitle": "Łączymy solidną wiedzę teoretyczną z praktyką — skupiamy się na testach penetracyjnych, systemie Kali Linux, technikach OSINT oraz wspólnym rozwiązywaniu wyzwań CTF.",
+      "subtitle": "Łączymy solidną wiedzę teoretyczną z praktyką — skupiamy się na testach penetracyjnych, działaniach Blue Team (SIEM/XDR z Wazuh), systemie Kali Linux, technikach OSINT oraz wspólnym rozwiązywaniu wyzwań CTF.",
       "titleHighlight": "cyberbezpieczeństwo",
       "titlePrefix": "Ofensywne i defensywne"
     },
     "highlights": {
       "focus": {
         "label": "Główny profil",
-        "value": "Pentesty, OSINT & Zawody CTF"
+        "value": "Red & Blue Team, Wazuh, OSINT & CTF"
       },
       "format": {
         "label": "Forma zajęć",
@@ -302,6 +302,11 @@
     },
     "pillars": {
       "badge": "Obszary specjalizacji",
+      "blueteam": {
+        "badge": "Blue Team & SIEM",
+        "description": "Wdrażamy i konfigurujemy platformę Wazuh (SIEM / XDR) do zbierania logów, detekcji zagrożeń, analizy podatności i monitorowania integralności plików (FIM) oraz ćwiczymy reagowanie na incydenty (Incident Response).",
+        "title": "Blue Team, Monitoring i Wazuh"
+      },
       "ctf": {
         "badge": "Rywalizacja",
         "description": "Wspólnie rozwiązujemy maszyny na platformach treningowych, startujemy w zawodach Capture The Flag i bierzemy udział w konferencjach oraz hackathonach.",
@@ -327,7 +332,7 @@
     },
     "tech": {
       "analysis": {
-        "description": "Środowiska operacyjne, analiza pakietów i inżynieria wsteczna.",
+        "description": "Środowiska operacyjne, monitoring SIEM/XDR, analiza pakietów i inżynieria wsteczna.",
         "title": "Systemy & Analiza"
       },
       "badge": "Warsztat",
@@ -349,7 +354,7 @@
         "title": "Izolowane laboratoria"
       },
       "step2": {
-        "description": "Krok po kroku rozkładamy na czynniki pierwsze podatności webowe, zadania kryptograficzne oraz scenariusze OSINT.",
+        "description": "Krok po kroku rozkładamy na czynniki pierwsze podatności webowe, alerty z Wazuh, zadania kryptograficzne oraz scenariusze OSINT.",
         "title": "Wspólne Walkthrough i analiza"
       },
       "step3": {
