@@ -224,8 +224,29 @@ const brandColors: ColorDef[] = [
   },
 ];
 
+type CopiedMode = 'file' | 'url' | 'text';
+
+interface CopiedState {
+  key: string;
+  mode: CopiedMode;
+}
+
+function supportsSvgClipboard(): boolean {
+  if (
+    typeof window === 'undefined' ||
+    typeof ClipboardItem === 'undefined' ||
+    typeof navigator.clipboard?.write !== 'function'
+  ) {
+    return false;
+  }
+  if (typeof ClipboardItem.supports === 'function') {
+    return ClipboardItem.supports('image/svg+xml');
+  }
+  return true;
+}
+
 interface CopyHandlerProps {
-  copiedKey: string | null;
+  copiedState: CopiedState | null;
   onCopy: (text: string, key: string) => void;
 }
 
@@ -297,12 +318,14 @@ function IdentityHeroSection() {
 
 function LogoAssetCard({
   asset,
-  isCopied,
-  onCopy,
+  copiedMode,
+  canCopyFile,
+  onCopyAsset,
 }: {
   asset: LogoAsset;
-  isCopied: boolean;
-  onCopy: (text: string, key: string) => void;
+  copiedMode: CopiedMode | null;
+  canCopyFile: boolean;
+  onCopyAsset: (asset: LogoAsset) => void;
 }) {
   const { t } = useTranslation();
   const isDarkContainer = asset.previewBg === 'dark';
@@ -404,19 +427,31 @@ function LogoAssetCard({
         <Button
           variant="secondary"
           size="sm"
-          onClick={() => onCopy(asset.path, asset.id)}
+          onClick={() => onCopyAsset(asset)}
           className="cursor-pointer gap-1.5"
-          title={t('Identity2026.copyPath', 'Kopiuj ścieżkę do pliku')}
+          title={
+            canCopyFile
+              ? t('Identity2026.copyFileTitle', 'Kopiuj plik SVG do schowka')
+              : t('Identity2026.copyUrlTitle', 'Kopiuj link do podglądu pliku')
+          }
         >
-          {isCopied ? (
+          {copiedMode ? (
             <>
               <RiCheckLine className="h-4 w-4 text-emerald-500" />
-              <span className="text-emerald-500 font-medium">Skopiowano!</span>
+              <span className="text-emerald-500 font-medium">
+                {copiedMode === 'file'
+                  ? t('Identity2026.copiedFile', 'Skopiowano plik!')
+                  : t('Identity2026.copiedUrl', 'Skopiowano URL!')}
+              </span>
             </>
           ) : (
             <>
               <RiFileCopyLine className="h-4 w-4" />
-              <span>Kopiuj URL</span>
+              <span>
+                {canCopyFile
+                  ? t('Identity2026.copyFile', 'Kopiuj plik')
+                  : t('Identity2026.copyUrl', 'Kopiuj URL')}
+              </span>
             </>
           )}
         </Button>
@@ -425,8 +460,15 @@ function LogoAssetCard({
   );
 }
 
-function LogoAssetsSection({ copiedKey, onCopy }: CopyHandlerProps) {
+function LogoAssetsSection({
+  copiedState,
+  onCopyAsset,
+}: {
+  copiedState: CopiedState | null;
+  onCopyAsset: (asset: LogoAsset) => void;
+}) {
   const { t } = useTranslation();
+  const canCopyFile = supportsSvgClipboard();
 
   return (
     <section
@@ -458,8 +500,11 @@ function LogoAssetsSection({ copiedKey, onCopy }: CopyHandlerProps) {
             <LogoAssetCard
               key={asset.id}
               asset={asset}
-              isCopied={copiedKey === asset.id}
-              onCopy={onCopy}
+              copiedMode={
+                copiedState?.key === asset.id ? copiedState.mode : null
+              }
+              canCopyFile={canCopyFile}
+              onCopyAsset={onCopyAsset}
             />
           ))}
         </div>
@@ -545,7 +590,7 @@ function ColorSwatchCard({
   );
 }
 
-function ColorPaletteSection({ copiedKey, onCopy }: CopyHandlerProps) {
+function ColorPaletteSection({ copiedState, onCopy }: CopyHandlerProps) {
   const { t } = useTranslation();
 
   return (
@@ -598,7 +643,7 @@ function ColorPaletteSection({ copiedKey, onCopy }: CopyHandlerProps) {
                 }
                 className="cursor-pointer gap-2 font-mono text-xs"
               >
-                {copiedKey === 'css-gradient' ? (
+                {copiedState?.key === 'css-gradient' ? (
                   <>
                     <RiCheckLine className="h-3.5 w-3.5 text-emerald-500" />
                     <span className="text-emerald-500">
@@ -621,7 +666,7 @@ function ColorPaletteSection({ copiedKey, onCopy }: CopyHandlerProps) {
             <ColorSwatchCard
               key={color.name}
               color={color}
-              isCopied={copiedKey === `hex-${color.hex}`}
+              isCopied={copiedState?.key === `hex-${color.hex}`}
               onCopy={onCopy}
             />
           ))}
@@ -971,15 +1016,49 @@ function AffiliationSection() {
 }
 
 function Identity2026() {
-  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [copiedState, setCopiedState] = useState<CopiedState | null>(null);
+
+  const markCopied = (key: string, mode: CopiedMode) => {
+    setCopiedState({ key, mode });
+    setTimeout(() => {
+      setCopiedState((prev) => (prev?.key === key ? null : prev));
+    }, 2000);
+  };
 
   const handleCopy = async (text: string, key: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopiedKey(key);
-      setTimeout(() => {
-        setCopiedKey((prev) => (prev === key ? null : prev));
-      }, 2000);
+      markCopied(key, 'text');
+    } catch {
+      // Clipboard write unavailable
+    }
+  };
+
+  const handleCopyAsset = async (asset: LogoAsset) => {
+    if (supportsSvgClipboard()) {
+      try {
+        const svgBlobPromise = fetch(asset.path).then(async (res) => {
+          if (!res.ok) throw new Error('Failed to fetch SVG');
+          const svgText = await res.text();
+          return new Blob([svgText], { type: 'image/svg+xml' });
+        });
+        await navigator.clipboard.write([
+          new ClipboardItem({ 'image/svg+xml': svgBlobPromise }),
+        ]);
+        markCopied(asset.id, 'file');
+        return;
+      } catch {
+        // Fall back to copying the preview URL
+      }
+    }
+
+    try {
+      const previewUrl =
+        typeof window !== 'undefined'
+          ? new URL(asset.path, window.location.origin).href
+          : asset.path;
+      await navigator.clipboard.writeText(previewUrl);
+      markCopied(asset.id, 'url');
     } catch {
       // Clipboard write unavailable
     }
@@ -988,8 +1067,11 @@ function Identity2026() {
   return (
     <div className="bg-background min-h-screen">
       <IdentityHeroSection />
-      <LogoAssetsSection copiedKey={copiedKey} onCopy={handleCopy} />
-      <ColorPaletteSection copiedKey={copiedKey} onCopy={handleCopy} />
+      <LogoAssetsSection
+        copiedState={copiedState}
+        onCopyAsset={handleCopyAsset}
+      />
+      <ColorPaletteSection copiedState={copiedState} onCopy={handleCopy} />
       <TypographySection />
       <AnatomySection />
       <RulesSection />

@@ -991,11 +991,11 @@ function CodeWarehouse() {
   const flowVisual = data.visuals?.[2];
 
   return (
-    <div className="relative min-h-screen bg-[#faf7f0] text-zinc-950 dark:bg-[#111216] dark:text-zinc-100">
+    <div className="relative min-h-screen overflow-hidden bg-[#faf7f0] text-zinc-950 dark:bg-[#111216] dark:text-zinc-100">
       {/* Subtle dotted blueprint pattern inspired directly by CodeWarehouse UI & slides */}
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 opacity-45 dark:opacity-20"
+        className="pointer-events-none absolute inset-0 opacity-45 dark:opacity-20"
         style={{
           backgroundImage:
             'radial-gradient(#9ca3af 1.15px, transparent 1.15px)',

@@ -302,6 +302,11 @@
     },
     "pillars": {
       "badge": "",
+      "blueteam": {
+        "badge": "",
+        "description": "",
+        "title": ""
+      },
       "ctf": {
         "badge": "",
         "description": "",

@@ -1,9 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 
 import { Card, CardContent } from '@/components/ui/card';
-
 import { Badge } from '@/components/ui/badge';
-import { RiTerminalBoxFill } from '@remixicon/react';
+import { Button } from '@/components/ui/button';
+import {
+  RiArrowRightLine,
+  RiPaletteLine,
+  RiTerminalBoxFill,
+} from '@remixicon/react';
 import { useTranslation, Trans } from 'react-i18next';
 import { extractTranslation } from '../lib/extractTranslation.tsx';
 
@@ -64,6 +68,24 @@ function About() {
                   </span>
                 </Trans>
               </p>
+
+              <div className="pt-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  nativeButton={false}
+                  className="cursor-pointer gap-2"
+                  render={
+                    <Link to="/identity/2026">
+                      <RiPaletteLine className="h-4 w-4" />
+                      <span>
+                        {t('About.identityCta', 'Identyfikacja wizualna')}
+                      </span>
+                      <RiArrowRightLine className="h-4 w-4" />
+                    </Link>
+                  }
+                />
+              </div>
             </div>
           </CardContent>
         </Card>
