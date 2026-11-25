@@ -1,3 +1,6 @@
+import knpimi from '/svg/KNPIMI/Logo_KNPiMI.svg';
+import knpimi_w from '/svg/KNPIMI/Logo_KNPiMI_white.svg';
+
 import { useState } from 'react';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +9,8 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/components/theme-provider.tsx';
+import { sectionColorsByPath } from '@/lib/sections';
+import { cn } from '@/lib/utils';
 import {
   RiArrowRightUpLine,
   RiChatSmile2Line,
@@ -13,9 +18,12 @@ import {
   RiDiscordFill,
   RiFacebookBoxLine,
   RiFileCopyLine,
+  RiHashtag,
   RiLinkedinBoxLine,
+  RiLockLine,
   RiMailSendLine,
   RiMastodonLine,
+  RiShieldCheckLine,
 } from '@remixicon/react';
 
 export const Route = createFileRoute('/contact')({
@@ -63,7 +71,10 @@ function Contact() {
   const Heading = isStandalone ? 'h1' : 'h2';
   const cardTitleAs = isStandalone ? 'h2' : 'h3';
 
-  const emailAddress = 'dot.net.group.pk@gmail.com';
+  const emailAddress = 'knpimi@pk.edu.pl';
+  const [copiedInvite, setCopiedInvite] = useState(false);
+  const discordInviteDisplay = 'discord.gg/ySkAbnejnC';
+  const discordInviteUrl = `https://${discordInviteDisplay}`;
 
   const handleCopyEmail = async () => {
     try {
@@ -74,6 +85,64 @@ function Contact() {
       // Fallback if clipboard API is unavailable
     }
   };
+
+  const handleCopyInvite = async () => {
+    try {
+      await navigator.clipboard.writeText(discordInviteUrl);
+      setCopiedInvite(true);
+      setTimeout(() => setCopiedInvite(false), 2000);
+    } catch {
+      // Fallback if clipboard API is unavailable
+    }
+  };
+
+  const discordChannels = [
+    {
+      id: 'announcements',
+      name: t('Contact.discord.channels.announcements.name', 'ogłoszenia'),
+      description: t(
+        'Contact.discord.channels.announcements.description',
+        'Terminy spotkań, warsztaty i hackathony'
+      ),
+      dotClass: 'bg-[#5865F2] dark:bg-[#7983F5]',
+    },
+    {
+      id: 'webdev',
+      name: t('Contact.discord.channels.webdev.name', 'webdev'),
+      description: t(
+        'Contact.discord.channels.webdev.description',
+        'React, TypeScript, .NET i code review'
+      ),
+      dotClass: sectionColorsByPath.webdev.dot,
+    },
+    {
+      id: 'data-and-ai',
+      name: t('Contact.discord.channels.dataAndAi.name', 'data-and-ai'),
+      description: t(
+        'Contact.discord.channels.dataAndAi.description',
+        'ML, Python, notebooki i projekty R&D'
+      ),
+      dotClass: sectionColorsByPath['data&ai'].dot,
+    },
+    {
+      id: 'cybersec',
+      name: t('Contact.discord.channels.cybersec.name', 'cybersec'),
+      description: t(
+        'Contact.discord.channels.cybersec.description',
+        'CTF, Kali Linux, Wazuh i OSINT'
+      ),
+      dotClass: sectionColorsByPath.cybersec.dot,
+    },
+    {
+      id: 'projects',
+      name: t('Contact.discord.channels.projects.name', 'projekty-i-pomoc'),
+      description: t(
+        'Contact.discord.channels.projects.description',
+        'Zespoły projektowe i wsparcie starszych studentów'
+      ),
+      dotClass: 'bg-muted-foreground/60',
+    },
+  ];
 
   return (
     <div className={'bg-background'}>
@@ -172,20 +241,20 @@ function Contact() {
             >
               <CardHeader>
                 <div className="flex items-start justify-between gap-4">
-                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#5865F2]/15 text-[#5865F2]">
+                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#5865F2]/15 text-[#4752C4] dark:text-[#7983F5]">
                     <RiDiscordFill aria-hidden="true" className="h-6 w-6" />
                   </div>
-                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-medium text-emerald-950 dark:text-emerald-300">
-                    <span aria-hidden="true" className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping motion-reduce:animate-none rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                    </span>
-                    {t('Contact.discord.online', 'Online')}
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/12 px-3 py-1 text-xs font-medium text-emerald-900 dark:border-emerald-400/30 dark:bg-emerald-500/15 dark:text-emerald-300">
+                    <RiShieldCheckLine
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5"
+                    />
+                    {t('Contact.discord.privacyBadge', 'Prywatność chroniona')}
                   </div>
                 </div>
                 <CardTitle
                   as={cardTitleAs}
-                  className="text-xl group-hover:text-[#5865F2] dark:group-hover:text-[#7983F5] transition-colors"
+                  className="text-xl transition-colors group-hover:text-[#4752C4] dark:group-hover:text-[#7983F5]"
                 >
                   {t('Contact.discord.title', 'Społeczność Discord')}
                 </CardTitle>
@@ -199,18 +268,158 @@ function Contact() {
                   )}
                 </p>
 
-                {/* Discord Server Widget Embed */}
-                <div className="flex flex-1 items-center justify-center overflow-hidden rounded-xl ring-1 ring-foreground/10">
-                  <iframe
-                    title={t(
-                      'Contact.discord.widgetTitle',
-                      'Widżet serwera Discord KNPiMI'
-                    )}
-                    src={`https://discord.com/widget?id=954758423185092708&theme=${actualTheme}`}
-                    width="350"
-                    height="500"
-                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-                    className="h-87.5 w-full border-0 lg:h-full lg:min-h-80"
+                {/* Privacy-first Server Preview Panel */}
+                <div className="flex flex-1 flex-col justify-between overflow-hidden rounded-xl bg-background/80 ring-1 ring-foreground/10">
+                  <div className="flex items-center justify-between gap-3 border-b border-border/60 bg-muted/40 px-4 py-3">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#5865F2]/12 p-1.5">
+                        <img
+                          src={actualTheme === 'dark' ? knpimi_w : knpimi}
+                          alt=""
+                          className="h-full w-auto"
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="truncate font-heading text-sm font-semibold text-foreground">
+                          {t('Contact.discord.serverName', 'KNPiMI • PK')}
+                        </p>
+                        <p className="truncate text-xs text-muted-foreground">
+                          {t(
+                            'Contact.discord.serverSubtitle',
+                            'Oficjalny serwer koła naukowego'
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                    <Badge variant="secondary" className="shrink-0 font-normal">
+                      {t('Contact.discord.activeBadge', 'Aktywna społeczność')}
+                    </Badge>
+                  </div>
+
+                  <div className="px-3 py-3">
+                    <p className="px-2 pb-2 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">
+                      {t('Contact.discord.channelsLabel', 'Kanały na serwerze')}
+                    </p>
+                    <ul className="space-y-1">
+                      {discordChannels.map((channel) => (
+                        <li
+                          key={channel.id}
+                          className="flex items-start gap-2.5 rounded-lg px-2 py-1.5 transition-colors hover:bg-muted/50"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="mt-1.5 flex shrink-0 items-center gap-1.5"
+                          >
+                            <span
+                              className={cn(
+                                'h-2 w-2 rounded-full',
+                                channel.dotClass
+                              )}
+                            />
+                            <RiHashtag className="h-3.5 w-3.5 text-muted-foreground" />
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block font-mono text-xs font-semibold text-foreground">
+                              {channel.name}
+                            </span>
+                            <span className="block text-xs text-muted-foreground">
+                              {channel.description}
+                            </span>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="flex items-start gap-2 border-t border-border/60 bg-muted/30 px-4 py-2.5 text-xs text-muted-foreground">
+                    <RiLockLine
+                      aria-hidden="true"
+                      className="mt-0.5 h-3.5 w-3.5 shrink-0"
+                    />
+                    <span>
+                      {t(
+                        'Contact.discord.privacyNote',
+                        'Dla ochrony prywatności studentów nie wyświetlamy publicznej listy osób online ani nie ładujemy zewnętrznego widżetu Discord.'
+                      )}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Action Area: Copy Invite + Join CTA */}
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between gap-2 rounded-xl bg-background/80 p-2 pl-4 ring-1 ring-foreground/10">
+                    <code className="truncate font-mono text-sm font-medium text-foreground">
+                      {discordInviteDisplay}
+                    </code>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={handleCopyInvite}
+                      className="shrink-0 cursor-pointer gap-1.5 rounded-lg"
+                    >
+                      {copiedInvite ? (
+                        <>
+                          <RiCheckLine
+                            aria-hidden="true"
+                            className="h-4 w-4 text-emerald-500"
+                          />
+                          <span>
+                            {t('Contact.discord.copied', 'Skopiowano')}
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <RiFileCopyLine
+                            aria-hidden="true"
+                            className="h-4 w-4"
+                          />
+                          <span>
+                            {t('Contact.discord.copyInvite', 'Kopiuj link')}
+                          </span>
+                        </>
+                      )}
+                    </Button>
+                    <span className="sr-only" aria-live="polite">
+                      {copiedInvite
+                        ? t(
+                            'Contact.discord.copiedAnnouncement',
+                            'Skopiowano link zaproszenia na Discorda do schowka'
+                          )
+                        : ''}
+                    </span>
+                  </div>
+
+                  <Button
+                    nativeButton={false}
+                    className="h-11 w-full cursor-pointer gap-2 rounded-xl bg-[#4752C4] text-white hover:bg-[#3c45a5] dark:bg-[#5865F2] dark:hover:bg-[#4752C4]"
+                    render={
+                      <a
+                        href={discordInviteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <RiDiscordFill aria-hidden="true" className="h-5 w-5" />
+                        <span>
+                          {t(
+                            'Contact.discord.joinCta',
+                            'Dołącz do serwera Discord'
+                          )}
+                        </span>
+                        <RiArrowRightUpLine
+                          aria-hidden="true"
+                          className="h-4 w-4"
+                        />
+                        <span className="sr-only">
+                          {' '}
+                          (
+                          {t(
+                            'Common.opensInNewTab',
+                            'otwiera się w nowej karcie'
+                          )}
+                          )
+                        </span>
+                      </a>
+                    }
                   />
                 </div>
               </CardContent>
