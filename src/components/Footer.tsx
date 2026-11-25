@@ -64,7 +64,7 @@ interface Social {
 
 const socials: Social[] = [
   {
-    href: 'mailto:dot.net.group.pk@gmail.com',
+    href: 'mailto:knpimi@pk.edu.pl',
     icon: RiMailSendLine,
     name: 'E-mail',
   },
