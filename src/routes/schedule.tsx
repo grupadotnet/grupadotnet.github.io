@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { RiCalendar2Line } from '@remixicon/react';
 
 import { extractTranslation } from '@/lib/extractTranslation.tsx';
-import { sections } from '@/lib/sections.ts';
+import { matchSectionByCalendarName, sections } from '@/lib/sections.ts';
+import { cn } from '@/lib/utils';
 import {
   fetchCalendarEvents,
   formatEventSchedule,
@@ -144,10 +145,8 @@ function LoadedCarousel() {
       <ScrollArea className={SCHEDULE_SCROLL_AREA_CLASS}>
         <div className={SCHEDULE_TRACK_CLASS}>
           {sortedEvents.map((event) => {
-            const matchedSection = sections.find((section) =>
+            const matchedSection = matchSectionByCalendarName(
               event.calendarName
-                .toLowerCase()
-                .includes(section.title.toLowerCase())
             );
             return (
               <EventCarouselItem
@@ -227,14 +226,24 @@ function EventCarouselItem({
         {matchedSection && (
           <Badge
             variant="secondary"
-            className="px-3 py-1 text-sm font-medium flex items-center mx-7"
+            className={cn(
+              'mx-7 flex items-center px-3 py-1 text-sm font-medium',
+              matchedSection.colors.badge
+            )}
           >
             {Icon && <Icon className="mr-2 h-4 w-4" />}
             {matchedSection.title}
           </Badge>
         )}
         <CardHeader>
-          <CardTitle className="flex text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+          <CardTitle
+            className={cn(
+              'flex text-xl transition-colors duration-300',
+              matchedSection
+                ? matchedSection.colors.hoverTitle
+                : 'group-hover:text-blue-600 dark:group-hover:text-blue-400'
+            )}
+          >
             {event.title}
           </CardTitle>
         </CardHeader>
