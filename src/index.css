@@ -8,6 +8,9 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  color-scheme: light;
+  --theme-transition-duration: 650ms;
+  --theme-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
   --padding-margin-mobile: 1rem;
   --primary-from: #9f64a6;
   --primary-to: #2e64ae;
@@ -64,6 +67,7 @@ html {
 /*}*/
 
 .dark {
+  color-scheme: dark;
   --primary-from: #9f64a6;
   --primary-to: #2e64ae;
   --primary-gradient: linear-gradient(
@@ -174,4 +178,65 @@ html {
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
+}
+
+@keyframes theme-view-hold {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes theme-view-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(root) {
+  animation: theme-view-hold var(--theme-transition-duration)
+    var(--theme-transition-easing) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: theme-view-fade-in var(--theme-transition-duration)
+    var(--theme-transition-easing) both;
+  mix-blend-mode: normal;
+}
+
+/* Prevent per-element transitions from desyncing the View Transition snapshot */
+html.theme-view-transition *,
+html.theme-view-transition *::before,
+html.theme-view-transition *::after {
+  transition: none !important;
+}
+
+/* Synchronized fallback when View Transitions API is unavailable */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke,
+    outline-color, box-shadow, opacity !important;
+  transition-duration: var(--theme-transition-duration) !important;
+  transition-timing-function: var(--theme-transition-easing) !important;
+  transition-delay: 0ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 1ms !important;
+  }
 }
