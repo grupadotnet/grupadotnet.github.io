@@ -30,6 +30,10 @@ function Sections() {
 
   if (!isSection) return <Outlet />;
 
+  const isStandalone = location !== '/';
+  const Heading = isStandalone ? 'h1' : 'h2';
+  const cardTitleAs = isStandalone ? 'h2' : 'h3';
+
   return (
     <div className={'bg-background'}>
       <section
@@ -43,12 +47,12 @@ function Sections() {
               variant="secondary"
               className="px-3 py-1 text-sm font-medium"
             >
-              <RiStackLine className="mr-2 h-4 w-4" />
+              <RiStackLine aria-hidden="true" className="mr-2 h-4 w-4" />
               {t('Sections.badge', 'Ścieżki rozwoju')}
             </Badge>
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            <Heading className="text-3xl font-bold tracking-tight md:text-4xl">
               {t('Sections.title', 'Czym się zajmujemy?')}
-            </h2>
+            </Heading>
             <p className="max-w-2xl text-lg text-muted-foreground text-balance">
               {t(
                 'Sections.paragraph',
@@ -77,9 +81,10 @@ function Sections() {
                         )}
                       >
                         {/* Remix Icons accept standard Tailwind sizing classes perfectly */}
-                        <Icon className="h-6 w-6" />
+                        <Icon aria-hidden="true" className="h-6 w-6" />
                       </div>
                       <CardTitle
+                        as={cardTitleAs}
                         className={cn(
                           'text-xl transition-colors',
                           section.colors.hoverTitle

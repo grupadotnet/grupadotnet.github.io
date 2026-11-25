@@ -22,6 +22,7 @@ import { RiMoonFill, RiSunFill, RiMenuLine } from '@remixicon/react';
 import { useTranslation } from 'react-i18next';
 import { useRef } from 'react';
 import { useTheme, type Theme } from '@/components/theme-provider.tsx';
+import { cn } from '@/lib/utils';
 
 // title: string;
 // to: string;
@@ -70,6 +71,17 @@ const pkLogos: Record<string, string> = {
 // i18next-instrument-ignore-next-line
 const themes: Theme[] = ['light', 'dark', 'system'];
 
+const HERO_HEADER_GRADIENT =
+  'linear-gradient(to bottom, rgb(0 0 0 / 0.45) 0%, rgb(0 0 0 / 0.3) 45%, rgb(0 0 0 / 0.14) 72%, rgb(0 0 0 / 0.04) 88%, transparent 100%)';
+
+function getValidChildren(route: AnyRoute): AnyRoute[] {
+  return (route.children || []).filter((child: AnyRoute) => {
+    const childDynamic = child.path?.includes('$');
+    const childHidden = child.options?.staticData?.hideInNav;
+    return !childDynamic && !childHidden;
+  });
+}
+
 function getRouteInfo(route: AnyRoute) {
   const path = route.fullPath || route.path || route.id;
   // Fallback to capitalizing the path if staticData.title is missing
@@ -97,7 +109,7 @@ export default function Header() {
   // i18next-instrument-ignore-next-line
   const locationHighlight = (path: string) => {
     return location === path
-      ? 'after:[border-image:var(--primary-gradient)_1] bg-(image:--primary-gradient) bg-clip-text text-transparent svg_helper'
+      ? 'after:[border-image:var(--primary-gradient)_1] bg-(image:--primary-text-gradient) bg-clip-text text-transparent svg_helper'
       : '';
   };
 
@@ -115,25 +127,41 @@ export default function Header() {
       (a, b) => a.options?.staticData?.order - b.options?.staticData?.order
     );
 
+  const quickThemeLabel =
+    actualTheme === 'dark'
+      ? t('Header.switchToLight', 'Przełącz na motyw jasny')
+      : t('Header.switchToDark', 'Przełącz na motyw ciemny');
+
+  const isSolidHeader = isScrolled || !isIndex;
+
   return (
     <header
-      className={`z-15 sticky top-0 ${isScrolled || !isIndex ? 'bg-background text-foreground shadow-lg/10' : 'text-white bg-none'} transition-all ease-in-out shadow-foreground`}
+      className={cn(
+        'sticky top-0 z-15 transition-all duration-300 ease-in-out motion-reduce:transition-none',
+        isSolidHeader
+          ? 'bg-background text-foreground shadow-lg/10 shadow-foreground'
+          : 'text-white'
+      )}
       ref={ref}
     >
-      <nav className="flex items-center justify-between p-4 w-11/12 mx-auto ">
+      <div
+        aria-hidden="true"
+        style={{ backgroundImage: HERO_HEADER_GRADIENT }}
+        className={cn(
+          'pointer-events-none absolute inset-x-0 top-0 -bottom-10 z-0 transition-opacity duration-300 ease-in-out motion-reduce:transition-none',
+          isSolidHeader ? 'opacity-0' : 'opacity-100'
+        )}
+      />
+      <nav className="relative z-10 mx-auto flex w-11/12 items-center justify-between p-4">
         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
           <a
             href="https://www.pk.edu.pl"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={t('Header.pkLogoAlt', 'Politechnika Krakowska')}
+            aria-label={`${t('Header.pkLogoAlt', 'Politechnika Krakowska')} (${t('Common.opensInNewTab', 'otwiera się w nowej karcie')})`}
             className="shrink-0"
           >
-            <img
-              src={currentPkSygnet}
-              alt={t('Header.pkLogoAlt', 'Politechnika Krakowska')}
-              className="h-24 w-auto"
-            />
+            <img src={currentPkSygnet} alt="" className="h-24 w-auto" />
           </a>
           <Link to={'/'} className="shrink-0">
             <picture>
@@ -152,13 +180,16 @@ export default function Header() {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>
-                  <RiMenuLine />
+                <NavigationMenuTrigger
+                  aria-label={t('Header.openMenu', 'Otwórz menu nawigacji')}
+                >
+                  <RiMenuLine aria-hidden="true" />
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul>
+                  <ul className="space-y-1">
                     {navRoutes.map((route) => {
                       const { path, title, titleKey } = getRouteInfo(route);
+                      const validChildren = getValidChildren(route);
 
                       return (
                         <li key={path}>
@@ -173,9 +204,66 @@ export default function Header() {
                               </Link>
                             }
                           />
+                          {validChildren.length > 0 && (
+                            <ul className="ml-4 border-l border-border/50 pl-2">
+                              {validChildren.map((child: AnyRoute) => {
+                                const childInfo = getRouteInfo(child);
+                                return (
+                                  <li key={childInfo.path}>
+                                    <NavigationMenuLink
+                                      className="m-1.5 text-sm"
+                                      render={
+                                        <Link to={childInfo.path}>
+                                          <span
+                                            className={locationHighlight(
+                                              childInfo.path
+                                            )}
+                                          >
+                                            {
+                                              t(
+                                                childInfo.titleKey,
+                                                childInfo.title
+                                              ) as string
+                                            }
+                                          </span>
+                                        </Link>
+                                      }
+                                    />
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          )}
                         </li>
                       );
                     })}
+                    <li className="mt-2 border-t border-border/50 pt-2">
+                      <ul className="flex flex-wrap gap-1">
+                        {themes.map((possibleTheme) => (
+                          <li key={possibleTheme}>
+                            <NavigationMenuLink
+                              className="m-1 text-sm"
+                              render={
+                                <button
+                                  type="button"
+                                  aria-current={
+                                    theme === possibleTheme ? 'true' : undefined
+                                  }
+                                  className={`cursor-pointer ${
+                                    theme === possibleTheme
+                                      ? 'font-semibold underline underline-offset-4'
+                                      : ''
+                                  }`}
+                                  onClick={() => setTheme(possibleTheme)}
+                                >
+                                  {t(`Header.${possibleTheme}`)}
+                                </button>
+                              }
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -185,13 +273,17 @@ export default function Header() {
                   render={
                     <button
                       type="button"
-                      className={`uppercase ${isScrolled || !isIndex ? 'text-primary' : ''}`}
+                      className={`uppercase ${isSolidHeader ? 'text-primary' : ''}`}
                       onClick={() =>
                         setTheme(actualTheme === 'light' ? 'dark' : 'light')
                       }
-                      aria-label={t('Header.theme', 'THEME')}
+                      aria-label={quickThemeLabel}
                     >
-                      {actualTheme === 'dark' ? <RiMoonFill /> : <RiSunFill />}
+                      {actualTheme === 'dark' ? (
+                        <RiMoonFill aria-hidden="true" />
+                      ) : (
+                        <RiSunFill aria-hidden="true" />
+                      )}
                     </button>
                   }
                 ></NavigationMenuLink>
@@ -205,13 +297,7 @@ export default function Header() {
                 const { path, title, titleKey } = getRouteInfo(route);
 
                 // 2. Extract and filter children (capped at 1 step deep)
-                const validChildren = (route.children || []).filter(
-                  (child: AnyRoute) => {
-                    const childDynamic = child.path?.includes('$');
-                    const childHidden = child.options?.staticData?.hideInNav;
-                    return !childDynamic && !childHidden;
-                  }
-                );
+                const validChildren = getValidChildren(route);
 
                 // Base Case: No valid child routes (Standard Link)
                 if (validChildren.length === 0) {
@@ -238,16 +324,27 @@ export default function Header() {
                 // Dropdown Case: Has children (Capped at 1 step)
                 return (
                   <NavigationMenuItem key={`${path}`}>
-                    <Link to={path} className={``}>
-                      <NavigationMenuTrigger
-                        className={`uppercase ${locationHighlight(path)}`}
-                      >
-                        <span>{t(titleKey, title) as string}</span>
-                      </NavigationMenuTrigger>
-                    </Link>
+                    <NavigationMenuTrigger
+                      className={`uppercase ${locationHighlight(path)}`}
+                    >
+                      <span>{t(titleKey, title) as string}</span>
+                    </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       {/* shadcn dropdowns need a container to dictate their width/layout */}
                       <ul className="z-20">
+                        <li className="mb-1 border-b border-border/50 pb-1">
+                          <NavigationMenuLink
+                            render={
+                              <Link to={path}>
+                                <span
+                                  className={`font-semibold ${locationHighlight(path)}`}
+                                >
+                                  {t(titleKey, title) as string}
+                                </span>
+                              </Link>
+                            }
+                          />
+                        </li>
                         {validChildren.map((child: AnyRoute) => {
                           const childInfo = getRouteInfo(child);
 
@@ -289,13 +386,17 @@ export default function Header() {
                   render={
                     <button
                       type="button"
-                      className={`uppercase ${isScrolled || !isIndex ? 'text-primary' : ''}`}
+                      className={`uppercase ${isSolidHeader ? 'text-primary' : ''}`}
                       onClick={() =>
                         setTheme(actualTheme === 'light' ? 'dark' : 'light')
                       }
-                      aria-label={t('Header.theme', 'THEME')}
+                      aria-label={quickThemeLabel}
                     >
-                      {actualTheme === 'dark' ? <RiMoonFill /> : <RiSunFill />}
+                      {actualTheme === 'dark' ? (
+                        <RiMoonFill aria-hidden="true" />
+                      ) : (
+                        <RiSunFill aria-hidden="true" />
+                      )}
                     </button>
                   }
                 ></NavigationMenuLink>
@@ -312,9 +413,12 @@ export default function Header() {
                           render={
                             <button
                               type="button"
+                              aria-current={
+                                theme === possibleTheme ? 'true' : undefined
+                              }
                               className={`cursor-pointer ${
                                 theme === possibleTheme
-                                  ? 'after:[border-image:var(--primary-gradient)_1] bg-(image:--primary-gradient) bg-clip-text text-transparent'
+                                  ? 'after:[border-image:var(--primary-gradient)_1] bg-(image:--primary-text-gradient) bg-clip-text font-semibold text-transparent'
                                   : ''
                               }`}
                               onClick={() => setTheme(possibleTheme)}

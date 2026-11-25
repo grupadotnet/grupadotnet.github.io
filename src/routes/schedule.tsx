@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { RiCalendar2Line } from '@remixicon/react';
@@ -53,16 +53,22 @@ const SCHEDULE_CARD_WRAPPER_CLASS =
 
 function Schedule() {
   const { t } = useTranslation();
+  const isStandalone = useLocation().pathname !== '/';
+  const Heading = isStandalone ? 'h1' : 'h2';
+  const cardTitleAs = isStandalone ? 'h2' : 'h3';
 
   return (
-    <div className="bg-background flex py-10 w-full min-w-0 items-center justify-center flex-col space-y-4">
+    <section
+      id="harmonogram"
+      className="bg-background flex py-10 w-full min-w-0 items-center justify-center flex-col space-y-4"
+    >
       <Badge variant="secondary" className="px-3 py-1 text-sm font-medium">
-        <RiCalendar2Line className="mr-2 h-4 w-4" />
+        <RiCalendar2Line aria-hidden="true" className="mr-2 h-4 w-4" />
         {t('Schedule.badge', 'Harmonogram spotkań')}
       </Badge>
-      <h2 className="px-4 text-center text-3xl font-bold tracking-tight md:text-4xl">
+      <Heading className="px-4 text-center text-3xl font-bold tracking-tight md:text-4xl">
         {t('Schedule.title', 'Kiedy się spotykamy?')}
-      </h2>
+      </Heading>
       <p className="max-w-2xl px-4 text-lg text-muted-foreground text-balance text-center">
         {t(
           'Schedule.paragraph',
@@ -70,12 +76,12 @@ function Schedule() {
         )}
       </p>
       {/* Suspense removed. The child component handles its own loading state */}
-      <LoadedCarousel />
-    </div>
+      <LoadedCarousel cardTitleAs={cardTitleAs} />
+    </section>
   );
 }
 
-function LoadedCarousel() {
+function LoadedCarousel({ cardTitleAs }: { cardTitleAs: 'h2' | 'h3' }) {
   const { t } = useTranslation();
   const {
     data: events = [],
@@ -104,7 +110,9 @@ function LoadedCarousel() {
       <Card>
         <CardHeader>
           {/* Removed wrapping <h2> to fix hydration error */}
-          <CardTitle>{t('Schedule.notFound.title', 'O kurcze!!')}</CardTitle>
+          <CardTitle as={cardTitleAs}>
+            {t('Schedule.notFound.title', 'O kurcze!!')}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           {/* Removed wrapping <p> to fix hydration error */}
@@ -154,6 +162,7 @@ function LoadedCarousel() {
                 event={event}
                 matchedSection={matchedSection}
                 preferredApp={preferredApp}
+                cardTitleAs={cardTitleAs}
                 onRequestAppChoice={(mode) =>
                   setDialogState({ type: 'action', event, mode })
                 }
@@ -178,11 +187,13 @@ function EventCarouselItem({
   event,
   matchedSection,
   preferredApp,
+  cardTitleAs,
   onRequestAppChoice,
 }: {
   event: EventType;
   matchedSection: (typeof sections)[0] | undefined;
   preferredApp: CalendarApp | null;
+  cardTitleAs: 'h2' | 'h3';
   onRequestAppChoice: (mode: ActionMode) => void;
 }) {
   const { t } = useTranslation();
@@ -231,12 +242,13 @@ function EventCarouselItem({
               matchedSection.colors.badge
             )}
           >
-            {Icon && <Icon className="mr-2 h-4 w-4" />}
+            {Icon && <Icon aria-hidden="true" className="mr-2 h-4 w-4" />}
             {matchedSection.title}
           </Badge>
         )}
         <CardHeader>
           <CardTitle
+            as={cardTitleAs}
             className={cn(
               'flex text-xl transition-colors duration-300',
               matchedSection
@@ -280,44 +292,53 @@ function EventCarouselItem({
 
 // 6. The Skeleton Component using Shadcn <Skeleton />
 function GhostCarousel() {
+  const { t } = useTranslation();
+
   return (
-    <ScrollArea className={SCHEDULE_SCROLL_AREA_CLASS}>
-      <div className={SCHEDULE_TRACK_CLASS}>
-        {/* Render 4 dummy skeleton cards so the scroll area looks full */}
-        {Array.from({ length: 4 }).map((_, index) => (
-          <div key={index} className={SCHEDULE_CARD_WRAPPER_CLASS}>
-            <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
-              {/* Badge skeleton */}
-              <Skeleton className="h-5 w-24 rounded-4xl mx-7" />
-              <CardHeader>
-                <CardTitle className="flex text-xl">
-                  {/* Title skeleton */}
-                  <Skeleton className="h-7 w-48" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 grow">
-                {/* Description skeleton */}
-                <Skeleton className="h-16 w-full" />
-                <div className="space-y-2 text-sm font-medium">
-                  {/* Time skeleton */}
-                  <Skeleton className="h-4 w-28" />
-                  {/* Date skeleton */}
-                  <Skeleton className="h-4 w-44" />
-                </div>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <ButtonGroup className="w-full">
-                  {/* Singular link button skeleton */}
-                  <Skeleton className="h-9 flex-1 rounded-4xl border border-transparent bg-clip-padding" />
-                  {/* Entire link button skeleton */}
-                  <Skeleton className="h-9 flex-[2] rounded-4xl border border-transparent bg-clip-padding" />
-                </ButtonGroup>
-              </CardFooter>
-            </Card>
-          </div>
-        ))}
-      </div>
-      <ScrollBar orientation="horizontal" />
-    </ScrollArea>
+    <div
+      role="status"
+      aria-busy="true"
+      aria-label={t('Schedule.loading', 'Ładowanie harmonogramu spotkań...')}
+      className="flex w-full justify-center"
+    >
+      <ScrollArea className={SCHEDULE_SCROLL_AREA_CLASS}>
+        <div aria-hidden="true" className={SCHEDULE_TRACK_CLASS}>
+          {/* Render 4 dummy skeleton cards so the scroll area looks full */}
+          {Array.from({ length: 4 }).map((_, index) => (
+            <div key={index} className={SCHEDULE_CARD_WRAPPER_CLASS}>
+              <Card className="h-full flex flex-col group bg-muted/50 shadow-sm transition-shadow duration-300 hover:shadow-md dark:hover:bg-muted/70">
+                {/* Badge skeleton */}
+                <Skeleton className="h-5 w-24 rounded-4xl mx-7" />
+                <CardHeader>
+                  <CardTitle as="div" className="flex text-xl">
+                    {/* Title skeleton */}
+                    <Skeleton className="h-7 w-48" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 grow">
+                  {/* Description skeleton */}
+                  <Skeleton className="h-16 w-full" />
+                  <div className="space-y-2 text-sm font-medium">
+                    {/* Time skeleton */}
+                    <Skeleton className="h-4 w-28" />
+                    {/* Date skeleton */}
+                    <Skeleton className="h-4 w-44" />
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <ButtonGroup className="w-full">
+                    {/* Singular link button skeleton */}
+                    <Skeleton className="h-9 flex-1 rounded-4xl border border-transparent bg-clip-padding" />
+                    {/* Entire link button skeleton */}
+                    <Skeleton className="h-9 flex-[2] rounded-4xl border border-transparent bg-clip-padding" />
+                  </ButtonGroup>
+                </CardFooter>
+              </Card>
+            </div>
+          ))}
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
+    </div>
   );
 }

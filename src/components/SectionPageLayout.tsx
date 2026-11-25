@@ -232,7 +232,7 @@ function SectionHeroSplit({
 
           <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {data.titlePrefix}{' '}
-            <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+            <span className="bg-(image:--primary-text-gradient) bg-clip-text text-transparent">
               {data.titleHighlight}
             </span>
           </h1>
@@ -306,7 +306,7 @@ function SectionHeroTerminal({ data }: { data: SectionPageData }) {
           <div className="space-y-4">
             <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl md:text-6xl">
               {data.titlePrefix}{' '}
-              <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+              <span className="bg-(image:--primary-text-gradient) bg-clip-text text-transparent">
                 {data.titleHighlight}
               </span>
             </h1>
@@ -347,7 +347,7 @@ function SectionHeroCentered({ data }: { data: SectionPageData }) {
 
         <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl md:text-6xl">
           {data.titlePrefix}{' '}
-          <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+          <span className="bg-(image:--primary-text-gradient) bg-clip-text text-transparent">
             {data.titleHighlight}
           </span>
         </h1>
@@ -568,6 +568,7 @@ function UpcomingSectionEventCard({
     <Card className={cardClass}>
       <CardHeader>
         <CardTitle
+          as="h4"
           className={cn('text-lg transition-colors', colors.hoverTitle)}
         >
           {event.title}
@@ -597,20 +598,27 @@ function UpcomingSectionEventCard({
 }
 
 function NextEventLoadingCard() {
+  const { t } = useTranslation();
+
   return (
-    <Card className="border-none bg-muted/50 shadow-sm">
-      <CardHeader className="space-y-3">
+    <Card
+      role="status"
+      aria-busy="true"
+      aria-label={t('Schedule.loading', 'Ładowanie harmonogramu spotkań...')}
+      className="border-none bg-muted/50 shadow-sm"
+    >
+      <CardHeader aria-hidden="true" className="space-y-3">
         <div className="flex gap-2">
           <Skeleton className="h-6 w-36 rounded-full" />
           <Skeleton className="h-6 w-24 rounded-full" />
         </div>
         <Skeleton className="h-8 w-2/3" />
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent aria-hidden="true" className="space-y-4">
         <Skeleton className="h-16 w-full" />
         <Skeleton className="h-12 w-full rounded-xl" />
       </CardContent>
-      <CardFooter>
+      <CardFooter aria-hidden="true">
         <Skeleton className="h-9 w-64 rounded-4xl" />
       </CardFooter>
     </Card>

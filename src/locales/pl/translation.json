@@ -558,6 +558,10 @@
     "dark": "Ciemny",
     "light": "Jasny",
     "logoAlt": "KNPiMI Logo",
+    "openMenu": "Otwórz menu nawigacji",
+    "pkLogoAlt": "Politechnika Krakowska",
+    "switchToDark": "Przełącz na motyw ciemny",
+    "switchToLight": "Przełącz na motyw jasny",
     "system": "Systemowy",
     "theme": "MOTYW"
   },
@@ -634,8 +638,9 @@
     },
     "atlas": {
       "badge": "Mapa kampusu Czyżyny",
-      "floorPlural": "PKWMmap.atlas.floorPlural",
-      "floorSingular": "PKWMmap.atlas.floorSingular",
+      "floorPlural": "plany",
+      "floorPluralGenitive": "planów",
+      "floorSingular": "plan",
       "subtitle": "Każdy budynek WM PK ma własne plany pięter spięte wspólnym grafem przejść wewnętrznych i zewnętrznych.",
       "title": "8 budynków, 25 odwzorowanych kondygnacji"
     },
