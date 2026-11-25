@@ -246,8 +246,40 @@
   "Contact": {
     "badge": "Bądźmy w kontakcie",
     "discord": {
+      "activeBadge": "Aktywna społeczność",
+      "channels": {
+        "announcements": {
+          "description": "Terminy spotkań, warsztaty i hackathony",
+          "name": "ogłoszenia"
+        },
+        "cybersec": {
+          "description": "CTF, Kali Linux, Wazuh i OSINT",
+          "name": "cybersec"
+        },
+        "dataAndAi": {
+          "description": "ML, Python, notebooki i projekty R&D",
+          "name": "data-and-ai"
+        },
+        "projects": {
+          "description": "Zespoły projektowe i wsparcie starszych studentów",
+          "name": "projekty-i-pomoc"
+        },
+        "webdev": {
+          "description": "React, TypeScript, .NET i code review",
+          "name": "webdev"
+        }
+      },
+      "channelsLabel": "Kanały na serwerze",
+      "copied": "Skopiowano",
+      "copiedAnnouncement": "Skopiowano link zaproszenia na Discorda do schowka",
+      "copyInvite": "Kopiuj link",
       "description": "Serce naszego koła naukowego. Wpadnij porozmawiać o projektach, zadać pytania starszym studentom i być na bieżąco z życiem sekcji.",
+      "joinCta": "Dołącz do serwera Discord",
       "online": "Online",
+      "privacyBadge": "Prywatność chroniona",
+      "privacyNote": "Dla ochrony prywatności studentów nie wyświetlamy publicznej listy osób online ani nie ładujemy zewnętrznego widżetu Discord.",
+      "serverName": "KNPiMI • PK",
+      "serverSubtitle": "Oficjalny serwer koła naukowego",
       "title": "Społeczność Discord"
     },
     "email": {
