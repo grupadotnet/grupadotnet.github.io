@@ -236,7 +236,7 @@ function PartnerCarouselControls({ isPaused }: { isPaused: boolean }) {
   );
 }
 
-function PartnerCarousel({ theme }: { theme: 'light' | 'dark' }) {
+function PartnerCarousel() {
   const [isPaused, setIsPaused] = useState(false);
 
   return (
@@ -262,12 +262,21 @@ function PartnerCarousel({ theme }: { theme: 'light' | 'dark' }) {
               aria-label={name}
               className="flex h-24 w-full max-w-80 items-center justify-center rounded-lg px-2 py-2 transition-opacity duration-200 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:h-28"
             >
-              <img
-                src={logos[theme]}
-                alt={name}
-                draggable={false}
-                className="max-h-full max-w-full h-auto w-auto object-contain"
-              />
+              <div className="relative flex size-full items-center justify-center">
+                <img
+                  src={logos.light}
+                  alt={name}
+                  draggable={false}
+                  className="max-h-full max-w-full h-auto w-auto object-contain opacity-100 transition-opacity duration-(--theme-transition-duration) ease-(--theme-transition-easing) dark:opacity-0"
+                />
+                <img
+                  src={logos.dark}
+                  alt=""
+                  aria-hidden="true"
+                  draggable={false}
+                  className="absolute inset-0 m-auto max-h-full max-w-full h-auto w-auto object-contain opacity-0 transition-opacity duration-(--theme-transition-duration) ease-(--theme-transition-easing) dark:opacity-100"
+                />
+              </div>
             </a>
           </CarouselItem>
         ))}
@@ -285,6 +294,8 @@ export default function Footer() {
 
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<Map | null>(null);
+  const initialThemeRef = useRef(actualTheme);
+  const appliedMapThemeRef = useRef(actualTheme);
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -300,7 +311,7 @@ export default function Footer() {
 
     const map = new Map({
       container: mapContainerRef.current,
-      style: actualTheme === 'dark' ? darkStyle : lightStyle,
+      style: initialThemeRef.current === 'dark' ? darkStyle : lightStyle,
       center: coords,
       zoom: 12,
     });
@@ -354,13 +365,16 @@ export default function Footer() {
 
     return () => {
       markerEl.removeEventListener('click', handleMarkerClick);
+      map.remove();
+      mapInstanceRef.current = null;
     };
-  });
+  }, []);
 
   useEffect(() => {
     const map = mapInstanceRef.current;
-    if (!map) return;
+    if (!map || appliedMapThemeRef.current === actualTheme) return;
 
+    appliedMapThemeRef.current = actualTheme;
     const newStyle = actualTheme === 'dark' ? darkStyle : lightStyle;
     const updateStyle = () => {
       map.setStyle(newStyle);
@@ -370,6 +384,9 @@ export default function Footer() {
       updateStyle();
     } else {
       map.once('load', updateStyle);
+      return () => {
+        map.off('load', updateStyle);
+      };
     }
   }, [actualTheme]);
 
@@ -419,7 +436,7 @@ export default function Footer() {
         </div>
         <Card className="bg-background w-full min-w-0 justify-center">
           <CardContent className="flex w-full flex-col items-center justify-center px-4 sm:px-6">
-            <PartnerCarousel theme={actualTheme} />
+            <PartnerCarousel />
           </CardContent>
         </Card>
       </section>
