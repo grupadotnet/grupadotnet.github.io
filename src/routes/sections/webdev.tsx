@@ -12,6 +12,8 @@ import {
 } from '@remixicon/react';
 
 import { extractTranslation } from '@/lib/extractTranslation.tsx';
+import { getSectionColors } from '@/lib/sections.ts';
+import { cn } from '@/lib/utils';
 import {
   SectionHero,
   SectionNextEventSection,
@@ -233,7 +235,12 @@ function Webdev() {
         <span className="font-mono text-xs font-semibold text-foreground">
           {t('Webdev.hero.pipelineHeader', 'webdev-stack.flow')}
         </span>
-        <span className="font-mono text-[11px] text-blue-600 dark:text-blue-400">
+        <span
+          className={cn(
+            'font-mono text-[11px]',
+            getSectionColors('webdev').textAccent
+          )}
+        >
           CI/CD Ready
         </span>
       </div>
