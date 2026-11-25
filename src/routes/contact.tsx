@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import { extractTranslation } from '../lib/extractTranslation.tsx';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -59,6 +59,9 @@ function Contact() {
   const { t } = useTranslation();
   const { actualTheme } = useTheme();
   const [copied, setCopied] = useState(false);
+  const isStandalone = useLocation().pathname !== '/';
+  const Heading = isStandalone ? 'h1' : 'h2';
+  const cardTitleAs = isStandalone ? 'h2' : 'h3';
 
   const emailAddress = 'dot.net.group.pk@gmail.com';
 
@@ -85,12 +88,12 @@ function Contact() {
               variant="secondary"
               className="px-3 py-1 text-sm font-medium"
             >
-              <RiChatSmile2Line className="mr-2 h-4 w-4" />
+              <RiChatSmile2Line aria-hidden="true" className="mr-2 h-4 w-4" />
               {t('Contact.badge', 'Bądźmy w kontakcie')}
             </Badge>
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            <Heading className="text-3xl font-bold tracking-tight md:text-4xl">
               {t('Contact.title', 'Gdzie nas znajdziesz?')}
-            </h2>
+            </Heading>
             <p className="max-w-2xl text-lg text-muted-foreground text-balance">
               {t(
                 'Contact.paragraph',
@@ -106,13 +109,13 @@ function Contact() {
               <CardHeader>
                 <div className="flex items-start justify-between gap-4">
                   <div className={iconBoxClass}>
-                    <RiMailSendLine className="h-6 w-6" />
+                    <RiMailSendLine aria-hidden="true" className="h-6 w-6" />
                   </div>
                   <Badge variant="secondary" className="font-normal">
                     {t('Contact.email.badge', 'Zapytania biznesowe')}
                   </Badge>
                 </div>
-                <CardTitle className={titleClass}>
+                <CardTitle as={cardTitleAs} className={titleClass}>
                   {t('Contact.email.title', 'Napisz do nas e-mail')}
                 </CardTitle>
               </CardHeader>
@@ -135,16 +138,30 @@ function Contact() {
                   >
                     {copied ? (
                       <>
-                        <RiCheckLine className="h-4 w-4 text-emerald-500" />
+                        <RiCheckLine
+                          aria-hidden="true"
+                          className="h-4 w-4 text-emerald-500"
+                        />
                         <span>{t('Contact.email.copied', 'Skopiowano')}</span>
                       </>
                     ) : (
                       <>
-                        <RiFileCopyLine className="h-4 w-4" />
+                        <RiFileCopyLine
+                          aria-hidden="true"
+                          className="h-4 w-4"
+                        />
                         <span>{t('Contact.email.copy', 'Kopiuj adres')}</span>
                       </>
                     )}
                   </Button>
+                  <span className="sr-only" aria-live="polite">
+                    {copied
+                      ? t(
+                          'Contact.email.copiedAnnouncement',
+                          'Skopiowano adres e-mail do schowka'
+                        )
+                      : ''}
+                  </span>
                 </div>
               </CardContent>
             </Card>
@@ -156,17 +173,20 @@ function Contact() {
               <CardHeader>
                 <div className="flex items-start justify-between gap-4">
                   <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#5865F2]/15 text-[#5865F2]">
-                    <RiDiscordFill className="h-6 w-6" />
+                    <RiDiscordFill aria-hidden="true" className="h-6 w-6" />
                   </div>
                   <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-medium text-emerald-950 dark:text-emerald-300">
-                    <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                    <span aria-hidden="true" className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping motion-reduce:animate-none rounded-full bg-emerald-400 opacity-75" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                     </span>
                     {t('Contact.discord.online', 'Online')}
                   </div>
                 </div>
-                <CardTitle className="text-xl group-hover:text-[#5865F2] dark:group-hover:text-[#7983F5] transition-colors">
+                <CardTitle
+                  as={cardTitleAs}
+                  className="text-xl group-hover:text-[#5865F2] dark:group-hover:text-[#7983F5] transition-colors"
+                >
                   {t('Contact.discord.title', 'Społeczność Discord')}
                 </CardTitle>
               </CardHeader>
@@ -182,7 +202,10 @@ function Contact() {
                 {/* Discord Server Widget Embed */}
                 <div className="flex flex-1 items-center justify-center overflow-hidden rounded-xl ring-1 ring-foreground/10">
                   <iframe
-                    title="Discord Server Widget"
+                    title={t(
+                      'Contact.discord.widgetTitle',
+                      'Widżet serwera Discord KNPiMI'
+                    )}
                     src={`https://discord.com/widget?id=954758423185092708&theme=${actualTheme}`}
                     width="350"
                     height="500"
@@ -204,11 +227,19 @@ function Contact() {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className={iconBoxClass}>
-                      <RiFacebookBoxLine className="h-6 w-6" />
+                      <RiFacebookBoxLine
+                        aria-hidden="true"
+                        className="h-6 w-6"
+                      />
                     </div>
-                    <RiArrowRightUpLine className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                    <RiArrowRightUpLine
+                      aria-hidden="true"
+                      className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                    />
                   </div>
-                  <CardTitle className={titleClass}>Facebook</CardTitle>
+                  <CardTitle as={cardTitleAs} className={titleClass}>
+                    Facebook
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <p className="text-muted-foreground leading-relaxed">
@@ -222,6 +253,10 @@ function Contact() {
                   </Badge>
                 </CardContent>
               </Card>
+              <span className="sr-only">
+                {' '}
+                ({t('Common.opensInNewTab', 'otwiera się w nowej karcie')})
+              </span>
             </a>
 
             {/* 4. Matrix - Square Bento Tile (col-span-1) */}
@@ -237,9 +272,14 @@ function Contact() {
                     <div className={iconBoxClass}>
                       <MatrixIcon className="h-6 w-6" />
                     </div>
-                    <RiArrowRightUpLine className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                    <RiArrowRightUpLine
+                      aria-hidden="true"
+                      className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                    />
                   </div>
-                  <CardTitle className={titleClass}>Matrix</CardTitle>
+                  <CardTitle as={cardTitleAs} className={titleClass}>
+                    Matrix
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <p className="text-muted-foreground leading-relaxed">
@@ -253,6 +293,10 @@ function Contact() {
                   </Badge>
                 </CardContent>
               </Card>
+              <span className="sr-only">
+                {' '}
+                ({t('Common.opensInNewTab', 'otwiera się w nowej karcie')})
+              </span>
             </a>
 
             {/* 5. Mastodon - Bottom Wide Bento Tile (md:col-span-1 lg:col-span-2) */}
@@ -266,16 +310,21 @@ function Contact() {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className={iconBoxClass}>
-                      <RiMastodonLine className="h-6 w-6" />
+                      <RiMastodonLine aria-hidden="true" className="h-6 w-6" />
                     </div>
                     <div className="flex items-center gap-2">
                       <Badge variant="secondary" className="font-normal">
                         Fediverse
                       </Badge>
-                      <RiArrowRightUpLine className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                      <RiArrowRightUpLine
+                        aria-hidden="true"
+                        className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                      />
                     </div>
                   </div>
-                  <CardTitle className={titleClass}>Mastodon</CardTitle>
+                  <CardTitle as={cardTitleAs} className={titleClass}>
+                    Mastodon
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground leading-relaxed">
@@ -286,6 +335,10 @@ function Contact() {
                   </p>
                 </CardContent>
               </Card>
+              <span className="sr-only">
+                {' '}
+                ({t('Common.opensInNewTab', 'otwiera się w nowej karcie')})
+              </span>
             </a>
 
             {/* 6. LinkedIn - Bottom Wide Bento Tile (md:col-span-1 lg:col-span-2) */}
@@ -299,16 +352,24 @@ function Contact() {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className={iconBoxClass}>
-                      <RiLinkedinBoxLine className="h-6 w-6" />
+                      <RiLinkedinBoxLine
+                        aria-hidden="true"
+                        className="h-6 w-6"
+                      />
                     </div>
                     <div className="flex items-center gap-2">
                       <Badge variant="secondary" className="font-normal">
                         {t('Contact.linkedin.badge', 'Profil oficjalny')}
                       </Badge>
-                      <RiArrowRightUpLine className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                      <RiArrowRightUpLine
+                        aria-hidden="true"
+                        className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                      />
                     </div>
                   </div>
-                  <CardTitle className={titleClass}>LinkedIn</CardTitle>
+                  <CardTitle as={cardTitleAs} className={titleClass}>
+                    LinkedIn
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground leading-relaxed">
@@ -319,6 +380,10 @@ function Contact() {
                   </p>
                 </CardContent>
               </Card>
+              <span className="sr-only">
+                {' '}
+                ({t('Common.opensInNewTab', 'otwiera się w nowej karcie')})
+              </span>
             </a>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { StrictMode, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { Link, RouterProvider } from '@tanstack/react-router';
@@ -25,40 +25,50 @@ declare module '@tanstack/react-router' {
     router: typeof router;
   }
 }
-export const router = createRouter({
-  routeTree,
-  defaultNotFoundComponent: () => {
-    return (
-      <div className="flex items-center justify-center bg-background text-foreground px-4">
-        <div className="w-full max-w-sm space-y-6 text-center border border-border/40 bg-card/40 p-8 rounded-xl backdrop-blur-sm shadow-2xl shadow-black/5">
-          {/* Subtle low-key badge */}
-          <div className="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground tracking-wide">
-            404
-          </div>
+function NotFoundPage() {
+  useEffect(() => {
+    document.title = '404 — KN Programistów i Miłośników Informatyki';
+  }, []);
 
-          <div className="space-y-1.5">
-            <h1 className="text-xl font-medium tracking-tight">
-              {i18next.t('NotFound.title', 'Ajć! Coś poszło nie tak!')}
-            </h1>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              {i18next.t(
-                'NotFound.paragraph',
-                'O nie!! Tej strony jeszcze nie zrobiliśmy, i najprawdoppodobniej nie zrobimy XD'
-              )}
-            </p>
-          </div>
+  return (
+    <div className="flex items-center justify-center bg-background text-foreground px-4">
+      <div className="w-full max-w-sm space-y-6 text-center border border-border/40 bg-card/40 p-8 rounded-xl backdrop-blur-sm shadow-2xl shadow-black/5">
+        {/* Subtle low-key badge */}
+        <div className="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground tracking-wide">
+          404
+        </div>
 
-          <Link to={'/'}>
-            <Button variant={'default'}>
+        <div className="space-y-1.5">
+          <h1 className="text-xl font-medium tracking-tight">
+            {i18next.t('NotFound.title', 'Ajć! Coś poszło nie tak!')}
+          </h1>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            {i18next.t(
+              'NotFound.paragraph',
+              'O nie!! Tej strony jeszcze nie zrobiliśmy, i najprawdoppodobniej nie zrobimy XD'
+            )}
+          </p>
+        </div>
+
+        <Button
+          variant="default"
+          nativeButton={false}
+          render={
+            <Link to="/">
               <span>
                 {i18next.t('NotFound.returnButton', 'Powróć do Głównej')}
               </span>
-            </Button>
-          </Link>
-        </div>
+            </Link>
+          }
+        />
       </div>
-    );
-  },
+    </div>
+  );
+}
+
+export const router = createRouter({
+  routeTree,
+  defaultNotFoundComponent: NotFoundPage,
 });
 
 // Register the router instance for type safety

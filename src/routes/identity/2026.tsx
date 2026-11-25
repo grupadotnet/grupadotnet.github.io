@@ -263,7 +263,7 @@ function IdentityHeroSection() {
 
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-balance">
           {t('Identity2026.titlePrefix', 'Identyfikacja Wizualna')}{' '}
-          <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+          <span className="bg-(image:--primary-text-gradient) bg-clip-text text-transparent">
             2026
           </span>
         </h1>
@@ -416,9 +416,9 @@ function LogoAssetCard({
               target="_blank"
               rel="noopener noreferrer"
               title={t('Identity2026.openInTab', 'Otwórz w nowej karcie')}
-              aria-label={t('Identity2026.openInTab', 'Otwórz w nowej karcie')}
+              aria-label={`${asset.name} — ${t('Identity2026.openInTab', 'Otwórz w nowej karcie')}`}
             >
-              <RiExternalLinkLine className="h-4 w-4" />
+              <RiExternalLinkLine aria-hidden="true" className="h-4 w-4" />
               <span className="hidden sm:inline">Podgląd</span>
             </a>
           }
@@ -437,8 +437,11 @@ function LogoAssetCard({
         >
           {copiedMode ? (
             <>
-              <RiCheckLine className="h-4 w-4 text-emerald-500" />
-              <span className="text-emerald-500 font-medium">
+              <RiCheckLine
+                aria-hidden="true"
+                className="h-4 w-4 text-emerald-700 dark:text-emerald-400"
+              />
+              <span className="text-emerald-700 dark:text-emerald-400 font-medium">
                 {copiedMode === 'file'
                   ? t('Identity2026.copiedFile', 'Skopiowano plik!')
                   : t('Identity2026.copiedUrl', 'Skopiowano URL!')}
@@ -446,7 +449,7 @@ function LogoAssetCard({
             </>
           ) : (
             <>
-              <RiFileCopyLine className="h-4 w-4" />
+              <RiFileCopyLine aria-hidden="true" className="h-4 w-4" />
               <span>
                 {canCopyFile
                   ? t('Identity2026.copyFile', 'Kopiuj plik')
@@ -537,7 +540,7 @@ function ColorSwatchCard({
 
         <CardContent className="p-5 space-y-4">
           <div>
-            <h4 className="font-bold text-lg">{color.name}</h4>
+            <h3 className="font-bold text-lg">{color.name}</h3>
             <p className="text-xs text-muted-foreground font-medium">
               {color.role}
             </p>
@@ -573,14 +576,17 @@ function ColorSwatchCard({
         >
           {isCopied ? (
             <>
-              <RiCheckLine className="h-3.5 w-3.5 text-emerald-500" />
-              <span className="text-emerald-500 font-medium">
+              <RiCheckLine
+                aria-hidden="true"
+                className="h-3.5 w-3.5 text-emerald-700 dark:text-emerald-400"
+              />
+              <span className="text-emerald-700 dark:text-emerald-400 font-medium">
                 Skopiowano HEX!
               </span>
             </>
           ) : (
             <>
-              <RiFileCopyLine className="h-3.5 w-3.5" />
+              <RiFileCopyLine aria-hidden="true" className="h-3.5 w-3.5" />
               <span>Kopiuj HEX ({color.hex})</span>
             </>
           )}
@@ -645,14 +651,20 @@ function ColorPaletteSection({ copiedState, onCopy }: CopyHandlerProps) {
               >
                 {copiedState?.key === 'css-gradient' ? (
                   <>
-                    <RiCheckLine className="h-3.5 w-3.5 text-emerald-500" />
-                    <span className="text-emerald-500">
+                    <RiCheckLine
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5 text-emerald-700 dark:text-emerald-400"
+                    />
+                    <span className="text-emerald-700 dark:text-emerald-400">
                       Skopiowano kod CSS!
                     </span>
                   </>
                 ) : (
                   <>
-                    <RiFileCopyLine className="h-3.5 w-3.5" />
+                    <RiFileCopyLine
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5"
+                    />
                     <span>Kopiuj CSS Gradient</span>
                   </>
                 )}
@@ -767,7 +779,7 @@ function TypographySection() {
                 <span className="text-xs text-muted-foreground font-mono block">
                   JetBrains Mono (Kod & Terminal):
                 </span>
-                <code className="text-xs font-mono text-blue-500 dark:text-blue-400">
+                <code className="text-xs font-mono text-blue-600 dark:text-blue-400">
                   knpimi --version 2026.1 --status active
                 </code>
               </div>
@@ -803,9 +815,9 @@ function AnatomySection() {
           <div className="grid gap-6 md:grid-cols-3">
             <div className="space-y-3 rounded-xl bg-background/60 p-5 border border-border/40">
               <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
-                <RiArtboardLine className="h-5 w-5" />
+                <RiArtboardLine aria-hidden="true" className="h-5 w-5" />
               </div>
-              <h4 className="font-bold text-base">Baszta Krakowska</h4>
+              <h3 className="font-bold text-base">Baszta Krakowska</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Zewnętrzny kontur zębatych murów obronnych nawiązuje do
                 heraldyki miasta Krakowa oraz tradycji Politechniki Krakowskiej.
@@ -814,9 +826,9 @@ function AnatomySection() {
 
             <div className="space-y-3 rounded-xl bg-background/60 p-5 border border-border/40">
               <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
-                <RiTerminalBoxLine className="h-5 w-5" />
+                <RiTerminalBoxLine aria-hidden="true" className="h-5 w-5" />
               </div>
-              <h4 className="font-bold text-base">Monitor i Sprzęt</h4>
+              <h3 className="font-bold text-base">Monitor i Sprzęt</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Wewnętrzna ramka z podstawką stanowi sylwetkę monitora
                 komputerowego, odzwierciedlając pracę inżynierską i technologię.
@@ -825,9 +837,9 @@ function AnatomySection() {
 
             <div className="space-y-3 rounded-xl bg-background/60 p-5 border border-border/40">
               <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400">
-                <RiCodeSSlashLine className="h-5 w-5" />
+                <RiCodeSSlashLine aria-hidden="true" className="h-5 w-5" />
               </div>
-              <h4 className="font-bold text-base">Składnia i Kod `&gt; _`</h4>
+              <h3 className="font-bold text-base">Składnia i Kod `&gt; _`</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Nawiasy ostrokątne oraz ukośnik na ekranie symbolizują pisanie
                 kodu, terminal poleceń i zamiłowanie do programowania.
@@ -867,8 +879,8 @@ function RulesSection() {
 
         <div className="grid gap-6 md:grid-cols-2">
           <Card className="border-none bg-emerald-950/10 border-l-4 border-l-emerald-500 shadow-sm p-6 space-y-4">
-            <div className="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400">
-              <RiCheckLine className="h-5 w-5" />
+            <div className="flex items-center space-x-2 text-emerald-800 dark:text-emerald-400">
+              <RiCheckLine aria-hidden="true" className="h-5 w-5" />
               <h3 className="font-bold text-lg">Zalecane Stosowanie (Do's)</h3>
             </div>
             <ul className="space-y-3 text-sm text-muted-foreground">
@@ -958,12 +970,12 @@ function AffiliationSection() {
             <RiInformationLine className="h-6 w-6" />
           </div>
           <div>
-            <h4 className="font-bold text-base">
+            <h2 className="font-bold text-base">
               {t(
                 'Identity2026.affiliation.title',
                 'Politechnika Krakowska & Wydział Mechaniczny'
               )}
-            </h4>
+            </h2>
             <p className="text-xs text-muted-foreground mt-0.5">
               {t(
                 'Identity2026.affiliation.description',
@@ -984,9 +996,16 @@ function AffiliationSection() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <RiExternalLinkLine className="h-3.5 w-3.5" />
+                <RiExternalLinkLine
+                  aria-hidden="true"
+                  className="h-3.5 w-3.5"
+                />
                 <span>
                   {t('Identity2026.affiliation.wmLink', 'Identyfikacja WM PK')}
+                </span>
+                <span className="sr-only">
+                  {' '}
+                  ({t('Common.opensInNewTab', 'otwiera się w nowej karcie')})
                 </span>
               </a>
             }
@@ -1002,9 +1021,16 @@ function AffiliationSection() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <RiExternalLinkLine className="h-3.5 w-3.5" />
+                <RiExternalLinkLine
+                  aria-hidden="true"
+                  className="h-3.5 w-3.5"
+                />
                 <span>
                   {t('Identity2026.affiliation.pkLink', 'Identyfikacja PK')}
+                </span>
+                <span className="sr-only">
+                  {' '}
+                  ({t('Common.opensInNewTab', 'otwiera się w nowej karcie')})
                 </span>
               </a>
             }
@@ -1016,6 +1042,7 @@ function AffiliationSection() {
 }
 
 function Identity2026() {
+  const { t } = useTranslation();
   const [copiedState, setCopiedState] = useState<CopiedState | null>(null);
 
   const markCopied = (key: string, mode: CopiedMode) => {
@@ -1066,6 +1093,11 @@ function Identity2026() {
 
   return (
     <div className="bg-background min-h-screen">
+      <span className="sr-only" aria-live="polite">
+        {copiedState
+          ? t('Identity2026.copiedAnnouncement', 'Skopiowano do schowka')
+          : ''}
+      </span>
       <IdentityHeroSection />
       <LogoAssetsSection
         copiedState={copiedState}

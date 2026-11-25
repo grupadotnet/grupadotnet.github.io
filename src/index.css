@@ -19,6 +19,16 @@
     var(--primary-from) -0.45%,
     var(--primary-to) 99.55%
   );
+  --primary-text-gradient: linear-gradient(
+    201.03deg,
+    #8b4e92 -0.45%,
+    #2e64ae 99.55%
+  );
+  --primary-button-gradient: linear-gradient(
+    201.03deg,
+    #8b4e92 -0.45%,
+    #2e64ae 99.55%
+  );
   --primary: oklch(0.21 0.006 285.885);
   --font-family: Quicksand;
   --font-family-monospace: 'JetBrains Mono', monospace;
@@ -40,7 +50,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.705 0.015 286.067);
+  --ring: oklch(0.45 0.02 286);
   --chart-1: oklch(0.871 0.006 286.286);
   --chart-2: oklch(0.552 0.016 285.938);
   --chart-3: oklch(0.442 0.017 285.786);
@@ -54,11 +64,13 @@
   --sidebar-accent: oklch(0.967 0.001 286.375);
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.705 0.015 286.067);
+  --sidebar-ring: oklch(0.45 0.02 286);
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /*#root {*/
@@ -74,6 +86,16 @@ html {
     201.03deg,
     var(--primary-from) -0.45%,
     var(--primary-to) 99.55%
+  );
+  --primary-text-gradient: linear-gradient(
+    201.03deg,
+    #c68ccd -0.45%,
+    #72a6f0 99.55%
+  );
+  --primary-button-gradient: linear-gradient(
+    201.03deg,
+    #8b4e92 -0.45%,
+    #2e64ae 99.55%
   );
   --primary: oklch(0.92 0.004 286.32);
   --background: oklch(0.141 0.005 285.823);
@@ -92,7 +114,7 @@ html {
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.552 0.016 285.938);
+  --ring: oklch(0.75 0.02 286);
   --chart-1: oklch(0.871 0.006 286.286);
   --chart-2: oklch(0.552 0.016 285.938);
   --chart-3: oklch(0.442 0.017 285.786);
@@ -105,7 +127,7 @@ html {
   --sidebar-accent: oklch(0.274 0.006 286.033);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.552 0.016 285.938);
+  --sidebar-ring: oklch(0.75 0.02 286);
 }
 
 @theme inline {
@@ -153,13 +175,17 @@ html {
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring;
   }
   body {
     @apply bg-background text-foreground;
   }
   html {
     @apply font-sans;
+  }
+  :where(a, button, summary, [tabindex]:not([tabindex='-1'])):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 }
 

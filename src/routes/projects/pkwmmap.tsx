@@ -260,13 +260,16 @@ function PkwmMap() {
 
   const wayfindingRoutePill = (
     <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-border/60 bg-muted/50 px-4 py-1.5 font-mono text-xs text-muted-foreground">
-      <RiMapPin2Line className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+      <RiMapPin2Line
+        aria-hidden="true"
+        className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400"
+      />
       <span className="font-semibold text-foreground">
         {t('PKWMmap.hero.routeStart', 'Budynek A')}
       </span>
-      <RiArrowRightLine className="h-3.5 w-3.5" />
+      <RiArrowRightLine aria-hidden="true" className="h-3.5 w-3.5" />
       <span>{t('PKWMmap.hero.routeConnector', 'Łącznik 1P')}</span>
-      <RiArrowRightLine className="h-3.5 w-3.5" />
+      <RiArrowRightLine aria-hidden="true" className="h-3.5 w-3.5" />
       <span className="font-semibold text-blue-600 dark:text-blue-400">
         {t('PKWMmap.hero.routeEnd', 'Sala G121')}
       </span>
@@ -287,7 +290,10 @@ function PkwmMap() {
           <div className="mb-6 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
             <div className="space-y-2">
               <Badge variant="secondary" className="px-3 py-1 text-xs">
-                <RiBuilding2Line className="mr-1.5 h-3.5 w-3.5" />
+                <RiBuilding2Line
+                  aria-hidden="true"
+                  className="mr-1.5 h-3.5 w-3.5"
+                />
                 {t('PKWMmap.atlas.badge', 'Mapa kampusu Czyżyny')}
               </Badge>
               <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
@@ -320,8 +326,14 @@ function PkwmMap() {
                     {t(
                       b.floors === 1
                         ? 'PKWMmap.atlas.floorSingular'
-                        : 'PKWMmap.atlas.floorPlural',
-                      b.floors === 1 ? 'plan' : 'plany'
+                        : b.floors >= 5
+                          ? 'PKWMmap.atlas.floorPluralGenitive'
+                          : 'PKWMmap.atlas.floorPlural',
+                      b.floors === 1
+                        ? 'plan'
+                        : b.floors >= 5
+                          ? 'planów'
+                          : 'plany'
                     )}
                   </p>
                   <p className="text-[11px] leading-snug text-muted-foreground">

@@ -157,7 +157,7 @@ function HeroVisualPreview({
           aria-label={t('ProjectPage.zoomVisual', 'Powiększ podgląd')}
           className="inline-flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
-          <RiZoomInLine className="h-3.5 w-3.5" />
+          <RiZoomInLine aria-hidden="true" className="h-3.5 w-3.5" />
           <span className="hidden sm:inline">
             {t('ProjectPage.zoomShort', 'Powiększ')}
           </span>
@@ -167,6 +167,11 @@ function HeroVisualPreview({
       <button
         type="button"
         onClick={() => onSelectVisual(activeVisual)}
+        aria-label={t(
+          'ProjectPage.openVisualPreview',
+          'Powiększ podgląd: {{title}}',
+          { title: activeVisual.title }
+        )}
         className="group relative block w-full cursor-pointer overflow-hidden bg-background/60 p-3 text-left"
       >
         <div className="relative flex aspect-16/10 w-full items-center justify-center overflow-hidden rounded-lg border border-border/40 bg-white">
@@ -175,7 +180,10 @@ function HeroVisualPreview({
             alt={activeVisual.alt}
             className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
           />
-          <div className="pointer-events-none absolute inset-0 flex items-end justify-between bg-linear-to-t from-black/55 via-transparent to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 flex items-end justify-between bg-linear-to-t from-black/55 via-transparent to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          >
             <span className="text-xs font-medium text-white">
               {activeVisual.title}
             </span>
@@ -193,6 +201,7 @@ function HeroVisualPreview({
             <button
               key={visual.id}
               type="button"
+              aria-pressed={idx === activeIndex}
               onClick={() => setActiveIndex(idx)}
               className={`cursor-pointer rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
                 idx === activeIndex
@@ -484,7 +493,7 @@ function ProjectHeroCentered({
 
         <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl md:text-6xl">
           {data.titlePrefix}{' '}
-          <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+          <span className="bg-(image:--primary-text-gradient) bg-clip-text text-transparent">
             {data.titleHighlight}
           </span>
         </h1>
@@ -534,7 +543,7 @@ function ProjectHeroSplit({
 
           <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {data.titlePrefix}{' '}
-            <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+            <span className="bg-(image:--primary-text-gradient) bg-clip-text text-transparent">
               {data.titleHighlight}
             </span>
           </h1>
@@ -670,9 +679,14 @@ function ProjectVisualShowcase({
                   <button
                     type="button"
                     onClick={() => onSelectVisual(visual)}
+                    aria-label={t(
+                      'ProjectPage.openVisualPreview',
+                      'Powiększ podgląd: {{title}}',
+                      { title: visual.title }
+                    )}
                     className="inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
-                    <RiZoomInLine className="h-4 w-4" />
+                    <RiZoomInLine aria-hidden="true" className="h-4 w-4" />
                     <span>{t('ProjectPage.zoomVisual', 'Powiększ')}</span>
                   </button>
                 </div>
@@ -680,6 +694,11 @@ function ProjectVisualShowcase({
                   <button
                     type="button"
                     onClick={() => onSelectVisual(visual)}
+                    aria-label={t(
+                      'ProjectPage.openVisualPreview',
+                      'Powiększ podgląd: {{title}}',
+                      { title: visual.title }
+                    )}
                     className="group relative block w-full cursor-pointer overflow-hidden rounded-xl border border-border/50 bg-white shadow-xs"
                   >
                     <img
@@ -714,16 +733,25 @@ function ProjectVisualShowcase({
                   <button
                     type="button"
                     onClick={() => onSelectVisual(visual)}
-                    aria-label={t('ProjectPage.zoomVisual', 'Powiększ')}
+                    aria-label={t(
+                      'ProjectPage.openVisualPreview',
+                      'Powiększ podgląd: {{title}}',
+                      { title: visual.title }
+                    )}
                     className="inline-flex cursor-pointer items-center rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
-                    <RiZoomInLine className="h-4 w-4" />
+                    <RiZoomInLine aria-hidden="true" className="h-4 w-4" />
                   </button>
                 </div>
                 <CardContent className="flex flex-1 flex-col items-center justify-between gap-4 p-5">
                   <button
                     type="button"
                     onClick={() => onSelectVisual(visual)}
+                    aria-label={t(
+                      'ProjectPage.openVisualPreview',
+                      'Powiększ podgląd: {{title}}',
+                      { title: visual.title }
+                    )}
                     className="group relative mx-auto block w-48 cursor-pointer overflow-hidden rounded-[1.75rem] border-4 border-zinc-900 bg-zinc-950 p-1.5 shadow-lg dark:border-zinc-700"
                   >
                     <div className="mx-auto mb-1.5 h-1.5 w-12 rounded-full bg-zinc-700" />
@@ -760,9 +788,14 @@ function ProjectVisualShowcase({
               <button
                 type="button"
                 onClick={() => onSelectVisual(visual)}
+                aria-label={t(
+                  'ProjectPage.openVisualPreview',
+                  'Powiększ podgląd: {{title}}',
+                  { title: visual.title }
+                )}
                 className="inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
-                <RiZoomInLine className="h-4 w-4" />
+                <RiZoomInLine aria-hidden="true" className="h-4 w-4" />
                 <span>{t('ProjectPage.zoomVisual', 'Powiększ')}</span>
               </button>
             </div>
@@ -770,6 +803,11 @@ function ProjectVisualShowcase({
               <button
                 type="button"
                 onClick={() => onSelectVisual(visual)}
+                aria-label={t(
+                  'ProjectPage.openVisualPreview',
+                  'Powiększ podgląd: {{title}}',
+                  { title: visual.title }
+                )}
                 className="group relative block w-full cursor-pointer overflow-hidden rounded-xl border border-border/40 bg-[#faf6ee] p-3 shadow-xs sm:p-5"
               >
                 <img
@@ -1227,7 +1265,10 @@ export function ProjectRepositoriesSection({
                     <CardHeader className="space-y-3">
                       <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                          <RiGithubFill className="h-4 w-4 text-foreground" />
+                          <RiGithubFill
+                            aria-hidden="true"
+                            className="h-4 w-4 text-foreground"
+                          />
                           <span className="font-mono">grupadotnet /</span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -1237,12 +1278,16 @@ export function ProjectRepositoriesSection({
                               className="gap-1.5 font-mono text-xs font-medium"
                             >
                               <span
+                                aria-hidden="true"
                                 className={`h-2 w-2 rounded-full ${dotClass}`}
                               />
                               {repo.language}
                             </Badge>
                           )}
-                          <RiArrowRightUpLine className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                          <RiArrowRightUpLine
+                            aria-hidden="true"
+                            className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                          />
                         </div>
                       </div>
                       <CardTitle className="font-mono text-lg transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
@@ -1256,6 +1301,10 @@ export function ProjectRepositoriesSection({
                     </CardContent>
                   </div>
                 </Card>
+                <span className="sr-only">
+                  {' '}
+                  ({t('Common.opensInNewTab', 'otwiera się w nowej karcie')})
+                </span>
               </a>
             );
           })}

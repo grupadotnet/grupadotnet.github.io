@@ -33,7 +33,7 @@ export function NumberedStepCard({
     <Card className="border border-border/50 bg-muted/40 shadow-sm">
       <CardContent className="flex items-start gap-4 p-5">
         <div className={iconBoxClassName}>
-          <Icon className="h-5 w-5" />
+          <Icon aria-hidden="true" className="h-5 w-5" />
         </div>
         <div className="space-y-1">
           <div className="flex items-center gap-2">

@@ -25,4 +25,13 @@ i18next.use(initReactI18next).init({
   },
 });
 
+const syncDocumentLang = (lng: string) => {
+  if (typeof document !== 'undefined') {
+    document.documentElement.lang = lng === 'ua' ? 'uk' : lng;
+  }
+};
+
+syncDocumentLang(i18next.resolvedLanguage || i18next.language || 'pl');
+i18next.on('languageChanged', syncDocumentLang);
+
 export default i18next;

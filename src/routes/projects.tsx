@@ -44,6 +44,10 @@ function Projects() {
 
   if (!isProjectsIndex) return <Outlet />;
 
+  const isStandalone = location !== '/';
+  const Heading = isStandalone ? 'h1' : 'h2';
+  const cardTitleAs = isStandalone ? 'h2' : 'h3';
+
   return (
     <div className={'bg-background'}>
       <section
@@ -57,12 +61,12 @@ function Projects() {
               variant="secondary"
               className="px-3 py-1 text-sm font-medium"
             >
-              <RiFolderOpenLine className="mr-2 h-4 w-4" />
+              <RiFolderOpenLine aria-hidden="true" className="mr-2 h-4 w-4" />
               {t('Projects.badge', 'Nasze realizacje')}
             </Badge>
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            <Heading className="text-3xl font-bold tracking-tight md:text-4xl">
               {t('Projects.title', 'Projekty koła')}
-            </h2>
+            </Heading>
             <p className="max-w-2xl text-lg text-balance text-muted-foreground">
               {t(
                 'Projects.paragraph',
@@ -92,7 +96,7 @@ function Projects() {
                       <CardHeader>
                         <div className="mb-4 flex items-start justify-between gap-4">
                           <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
-                            <Icon className="h-6 w-6" />
+                            <Icon aria-hidden="true" className="h-6 w-6" />
                           </div>
                           <div className="flex items-center gap-2">
                             <Badge variant="secondary" className="text-xs">
@@ -101,10 +105,16 @@ function Projects() {
                                 project.category.translation
                               )}
                             </Badge>
-                            <RiArrowRightLine className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                            <RiArrowRightLine
+                              aria-hidden="true"
+                              className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                            />
                           </div>
                         </div>
-                        <CardTitle className="text-xl transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                        <CardTitle
+                          as={cardTitleAs}
+                          className="text-xl transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                        >
                           {project.title}
                         </CardTitle>
                       </CardHeader>

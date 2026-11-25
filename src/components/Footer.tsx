@@ -14,10 +14,13 @@ import {
   RiMailSendLine,
   RiMastodonLine,
   RiPaletteLine,
+  RiPauseLine,
+  RiPlayLine,
 } from '@remixicon/react';
 import { Link } from '@tanstack/react-router';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card.tsx';
 //import { useScrollAndWidth } from '@/lib/useScrollAndWidth.tsx';
+import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
 import { useTheme } from '@/components/theme-provider.tsx';
@@ -130,7 +133,16 @@ const footerPartners: Partner[] = [
   },
 ];
 
-function PartnerCarouselControls({ isPaused }: { isPaused: boolean }) {
+function PartnerCarouselControls({
+  isPaused,
+  isManuallyPaused,
+  onToggleManualPause,
+}: {
+  isPaused: boolean;
+  isManuallyPaused: boolean;
+  onToggleManualPause: () => void;
+}) {
+  const { t } = useTranslation();
   const { api, scrollPrev, scrollNext } = useCarousel();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -162,7 +174,7 @@ function PartnerCarouselControls({ isPaused }: { isPaused: boolean }) {
   }, [api]);
 
   useEffect(() => {
-    if (!api || isPaused || isDragging) return;
+    if (!api || isPaused || isManuallyPaused || isDragging) return;
     if (
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -177,7 +189,7 @@ function PartnerCarouselControls({ isPaused }: { isPaused: boolean }) {
     return () => {
       clearTimeout(timerId);
     };
-  }, [api, currentSlide, autoplayTick, isPaused, isDragging]);
+  }, [api, currentSlide, autoplayTick, isPaused, isManuallyPaused, isDragging]);
 
   const handlePrev = () => {
     scrollPrev();
@@ -194,10 +206,13 @@ function PartnerCarouselControls({ isPaused }: { isPaused: boolean }) {
       <button
         type="button"
         onClick={handlePrev}
-        aria-label="Previous slide"
+        aria-label={t('Footer.prevSlide', 'Poprzedni partner')}
         className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring md:h-7 md:w-7"
       >
-        <RiArrowLeftSLine className="h-5 w-5 md:h-4 md:w-4" />
+        <RiArrowLeftSLine
+          aria-hidden="true"
+          className="h-5 w-5 md:h-4 md:w-4"
+        />
       </button>
 
       <div className="flex items-center justify-center">
@@ -209,7 +224,11 @@ function PartnerCarouselControls({ isPaused }: { isPaused: boolean }) {
               api?.scrollTo(index);
               setAutoplayTick((tick) => tick + 1);
             }}
-            aria-label={`Go to slide ${index + 1}: ${name}`}
+            aria-label={t(
+              'Footer.goToSlide',
+              'Przejdź do slajdu {{index}}: {{name}}',
+              { index: index + 1, name }
+            )}
             aria-current={currentSlide === index ? 'true' : undefined}
             className="group flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full px-1 focus-visible:outline-2 focus-visible:outline-ring md:min-h-6 md:min-w-6"
           >
@@ -227,22 +246,53 @@ function PartnerCarouselControls({ isPaused }: { isPaused: boolean }) {
       <button
         type="button"
         onClick={handleNext}
-        aria-label="Next slide"
+        aria-label={t('Footer.nextSlide', 'Następny partner')}
         className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring md:h-7 md:w-7"
       >
-        <RiArrowRightSLine className="h-5 w-5 md:h-4 md:w-4" />
+        <RiArrowRightSLine
+          aria-hidden="true"
+          className="h-5 w-5 md:h-4 md:w-4"
+        />
+      </button>
+
+      <button
+        type="button"
+        onClick={onToggleManualPause}
+        aria-pressed={isManuallyPaused}
+        aria-label={
+          isManuallyPaused
+            ? t('Footer.playCarousel', 'Wznów pokaz slajdów')
+            : t('Footer.pauseCarousel', 'Wstrzymaj pokaz slajdów')
+        }
+        className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring md:h-7 md:w-7"
+      >
+        {isManuallyPaused ? (
+          <RiPlayLine
+            aria-hidden="true"
+            className="h-4 w-4 md:h-3.5 md:w-3.5"
+          />
+        ) : (
+          <RiPauseLine
+            aria-hidden="true"
+            className="h-4 w-4 md:h-3.5 md:w-3.5"
+          />
+        )}
       </button>
     </div>
   );
 }
 
 function PartnerCarousel() {
+  const { t } = useTranslation();
   const [isPaused, setIsPaused] = useState(false);
+  const [isManuallyPaused, setIsManuallyPaused] = useState(false);
 
   return (
     <Carousel
       opts={{ loop: true, align: 'center' }}
       className="w-full select-none"
+      aria-label={t('Footer.partnersCarousel', 'Partnerzy koła')}
+      aria-roledescription={t('Footer.carouselRole', 'karuzela')}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
@@ -253,13 +303,26 @@ function PartnerCarousel() {
       }}
     >
       <CarouselContent>
-        {footerPartners.map(({ logos, url, name }) => (
-          <CarouselItem key={url} className="flex items-center justify-center">
+        {footerPartners.map(({ logos, url, name }, index) => (
+          <CarouselItem
+            key={url}
+            aria-roledescription={t('Footer.slideRole', 'slajd')}
+            aria-label={t(
+              'Footer.slideLabel',
+              'Slajd {{current}} z {{total}}: {{name}}',
+              {
+                current: index + 1,
+                total: footerPartners.length,
+                name,
+              }
+            )}
+            className="flex items-center justify-center"
+          >
             <a
               href={url}
               target="_blank"
               rel="noreferrer"
-              aria-label={name}
+              aria-label={`${name} (${t('Common.opensInNewTab', 'otwiera się w nowej karcie')})`}
               className="flex h-24 w-full max-w-80 items-center justify-center rounded-lg px-2 py-2 transition-opacity duration-200 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:h-28"
             >
               <div className="relative flex size-full items-center justify-center">
@@ -281,7 +344,11 @@ function PartnerCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <PartnerCarouselControls isPaused={isPaused} />
+      <PartnerCarouselControls
+        isPaused={isPaused}
+        isManuallyPaused={isManuallyPaused}
+        onToggleManualPause={() => setIsManuallyPaused((prev) => !prev)}
+      />
     </Carousel>
   );
 }
@@ -320,7 +387,17 @@ export default function Footer() {
     map.addControl(new NavigationControl(), 'top-right');
     const marker = new Marker().setLngLat(coords).addTo(map);
 
-    marker.getElement().style.cursor = 'pointer';
+    const markerEl = marker.getElement();
+    markerEl.style.cursor = 'pointer';
+    markerEl.setAttribute('role', 'button');
+    markerEl.setAttribute('tabindex', '0');
+    markerEl.setAttribute(
+      'aria-label',
+      i18next.t(
+        'Footer.mapMarkerLabel',
+        'Otwórz trasę do Politechniki Krakowskiej w mapach (otwiera się w nowej karcie)'
+      )
+    );
 
     const handleMarkerClick = () => {
       const win = window as Window & {
@@ -360,11 +437,19 @@ export default function Footer() {
       }
     };
 
-    const markerEl = marker.getElement();
+    const handleMarkerKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleMarkerClick();
+      }
+    };
+
     markerEl.addEventListener('click', handleMarkerClick);
+    markerEl.addEventListener('keydown', handleMarkerKeyDown);
 
     return () => {
       markerEl.removeEventListener('click', handleMarkerClick);
+      markerEl.removeEventListener('keydown', handleMarkerKeyDown);
       map.remove();
       mapInstanceRef.current = null;
     };
@@ -401,7 +486,7 @@ export default function Footer() {
       >
         <Card className="flex w-full min-w-0 flex-col items-center gap-8 py-8 sm:items-start sm:text-left bg-background">
           <CardHeader className="w-full">
-            <CardTitle>
+            <CardTitle as="h2">
               <span className="text-foreground">
                 {t('Footer.socialTitle', 'Znajdziesz nas też na')}
               </span>
@@ -416,9 +501,16 @@ export default function Footer() {
                   target="_blank"
                   rel={social.me ? 'me noreferrer' : 'noreferrer'}
                   className="group flex min-w-0 items-center gap-3 2xl:gap-2.5 text-foreground transition-colors duration-500"
-                  aria-label={social.name}
+                  aria-label={
+                    social.href.startsWith('http')
+                      ? `${social.name} (${t('Common.opensInNewTab', 'otwiera się w nowej karcie')})`
+                      : social.name
+                  }
                 >
-                  <social.icon className="h-5 w-5 shrink-0 stroke-[1.5]" />
+                  <social.icon
+                    aria-hidden="true"
+                    className="h-5 w-5 shrink-0 stroke-[1.5]"
+                  />
 
                   <span className="hidden text-[11px] font-light uppercase tracking-[0.2em] transition-transform duration-500 group-hover:translate-x-1 sm:block after:content-[''] relative after:absolute after:border-b-2 after:inset-0 after:scale-x-[0.01] after:opacity-0 group-hover:after:scale-x-100 group-hover:after:opacity-100 after:transition-[scale,opacity] after:duration-300 after:ease-in-out after-gradient-border">
                     {social.name}
@@ -428,9 +520,14 @@ export default function Footer() {
             </div>
           </CardContent>
         </Card>
-        <div className="relative min-w-0">
+        <div className="relative min-h-64 min-w-0">
           <div
             ref={mapContainerRef}
+            role="region"
+            aria-label={t(
+              'Footer.mapLabel',
+              'Mapa lokalizacji Politechniki Krakowskiej, al. Jana Pawła II 37, Kraków'
+            )}
             className="absolute size-full inset-0 rounded-xl"
           />
         </div>
@@ -440,7 +537,7 @@ export default function Footer() {
           </CardContent>
         </Card>
       </section>
-      <div className="flex flex-col items-center justify-center gap-3 text-sm sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2">
+      <div className="mx-auto flex w-fit flex-col items-center justify-center gap-3 rounded-2xl bg-black/25 px-5 py-2 text-sm backdrop-blur-xs sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2">
         <span>
           {t(
             'Footer.copyright',
@@ -449,9 +546,9 @@ export default function Footer() {
         </span>
         <Link
           to="/identity/2026"
-          className="inline-flex items-center gap-1.5 font-medium text-white/90 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          className="inline-flex items-center gap-1.5 font-medium text-white underline-offset-4 transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
-          <RiPaletteLine className="h-4 w-4" />
+          <RiPaletteLine aria-hidden="true" className="h-4 w-4" />
           <span>{t('Footer.identityLink', 'Identyfikacja wizualna')}</span>
         </Link>
       </div>

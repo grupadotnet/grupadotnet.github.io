@@ -57,9 +57,9 @@ function DialogContent({
         <DialogPrimitive.Close
           type="button"
           aria-label={closeLabel}
-          className="absolute top-3 right-3 inline-flex size-8 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none sm:top-4 sm:right-4"
+          className="absolute top-3 right-3 inline-flex size-8 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:outline-none sm:top-4 sm:right-4"
         >
-          <RiCloseLine className="size-4" />
+          <RiCloseLine aria-hidden="true" className="size-4" />
         </DialogPrimitive.Close>
       </DialogPrimitive.Popup>
     </DialogPortal>

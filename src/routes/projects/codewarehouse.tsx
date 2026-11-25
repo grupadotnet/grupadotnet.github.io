@@ -50,7 +50,7 @@ const neoInteractiveCard =
 
 const REPO_BADGE_STYLE: Record<string, string> = {
   TypeScript: 'bg-[#00b7f1] text-zinc-950',
-  Java: 'bg-[#ef5343] text-white',
+  Java: 'bg-[#c83223] text-white',
   Kotlin: 'bg-[#f5cf2b] text-zinc-950',
 };
 
@@ -410,7 +410,7 @@ function CodeWarehouseHero({ data }: { data: ProjectPageData }) {
             <span className="border border-current/30 px-2 py-0.5">
               SECTION C
             </span>
-            <span className="bg-[#ef5343] px-2 py-0.5 text-white">
+            <span className="bg-[#c83223] px-2 py-0.5 text-white">
               IN WAREHOUSE
             </span>
           </div>
@@ -468,7 +468,7 @@ function CodeWarehouseHero({ data }: { data: ProjectPageData }) {
                   <span className="font-mono text-[11px] font-bold tracking-wider text-zinc-600 uppercase dark:text-zinc-400">
                     {item.label}
                   </span>
-                  <span className="font-mono text-[11px] font-bold text-zinc-400">
+                  <span className="font-mono text-[11px] font-bold text-zinc-600 dark:text-zinc-400">
                     0{idx + 1}
                   </span>
                 </div>
@@ -551,9 +551,14 @@ function CodeWarehouseVisualShowcase({
               <button
                 type="button"
                 onClick={() => onSelectVisual(adminVisual)}
+                aria-label={t(
+                  'ProjectPage.openVisualPreview',
+                  'Powiększ podgląd: {{title}}',
+                  { title: adminVisual.title }
+                )}
                 className="inline-flex cursor-pointer items-center gap-1.5 border border-current/30 px-2.5 py-1 font-mono text-[11px] font-bold uppercase transition-colors hover:bg-[#f5cf2b] hover:text-zinc-950"
               >
-                <RiZoomInLine className="h-3.5 w-3.5" />
+                <RiZoomInLine aria-hidden="true" className="h-3.5 w-3.5" />
                 <span>{t('ProjectPage.zoomShort', 'Powiększ')}</span>
               </button>
             </div>
@@ -562,6 +567,11 @@ function CodeWarehouseVisualShowcase({
               <button
                 type="button"
                 onClick={() => onSelectVisual(adminVisual)}
+                aria-label={t(
+                  'ProjectPage.openVisualPreview',
+                  'Powiększ podgląd: {{title}}',
+                  { title: adminVisual.title }
+                )}
                 className="group relative block w-full cursor-pointer overflow-hidden border-2 border-zinc-950 bg-white dark:border-zinc-200"
               >
                 <img
@@ -583,7 +593,7 @@ function CodeWarehouseVisualShowcase({
           >
             <div className="flex items-center justify-between border-b-2 border-zinc-950 bg-zinc-950 px-4 py-2.5 text-white dark:border-zinc-200 dark:bg-zinc-100 dark:text-zinc-950">
               <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase">
-                <span className="bg-[#ef5343] px-2 py-0.5 text-white">
+                <span className="bg-[#c83223] px-2 py-0.5 text-white">
                   {scannerVisual.badge}
                 </span>
                 <span className="truncate">{scannerVisual.title}</span>
@@ -591,10 +601,14 @@ function CodeWarehouseVisualShowcase({
               <button
                 type="button"
                 onClick={() => onSelectVisual(scannerVisual)}
-                aria-label={t('ProjectPage.zoomVisual', 'Powiększ')}
-                className="inline-flex cursor-pointer items-center border border-current/30 p-1 transition-colors hover:bg-[#f5cf2b] hover:text-zinc-950"
+                aria-label={t(
+                  'ProjectPage.openVisualPreview',
+                  'Powiększ podgląd: {{title}}',
+                  { title: scannerVisual.title }
+                )}
+                className="inline-flex cursor-pointer items-center border border-current/30 p-1.5 transition-colors hover:bg-[#f5cf2b] hover:text-zinc-950"
               >
-                <RiZoomInLine className="h-3.5 w-3.5" />
+                <RiZoomInLine aria-hidden="true" className="h-3.5 w-3.5" />
               </button>
             </div>
 
@@ -602,6 +616,11 @@ function CodeWarehouseVisualShowcase({
               <button
                 type="button"
                 onClick={() => onSelectVisual(scannerVisual)}
+                aria-label={t(
+                  'ProjectPage.openVisualPreview',
+                  'Powiększ podgląd: {{title}}',
+                  { title: scannerVisual.title }
+                )}
                 className="group relative mx-auto block w-48 cursor-pointer border-4 border-zinc-950 bg-zinc-950 p-1.5 shadow-[4px_4px_0_0_#f5cf2b]"
               >
                 <div className="mx-auto mb-1.5 h-1 w-12 bg-zinc-700" />
@@ -647,9 +666,14 @@ function CodeWarehouseSystemFlow({
             <button
               type="button"
               onClick={() => onSelectVisual(flowVisual)}
+              aria-label={t(
+                'ProjectPage.openVisualPreview',
+                'Powiększ podgląd: {{title}}',
+                { title: flowVisual.title }
+              )}
               className="inline-flex cursor-pointer items-center gap-1.5 border border-current/30 px-2.5 py-1 font-mono text-[11px] font-bold uppercase transition-colors hover:bg-[#f5cf2b] hover:text-zinc-950"
             >
-              <RiZoomInLine className="h-3.5 w-3.5" />
+              <RiZoomInLine aria-hidden="true" className="h-3.5 w-3.5" />
               <span>{t('ProjectPage.zoomShort', 'Powiększ')}</span>
             </button>
           </div>
@@ -657,6 +681,11 @@ function CodeWarehouseSystemFlow({
             <button
               type="button"
               onClick={() => onSelectVisual(flowVisual)}
+              aria-label={t(
+                'ProjectPage.openVisualPreview',
+                'Powiększ podgląd: {{title}}',
+                { title: flowVisual.title }
+              )}
               className="group block w-full cursor-pointer border-2 border-zinc-950 bg-[#faf6ee] p-3 sm:p-5 dark:border-zinc-200"
             >
               <img
@@ -691,7 +720,7 @@ function CodeWarehouseSystemFlow({
                 BARCODE
               </span>
               <RiArrowRightLine className="h-3.5 w-3.5" />
-              <span className="border border-zinc-950 bg-[#ef5343] px-2 py-0.5 text-white dark:border-zinc-200">
+              <span className="border border-zinc-950 bg-[#c83223] px-2 py-0.5 text-white dark:border-zinc-200">
                 DRUK ETYKIETY
               </span>
             </div>
@@ -883,10 +912,20 @@ function CodeWarehouseTeamsSection({ data }: { data: ProjectPageData }) {
                   className="group flex items-center justify-between border-t-2 border-zinc-950 bg-[#faf7f0] px-4 py-3 font-mono text-xs font-bold transition-colors hover:bg-[#f5cf2b] hover:text-zinc-950 dark:border-zinc-200 dark:bg-zinc-950/60 dark:hover:bg-[#f5cf2b] dark:hover:text-zinc-950"
                 >
                   <span className="flex items-center gap-2 truncate">
-                    <RiGithubFill className="h-4 w-4 shrink-0" />
+                    <RiGithubFill
+                      aria-hidden="true"
+                      className="h-4 w-4 shrink-0"
+                    />
                     <span className="truncate">{repo.name}</span>
                   </span>
-                  <RiArrowRightUpLine className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <RiArrowRightUpLine
+                    aria-hidden="true"
+                    className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                  <span className="sr-only">
+                    {' '}
+                    ({t('Common.opensInNewTab', 'otwiera się w nowej karcie')})
+                  </span>
                 </a>
               )}
             </div>

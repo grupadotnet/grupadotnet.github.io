@@ -43,6 +43,8 @@ export function CalendarActionButton({
   external?: boolean;
   onClick?: () => void;
 }) {
+  const { t } = useTranslation();
+
   if (href) {
     return (
       <Button
@@ -56,6 +58,12 @@ export function CalendarActionButton({
             rel={external ? 'noopener noreferrer' : undefined}
           >
             {label}
+            {external && (
+              <span className="sr-only">
+                {' '}
+                ({t('Common.opensInNewTab', 'otwiera się w nowej karcie')})
+              </span>
+            )}
           </a>
         }
       />
@@ -75,7 +83,7 @@ export function CalendarActionButton({
 }
 
 const dialogRowClassName =
-  'group flex w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-xl border border-border/70 bg-muted/40 px-3 py-2 text-left transition-colors hover:bg-muted focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none sm:gap-3 sm:px-3.5 sm:py-2.5';
+  'group flex w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-xl border border-border/70 bg-muted/40 px-3 py-2 text-left transition-colors hover:bg-muted focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:outline-none sm:gap-3 sm:px-3.5 sm:py-2.5';
 
 const dialogIconBoxClassName =
   'flex size-8 shrink-0 items-center justify-center rounded-lg bg-background text-foreground ring-1 ring-foreground/10 sm:size-9';
@@ -86,6 +94,7 @@ interface CalendarOptionRowProps {
   subtitle: string;
   href?: string;
   external?: boolean;
+  selected?: boolean;
   trailing?: ReactNode;
   onSelect: () => void;
 }
@@ -96,12 +105,17 @@ function CalendarOptionRow({
   subtitle,
   href,
   external = false,
+  selected,
   trailing,
   onSelect,
 }: CalendarOptionRowProps) {
+  const { t } = useTranslation();
+
   const content = (
     <>
-      <span className={dialogIconBoxClassName}>{icon}</span>
+      <span className={dialogIconBoxClassName} aria-hidden="true">
+        {icon}
+      </span>
       <span className="min-w-0 flex-1">
         <span className="block text-sm font-medium wrap-break-word text-foreground">
           {title}
@@ -110,7 +124,10 @@ function CalendarOptionRow({
           {subtitle}
         </span>
       </span>
-      <span className="shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5">
+      <span
+        aria-hidden="true"
+        className="shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5"
+      >
         {trailing}
       </span>
     </>
@@ -126,12 +143,23 @@ function CalendarOptionRow({
         className={dialogRowClassName}
       >
         {content}
+        {external && (
+          <span className="sr-only">
+            {' '}
+            ({t('Common.opensInNewTab', 'otwiera się w nowej karcie')})
+          </span>
+        )}
       </a>
     );
   }
 
   return (
-    <button type="button" onClick={onSelect} className={dialogRowClassName}>
+    <button
+      type="button"
+      aria-pressed={selected}
+      onClick={onSelect}
+      className={dialogRowClassName}
+    >
       {content}
     </button>
   );
@@ -220,16 +248,27 @@ function CopyFeedSection({ feedUrl }: { feedUrl: string }) {
         >
           {copied ? (
             <>
-              <RiCheckLine className="size-3.5 text-emerald-500" />
+              <RiCheckLine
+                aria-hidden="true"
+                className="size-3.5 text-emerald-500"
+              />
               <span>{t('Schedule.calendarDialog.copied', 'Skopiowano')}</span>
             </>
           ) : (
             <>
-              <RiFileCopyLine className="size-3.5" />
+              <RiFileCopyLine aria-hidden="true" className="size-3.5" />
               <span>{t('Schedule.calendarDialog.copy', 'Kopiuj')}</span>
             </>
           )}
         </Button>
+        <span className="sr-only" aria-live="polite">
+          {copied
+            ? t(
+                'Schedule.calendarDialog.copiedAnnouncement',
+                'Skopiowano adres kalendarza do schowka'
+              )
+            : ''}
+        </span>
       </div>
     </div>
   );
@@ -589,9 +628,13 @@ function PreferenceDialogBody({
             icon={option.icon}
             title={option.title}
             subtitle={option.subtitle}
+            selected={preferredApp === option.app}
             trailing={
               preferredApp === option.app ? (
-                <RiCheckLine className="size-4 text-emerald-500" />
+                <RiCheckLine
+                  aria-hidden="true"
+                  className="size-4 text-emerald-500"
+                />
               ) : null
             }
             onSelect={() => {
