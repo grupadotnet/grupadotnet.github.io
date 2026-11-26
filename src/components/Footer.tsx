@@ -1,5 +1,3 @@
-import LogoBotland from '/logo_botland_kn.png';
-import LogoBotlandW from '/white-logo-botland.png';
 import LogoPK from '/svg/PK/PK_POZIOM_CMYK.svg';
 import LogoPK_w from '/svg/PK/PK_POZIOM_CMYK_w.svg';
 import LogoWM from '/svg/PK/PK_WM_CMYK.svg';
@@ -125,11 +123,6 @@ const footerPartners: Partner[] = [
     name: 'Wydział Mechaniczny PK',
     url: 'https://mech.pk.edu.pl/',
     logos: { light: LogoWM, dark: LogoWM_w },
-  },
-  {
-    name: 'Botland',
-    url: 'https://botland.com.pl/',
-    logos: { light: LogoBotland, dark: LogoBotlandW },
   },
 ];
 
