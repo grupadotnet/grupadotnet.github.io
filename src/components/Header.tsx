@@ -522,9 +522,13 @@ export default function Header() {
             aria-label={`${t('Header.pkLogoAlt', 'Politechnika Krakowska')} (${t('Common.opensInNewTab', 'otwiera się w nowej karcie')})`}
             className="shrink-0"
           >
-            <img src={currentPkLogo} alt="" className={
+            <img
+              src={currentPkLogo}
+              alt=""
+              className={
                 isMobile ? 'h-24 w-auto' : 'h-10 xl:h-12 2xl:h-16 w-auto'
-              } />
+              }
+            />
           </a>
           <Link to={'/'} className="shrink-0">
             <picture>
