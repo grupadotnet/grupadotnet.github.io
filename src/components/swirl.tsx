@@ -4,6 +4,10 @@ export default function BackgroundSwirl() {
   const orbRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
     let rafId: number | null = null;
     let lastUpdate = 0;
     const minFrameTime = 1000 / 30; // Cap cursor updates to ~30fps
@@ -33,10 +37,13 @@ export default function BackgroundSwirl() {
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-clip bg-(--primary-to) pointer-events-none *:blur-[100px]">
+    <div
+      aria-hidden="true"
+      className="fixed inset-0 -z-10 overflow-clip bg-(--primary-to) pointer-events-none *:blur-[100px]"
+    >
       {/* 1st Layer: Broad, dense sweep (Capped at 40%-60% for thicker structure) */}
       <div
-        className="absolute left-1/2 top-1/2 h-[150vmax] w-[150vmax] -translate-x-1/2 -translate-y-1/2 animate-[spin_24s_linear_infinite] rounded-full opacity-70"
+        className="absolute left-1/2 top-1/2 h-[150vmax] w-[150vmax] -translate-x-1/2 -translate-y-1/2 animate-[spin_24s_linear_infinite] motion-reduce:animate-none rounded-full opacity-70"
         style={{
           animationTimingFunction: 'steps(720)',
           background:
@@ -46,7 +53,7 @@ export default function BackgroundSwirl() {
 
       {/* 2nd Layer: Off-center wobble */}
       <div
-        className="absolute left-1/2 top-1/2 h-[130vmax] w-[130vmax] -translate-x-1/2 -translate-y-1/2 animate-[spin_18s_linear_infinite_reverse] rounded-full opacity-60"
+        className="absolute left-1/2 top-1/2 h-[130vmax] w-[130vmax] -translate-x-1/2 -translate-y-1/2 animate-[spin_18s_linear_infinite_reverse] motion-reduce:animate-none rounded-full opacity-60"
         style={{
           animationTimingFunction: 'steps(540)',
           background:
@@ -56,7 +63,7 @@ export default function BackgroundSwirl() {
 
       {/* 3rd Layer: Complex interference (Multiple capped blobs) */}
       <div
-        className="absolute left-1/2 top-1/2 h-[110vmax] w-[110vmax] -translate-x-1/2 -translate-y-1/2 animate-[spin_30s_linear_infinite] rounded-full opacity-60"
+        className="absolute left-1/2 top-1/2 h-[110vmax] w-[110vmax] -translate-x-1/2 -translate-y-1/2 animate-[spin_30s_linear_infinite] motion-reduce:animate-none rounded-full opacity-60"
         style={{
           animationTimingFunction: 'steps(900)',
           background:

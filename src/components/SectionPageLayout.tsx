@@ -16,7 +16,13 @@ import {
   RiTimeLine,
 } from '@remixicon/react';
 
-import { sections, type SectionPath } from '@/lib/sections.ts';
+import {
+  doesEventMatchSection,
+  getSectionColors,
+  sections,
+  type SectionPath,
+} from '@/lib/sections.ts';
+import { cn } from '@/lib/utils';
 import {
   fetchCalendarEvents,
   formatEventSchedule,
@@ -100,30 +106,15 @@ export interface SectionPageData {
   ctaDescription: string;
 }
 
-const SECTION_CALENDAR_TOKENS: Record<SectionPath, string[]> = {
-  webdev: ['webdev', 'web-dev'],
-  'data&ai': ['data&ai', 'data', 'ai', 'ml'],
-  cybersec: ['cybersec', 'cyber'],
-};
-
-function doesEventMatchSection(
-  calendarName: string,
-  sectionPath: SectionPath
-): boolean {
-  const lower = calendarName.toLowerCase();
-  const compact = lower.replace(/\s+/g, '');
-  const tokens = SECTION_CALENDAR_TOKENS[sectionPath];
-
-  return tokens.some(
-    (token) => lower.includes(token) || compact.includes(token)
-  );
-}
-
 const cardClass =
   'group h-full border-none bg-muted/50 shadow-sm transition-[translate,box-shadow,background-color] duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70';
 
-const iconBoxClass =
-  'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400';
+function getIconBoxClass(sectionPath: SectionPath): string {
+  return cn(
+    'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg',
+    getSectionColors(sectionPath).iconBox
+  );
+}
 
 function SectionHeroBackLink() {
   const { t } = useTranslation();
@@ -155,13 +146,15 @@ function SectionHeroBadge({
 }) {
   const currentSection = sections.find((s) => s.path === sectionPath);
   const SectionIcon = currentSection?.icon;
+  const colors = getSectionColors(sectionPath);
 
   return (
     <Badge
       variant="secondary"
-      className={
-        compact ? 'px-2.5 py-0.5 text-xs' : 'px-3 py-1 text-sm font-medium'
-      }
+      className={cn(
+        compact ? 'px-2.5 py-0.5 text-xs' : 'px-3 py-1 text-sm font-medium',
+        colors.badge
+      )}
     >
       {SectionIcon && (
         <SectionIcon
@@ -239,7 +232,7 @@ function SectionHeroSplit({
 
           <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {data.titlePrefix}{' '}
-            <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+            <span className="bg-(image:--primary-text-gradient) bg-clip-text text-transparent">
               {data.titleHighlight}
             </span>
           </h1>
@@ -278,8 +271,19 @@ function SectionHeroTerminal({ data }: { data: SectionPageData }) {
     <section className="container mx-auto max-w-6xl px-4 pt-10 pb-12 md:pt-16 md:pb-16">
       <div className="mb-8 flex justify-between">
         <SectionHeroBackLink />
-        <Badge variant="outline" className="gap-1.5 font-mono text-xs">
-          <RiTerminalLine className="h-3.5 w-3.5 text-emerald-500" />
+        <Badge
+          variant="outline"
+          className={cn(
+            'gap-1.5 font-mono text-xs',
+            getSectionColors(data.sectionPath).badgeOutline
+          )}
+        >
+          <RiTerminalLine
+            className={cn(
+              'h-3.5 w-3.5',
+              getSectionColors(data.sectionPath).textAccent
+            )}
+          />
           <span>~/sections/{data.sectionPath}</span>
         </Badge>
       </div>
@@ -302,7 +306,7 @@ function SectionHeroTerminal({ data }: { data: SectionPageData }) {
           <div className="space-y-4">
             <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl md:text-6xl">
               {data.titlePrefix}{' '}
-              <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+              <span className="bg-(image:--primary-text-gradient) bg-clip-text text-transparent">
                 {data.titleHighlight}
               </span>
             </h1>
@@ -343,7 +347,7 @@ function SectionHeroCentered({ data }: { data: SectionPageData }) {
 
         <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-5xl md:text-6xl">
           {data.titlePrefix}{' '}
-          <span className="bg-(image:--primary-gradient) bg-clip-text text-transparent">
+          <span className="bg-(image:--primary-text-gradient) bg-clip-text text-transparent">
             {data.titleHighlight}
           </span>
         </h1>
@@ -398,11 +402,13 @@ export function SectionHero({
 
 function SpotlightEventCard({
   event,
+  sectionPath,
   sectionTitle,
   preferredApp,
   onRequestAppChoice,
 }: {
   event: EventType;
+  sectionPath: SectionPath;
   sectionTitle: string;
   preferredApp: CalendarApp | null;
   onRequestAppChoice: (event: EventType, mode: ActionMode) => void;
@@ -414,6 +420,7 @@ function SpotlightEventCard({
     (s) => s.title.toLowerCase() === sectionTitle.toLowerCase()
   );
   const SectionIcon = currentSection?.icon;
+  const colors = getSectionColors(sectionPath);
 
   const singularUrlByApp: Partial<Record<CalendarApp, string>> = {
     google: targets.singular.googleUrl,
@@ -453,12 +460,20 @@ function SpotlightEventCard({
             <RiSparklingLine className="mr-1.5 h-3.5 w-3.5" />
             {t('SectionPage.nextEvent.spotlightBadge', 'Najbliższe spotkanie')}
           </Badge>
-          <Badge variant="secondary" className="px-3 py-1 text-xs font-medium">
+          <Badge
+            variant="secondary"
+            className={cn('px-3 py-1 text-xs font-medium', colors.badge)}
+          >
             {SectionIcon && <SectionIcon className="mr-1.5 h-3.5 w-3.5" />}
             {sectionTitle}
           </Badge>
         </div>
-        <CardTitle className="text-2xl transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+        <CardTitle
+          className={cn(
+            'text-2xl transition-colors duration-300',
+            colors.hoverTitle
+          )}
+        >
           {event.title}
         </CardTitle>
       </CardHeader>
@@ -472,11 +487,11 @@ function SpotlightEventCard({
 
         <div className="flex flex-wrap gap-4 rounded-xl bg-background/70 p-4 ring-1 ring-foreground/10">
           <div className="flex items-center gap-2.5 text-sm font-medium">
-            <RiCalendar2Line className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <RiCalendar2Line className={cn('h-4 w-4', colors.textAccent)} />
             <span>{dateLabel}</span>
           </div>
           <div className="flex items-center gap-2.5 text-sm font-medium">
-            <RiTimeLine className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <RiTimeLine className={cn('h-4 w-4', colors.textAccent)} />
             <span>{timeLabel}</span>
           </div>
         </div>
@@ -521,16 +536,19 @@ function SpotlightEventCard({
 
 function UpcomingSectionEventCard({
   event,
+  sectionPath,
   preferredApp,
   onRequestAppChoice,
 }: {
   event: EventType;
+  sectionPath: SectionPath;
   preferredApp: CalendarApp | null;
   onRequestAppChoice: (event: EventType, mode: ActionMode) => void;
 }) {
   const { t } = useTranslation();
   const targets = useCalendarLinks(event);
   const { timeLabel, dateLabel } = formatEventSchedule(event.start, event.end);
+  const colors = getSectionColors(sectionPath);
 
   const singularUrlByApp: Partial<Record<CalendarApp, string>> = {
     google: targets.singular.googleUrl,
@@ -549,7 +567,10 @@ function UpcomingSectionEventCard({
   return (
     <Card className={cardClass}>
       <CardHeader>
-        <CardTitle className="text-lg transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+        <CardTitle
+          as="h4"
+          className={cn('text-lg transition-colors', colors.hoverTitle)}
+        >
           {event.title}
         </CardTitle>
       </CardHeader>
@@ -577,20 +598,27 @@ function UpcomingSectionEventCard({
 }
 
 function NextEventLoadingCard() {
+  const { t } = useTranslation();
+
   return (
-    <Card className="border-none bg-muted/50 shadow-sm">
-      <CardHeader className="space-y-3">
+    <Card
+      role="status"
+      aria-busy="true"
+      aria-label={t('Schedule.loading', 'Ładowanie harmonogramu spotkań...')}
+      className="border-none bg-muted/50 shadow-sm"
+    >
+      <CardHeader aria-hidden="true" className="space-y-3">
         <div className="flex gap-2">
           <Skeleton className="h-6 w-36 rounded-full" />
           <Skeleton className="h-6 w-24 rounded-full" />
         </div>
         <Skeleton className="h-8 w-2/3" />
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent aria-hidden="true" className="space-y-4">
         <Skeleton className="h-16 w-full" />
         <Skeleton className="h-12 w-full rounded-xl" />
       </CardContent>
-      <CardFooter>
+      <CardFooter aria-hidden="true">
         <Skeleton className="h-9 w-64 rounded-4xl" />
       </CardFooter>
     </Card>
@@ -678,6 +706,7 @@ export function SectionNextEventSection({
 
   const sectionMeta = sections.find((s) => s.path === sectionPath);
   const sectionTitle = sectionMeta?.title ?? sectionPath;
+  const colors = getSectionColors(sectionPath);
 
   const matchingEvents = [...events]
     .filter((event) => doesEventMatchSection(event.calendarName, sectionPath))
@@ -722,6 +751,7 @@ export function SectionNextEventSection({
   ) : (
     <SpotlightEventCard
       event={nextEvent}
+      sectionPath={sectionPath}
       sectionTitle={sectionTitle}
       preferredApp={preferredApp}
       onRequestAppChoice={(event, mode) =>
@@ -741,7 +771,7 @@ export function SectionNextEventSection({
             <div className="space-y-4 lg:col-span-4">
               <Badge
                 variant="secondary"
-                className="px-3 py-1 text-sm font-medium"
+                className={cn('px-3 py-1 text-sm font-medium', colors.badge)}
               >
                 <RiCalendarEventLine className="mr-2 h-4 w-4" />
                 {t('SectionPage.nextEvent.badge', 'Harmonogram sekcji')}
@@ -764,7 +794,7 @@ export function SectionNextEventSection({
             <div className="flex flex-col items-center space-y-3 text-center">
               <Badge
                 variant="secondary"
-                className="px-3 py-1 text-sm font-medium"
+                className={cn('px-3 py-1 text-sm font-medium', colors.badge)}
               >
                 <RiCalendarEventLine className="mr-2 h-4 w-4" />
                 {t('SectionPage.nextEvent.badge', 'Harmonogram sekcji')}
@@ -797,6 +827,7 @@ export function SectionNextEventSection({
                 <UpcomingSectionEventCard
                   key={`${event.id}-${event.start.getTime()}`}
                   event={event}
+                  sectionPath={sectionPath}
                   preferredApp={preferredApp}
                   onRequestAppChoice={(selected, mode) =>
                     setDialogState({
@@ -829,6 +860,9 @@ export function SectionPillars({
   data: SectionPageData;
   variant?: 'grid-2x2' | 'bento' | 'notebook' | 'briefing';
 }) {
+  const colors = getSectionColors(data.sectionPath);
+  const sectionIconBoxClass = getIconBoxClass(data.sectionPath);
+
   return (
     <section
       id="obszary"
@@ -840,7 +874,7 @@ export function SectionPillars({
             <div className="space-y-3">
               <Badge
                 variant="secondary"
-                className="px-3 py-1 text-sm font-medium"
+                className={cn('px-3 py-1 text-sm font-medium', colors.badge)}
               >
                 <RiStackLine className="mr-2 h-4 w-4" />
                 {data.pillarsBadge}
@@ -857,7 +891,7 @@ export function SectionPillars({
           <div className="flex flex-col items-center space-y-3 text-center">
             <Badge
               variant="secondary"
-              className="px-3 py-1 text-sm font-medium"
+              className={cn('px-3 py-1 text-sm font-medium', colors.badge)}
             >
               <RiStackLine className="mr-2 h-4 w-4" />
               {data.pillarsBadge}
@@ -890,18 +924,29 @@ export function SectionPillars({
                   <CardHeader className="space-y-3">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex items-center gap-3">
-                        <div className={iconBoxClass}>
+                        <div className={sectionIconBoxClass}>
                           <Icon className="h-5 w-5" />
                         </div>
                         <span className="font-mono text-xs font-bold text-muted-foreground">
                           0{index + 1}
                         </span>
                       </div>
-                      <Badge variant="outline" className="text-xs font-medium">
+                      <Badge
+                        variant="outline"
+                        className={cn(
+                          'text-xs font-medium',
+                          colors.badgeOutline
+                        )}
+                      >
                         {pillar.badge}
                       </Badge>
                     </div>
-                    <CardTitle className="text-xl transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                    <CardTitle
+                      className={cn(
+                        'text-xl transition-colors',
+                        colors.hoverTitle
+                      )}
+                    >
                       {pillar.title}
                     </CardTitle>
                   </CardHeader>
@@ -921,26 +966,42 @@ export function SectionPillars({
               return (
                 <Card
                   key={pillar.id}
-                  className="group overflow-hidden border border-border/50 bg-muted/40 py-0 shadow-sm transition-colors hover:border-blue-500/30 hover:bg-muted/60"
+                  className={cn(
+                    'group overflow-hidden border border-border/50 bg-muted/40 py-0 shadow-sm transition-colors hover:bg-muted/60',
+                    colors.hoverBorder
+                  )}
                 >
                   <div className="grid md:grid-cols-12">
                     <div className="flex flex-col justify-between gap-3 border-b border-border/40 bg-background/60 p-5 md:col-span-5 md:border-r md:border-b-0">
                       <div className="flex items-center justify-between gap-3">
-                        <span className="font-mono text-xs font-semibold text-blue-600 dark:text-blue-400">
+                        <span
+                          className={cn(
+                            'font-mono text-xs font-semibold',
+                            colors.textAccent
+                          )}
+                        >
                           In [{String(index + 1).padStart(2, '0')}]:
                         </span>
                         <Badge
                           variant="outline"
-                          className="font-mono text-xs font-medium"
+                          className={cn(
+                            'font-mono text-xs font-medium',
+                            colors.badgeOutline
+                          )}
                         >
                           {pillar.badge}
                         </Badge>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className={iconBoxClass}>
+                        <div className={sectionIconBoxClass}>
                           <Icon className="h-5 w-5" />
                         </div>
-                        <h3 className="text-lg font-bold tracking-tight transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                        <h3
+                          className={cn(
+                            'text-lg font-bold tracking-tight transition-colors',
+                            colors.hoverTitle
+                          )}
+                        >
                           {pillar.title}
                         </h3>
                       </div>
@@ -969,18 +1030,26 @@ export function SectionPillars({
                       <span className="font-mono text-sm font-bold text-muted-foreground">
                         [{String(index + 1).padStart(2, '0')}]
                       </span>
-                      <div className={iconBoxClass}>
+                      <div className={sectionIconBoxClass}>
                         <Icon className="h-5 w-5" />
                       </div>
                       <Badge
                         variant="outline"
-                        className="font-mono text-xs font-medium"
+                        className={cn(
+                          'font-mono text-xs font-medium',
+                          colors.badgeOutline
+                        )}
                       >
                         {pillar.badge}
                       </Badge>
                     </div>
                     <div className="space-y-1.5 md:col-span-8">
-                      <h3 className="text-lg font-bold transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      <h3
+                        className={cn(
+                          'text-lg font-bold transition-colors',
+                          colors.hoverTitle
+                        )}
+                      >
                         {pillar.title}
                       </h3>
                       <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -1000,14 +1069,25 @@ export function SectionPillars({
                 <Card key={pillar.id} className={cardClass}>
                   <CardHeader className="space-y-3">
                     <div className="flex items-start justify-between gap-4">
-                      <div className={iconBoxClass}>
+                      <div className={sectionIconBoxClass}>
                         <Icon className="h-5 w-5" />
                       </div>
-                      <Badge variant="outline" className="text-xs font-medium">
+                      <Badge
+                        variant="outline"
+                        className={cn(
+                          'text-xs font-medium',
+                          colors.badgeOutline
+                        )}
+                      >
                         {pillar.badge}
                       </Badge>
                     </div>
-                    <CardTitle className="text-xl transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                    <CardTitle
+                      className={cn(
+                        'text-xl transition-colors',
+                        colors.hoverTitle
+                      )}
+                    >
                       {pillar.title}
                     </CardTitle>
                   </CardHeader>
@@ -1033,6 +1113,8 @@ export function SectionTechStack({
   data: SectionPageData;
   variant?: 'cards-3' | 'matrix' | 'terminal-grid';
 }) {
+  const colors = getSectionColors(data.sectionPath);
+
   return (
     <section className="container mx-auto max-w-6xl px-4 py-12 md:py-16">
       <div className="flex flex-col space-y-10">
@@ -1041,7 +1123,7 @@ export function SectionTechStack({
             <div className="space-y-3">
               <Badge
                 variant="secondary"
-                className="px-3 py-1 text-sm font-medium"
+                className={cn('px-3 py-1 text-sm font-medium', colors.badge)}
               >
                 <RiCodeBoxLine className="mr-2 h-4 w-4" />
                 {data.techBadge}
@@ -1058,7 +1140,7 @@ export function SectionTechStack({
           <div className="flex flex-col items-center space-y-3 text-center">
             <Badge
               variant="secondary"
-              className="px-3 py-1 text-sm font-medium"
+              className={cn('px-3 py-1 text-sm font-medium', colors.badge)}
             >
               <RiCodeBoxLine className="mr-2 h-4 w-4" />
               {data.techBadge}
@@ -1085,7 +1167,7 @@ export function SectionTechStack({
                   <span className="font-mono text-xs font-semibold text-foreground">
                     $ ls ./{group.id}
                   </span>
-                  <span className="h-2 w-2 rounded-full bg-emerald-500/80" />
+                  <span className={cn('h-2 w-2 rounded-full', colors.dot)} />
                 </div>
                 <CardHeader className="space-y-1.5 pt-5">
                   <CardTitle className="text-base">{group.title}</CardTitle>
@@ -1151,6 +1233,9 @@ export function SectionWorkflow({
   data: SectionPageData;
   variant?: 'card-3' | 'pipeline' | 'checklist';
 }) {
+  const colors = getSectionColors(data.sectionPath);
+  const sectionIconBoxClass = getIconBoxClass(data.sectionPath);
+
   if (variant === 'pipeline') {
     return (
       <section className="container mx-auto max-w-6xl px-4 py-12 md:py-16">
@@ -1158,7 +1243,7 @@ export function SectionWorkflow({
           <div className="flex flex-col items-center space-y-3 text-center">
             <Badge
               variant="secondary"
-              className="px-3 py-1 text-sm font-medium"
+              className={cn('px-3 py-1 text-sm font-medium', colors.badge)}
             >
               <RiCompass3Line className="mr-2 h-4 w-4" />
               {data.workflowBadge}
@@ -1179,10 +1264,15 @@ export function SectionWorkflow({
                   <Card className="relative h-full border border-border/50 bg-muted/40 shadow-sm">
                     <CardHeader className="pb-3">
                       <div className="flex items-center justify-between">
-                        <div className={iconBoxClass}>
+                        <div className={sectionIconBoxClass}>
                           <Icon className="h-5 w-5" />
                         </div>
-                        <span className="font-mono text-3xl font-black tracking-tighter text-blue-600/20 select-none dark:text-blue-400/20">
+                        <span
+                          className={cn(
+                            'font-mono text-3xl font-black tracking-tighter select-none',
+                            colors.watermark
+                          )}
+                        >
                           {step.step}
                         </span>
                       </div>
@@ -1221,7 +1311,7 @@ export function SectionWorkflow({
           <div className="space-y-4 lg:sticky lg:top-28 lg:col-span-5">
             <Badge
               variant="secondary"
-              className="px-3 py-1 text-sm font-medium"
+              className={cn('px-3 py-1 text-sm font-medium', colors.badge)}
             >
               <RiCompass3Line className="mr-2 h-4 w-4" />
               {data.workflowBadge}
@@ -1239,7 +1329,8 @@ export function SectionWorkflow({
               <NumberedStepCard
                 key={step.step}
                 step={step}
-                iconBoxClassName={iconBoxClass}
+                iconBoxClassName={sectionIconBoxClass}
+                stepNumberClassName={colors.textAccent}
               />
             ))}
           </div>
@@ -1255,7 +1346,7 @@ export function SectionWorkflow({
           <div className="flex flex-col items-center space-y-3 text-center">
             <Badge
               variant="secondary"
-              className="px-3 py-1 text-sm font-medium"
+              className={cn('px-3 py-1 text-sm font-medium', colors.badge)}
             >
               <RiCompass3Line className="mr-2 h-4 w-4" />
               {data.workflowBadge}
@@ -1277,7 +1368,7 @@ export function SectionWorkflow({
                   className="space-y-3 rounded-xl border border-border/40 bg-background/60 p-5"
                 >
                   <div className="flex items-center justify-between">
-                    <div className={iconBoxClass}>
+                    <div className={sectionIconBoxClass}>
                       <Icon className="h-5 w-5" />
                     </div>
                     <span className="font-mono text-xs font-bold text-muted-foreground">
@@ -1375,12 +1466,27 @@ export function SectionOtherAndCta({ data }: { data: SectionPageData }) {
                 <Card className={cardClass}>
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <div className={iconBoxClass}>
+                      <div
+                        className={cn(
+                          'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg',
+                          section.colors.iconBox
+                        )}
+                      >
                         <Icon className="h-5 w-5" />
                       </div>
-                      <RiArrowRightLine className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                      <RiArrowRightLine
+                        className={cn(
+                          'h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1',
+                          section.colors.hoverTitle
+                        )}
+                      />
                     </div>
-                    <CardTitle className="mt-3 text-xl transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                    <CardTitle
+                      className={cn(
+                        'mt-3 text-xl transition-colors',
+                        section.colors.hoverTitle
+                      )}
+                    >
                       {section.title}
                     </CardTitle>
                   </CardHeader>

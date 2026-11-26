@@ -10,6 +10,7 @@ import { RiStackLine } from '@remixicon/react';
 import { useTranslation } from 'react-i18next';
 import { extractTranslation } from '../lib/extractTranslation.tsx';
 import { sections } from '@/lib/sections.ts';
+import { cn } from '@/lib/utils';
 
 export const Route = createFileRoute('/sections')({
   component: Sections,
@@ -29,6 +30,10 @@ function Sections() {
 
   if (!isSection) return <Outlet />;
 
+  const isStandalone = location !== '/';
+  const Heading = isStandalone ? 'h1' : 'h2';
+  const cardTitleAs = isStandalone ? 'h2' : 'h3';
+
   return (
     <div className={'bg-background'}>
       <section
@@ -42,12 +47,12 @@ function Sections() {
               variant="secondary"
               className="px-3 py-1 text-sm font-medium"
             >
-              <RiStackLine className="mr-2 h-4 w-4" />
+              <RiStackLine aria-hidden="true" className="mr-2 h-4 w-4" />
               {t('Sections.badge', 'Ścieżki rozwoju')}
             </Badge>
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            <Heading className="text-3xl font-bold tracking-tight md:text-4xl">
               {t('Sections.title', 'Czym się zajmujemy?')}
-            </h2>
+            </Heading>
             <p className="max-w-2xl text-lg text-muted-foreground text-balance">
               {t(
                 'Sections.paragraph',
@@ -69,11 +74,22 @@ function Sections() {
                 >
                   <Card className="group h-full border-none bg-muted/50 shadow-sm transition-[translate,box-shadow,background-color] duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:bg-muted/70">
                     <CardHeader>
-                      <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+                      <div
+                        className={cn(
+                          'mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg',
+                          section.colors.iconBox
+                        )}
+                      >
                         {/* Remix Icons accept standard Tailwind sizing classes perfectly */}
-                        <Icon className="h-6 w-6" />
+                        <Icon aria-hidden="true" className="h-6 w-6" />
                       </div>
-                      <CardTitle className="text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <CardTitle
+                        as={cardTitleAs}
+                        className={cn(
+                          'text-xl transition-colors',
+                          section.colors.hoverTitle
+                        )}
+                      >
                         {section.title}
                       </CardTitle>
                     </CardHeader>

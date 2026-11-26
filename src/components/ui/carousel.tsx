@@ -199,7 +199,7 @@ function CarouselPrevious({
       onClick={scrollPrev}
       {...props}
     >
-      <RiArrowLeftSLine />
+      <RiArrowLeftSLine aria-hidden="true" />
       <span className="sr-only">Previous slide</span>
     </Button>
   );
@@ -229,7 +229,7 @@ function CarouselNext({
       onClick={scrollNext}
       {...props}
     >
-      <RiArrowRightSLine />
+      <RiArrowRightSLine aria-hidden="true" />
       <span className="sr-only">Next slide</span>
     </Button>
   );

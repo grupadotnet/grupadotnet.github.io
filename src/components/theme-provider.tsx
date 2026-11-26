@@ -4,8 +4,12 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
+import { flushSync } from 'react-dom';
+
+const THEME_TRANSITION_DURATION_MS = 650;
 
 export type Theme = 'dark' | 'light' | 'system';
 export type ActualTheme = 'dark' | 'light';
@@ -59,27 +63,124 @@ function ThemeProvider({
 
   const actualTheme = theme === 'system' ? systemTheme : theme;
 
+  const themeRef = useRef<Theme>(theme);
+  const actualThemeRef = useRef<ActualTheme>(actualTheme);
+  const transitionIdRef = useRef(0);
+  const fallbackTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    themeRef.current = theme;
+    actualThemeRef.current = actualTheme;
+  }, [theme, actualTheme]);
+
   useEffect(() => {
     applyRootThemeClass(actualTheme);
   }, [actualTheme]);
 
   useEffect(() => {
+    return () => {
+      if (fallbackTimerRef.current !== null) {
+        window.clearTimeout(fallbackTimerRef.current);
+      }
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.remove(
+          'theme-view-transition',
+          'theme-transitioning'
+        );
+      }
+    };
+  }, []);
+
+  const runSyncedThemeTransition = useCallback(
+    (updateState: () => void, nextActual: ActualTheme) => {
+      if (typeof window === 'undefined' || typeof document === 'undefined') {
+        updateState();
+        return;
+      }
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        applyRootThemeClass(nextActual);
+        updateState();
+        return;
+      }
+
+      const id = ++transitionIdRef.current;
+      if (fallbackTimerRef.current !== null) {
+        window.clearTimeout(fallbackTimerRef.current);
+        fallbackTimerRef.current = null;
+      }
+
+      const root = document.documentElement;
+
+      if (typeof document.startViewTransition === 'function') {
+        root.classList.remove('theme-transitioning');
+        root.classList.add('theme-view-transition');
+
+        const transition = document.startViewTransition(() => {
+          flushSync(() => {
+            updateState();
+          });
+          applyRootThemeClass(nextActual);
+        });
+
+        void transition.finished
+          .catch(() => {})
+          .finally(() => {
+            if (transitionIdRef.current === id) {
+              root.classList.remove('theme-view-transition');
+            }
+          });
+        return;
+      }
+
+      root.classList.add('theme-transitioning');
+      void root.offsetWidth;
+      applyRootThemeClass(nextActual);
+      updateState();
+
+      fallbackTimerRef.current = window.setTimeout(() => {
+        if (transitionIdRef.current === id) {
+          root.classList.remove('theme-transitioning');
+          fallbackTimerRef.current = null;
+        }
+      }, THEME_TRANSITION_DURATION_MS + 50);
+    },
+    []
+  );
+
+  useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
     const listener = (e: MediaQueryListEvent) => {
-      setSystemTheme(e.matches ? 'dark' : 'light');
+      const nextSystem: ActualTheme = e.matches ? 'dark' : 'light';
+      if (
+        themeRef.current === 'system' &&
+        nextSystem !== actualThemeRef.current
+      ) {
+        runSyncedThemeTransition(() => setSystemTheme(nextSystem), nextSystem);
+      } else {
+        setSystemTheme(nextSystem);
+      }
     };
 
     mediaQuery.addEventListener('change', listener);
     return () => mediaQuery.removeEventListener('change', listener);
-  }, []);
+  }, [runSyncedThemeTransition]);
 
   const handleSetTheme = useCallback(
     (newTheme: Theme) => {
       localStorage.setItem(storageKey, newTheme);
-      setTheme(newTheme);
+      const nextActual: ActualTheme =
+        newTheme === 'system' ? getSystemTheme() : newTheme;
+
+      if (nextActual === actualThemeRef.current) {
+        setTheme(newTheme);
+        return;
+      }
+
+      runSyncedThemeTransition(() => setTheme(newTheme), nextActual);
     },
-    [storageKey]
+    [storageKey, runSyncedThemeTransition]
   );
 
   const value = useMemo(

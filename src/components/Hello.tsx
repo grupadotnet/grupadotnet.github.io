@@ -1,6 +1,7 @@
 'use client';
 import { RiArrowDownSLine } from '@remixicon/react';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import { cn } from '../lib/utils.ts';
 
@@ -28,14 +29,19 @@ const Typewriter = ({
 }) => {
   const [textState, setTextState] = useState(() => {
     const randomIndex = Math.floor(Math.random() * options.length);
+    const chosen = options[randomIndex];
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     return {
-      visible: '',
-      invisible: options[randomIndex],
+      visible: prefersReducedMotion ? chosen : '',
+      invisible: prefersReducedMotion ? '' : chosen,
     };
   });
 
   // Derived directly — true when typing is complete, no extra state or effect triggers needed
   const isFinished = textState.invisible.length === 0;
+  const fullText = textState.visible + textState.invisible;
 
   const typewritterRef = useRef(null);
 
@@ -52,21 +58,23 @@ const Typewriter = ({
   }, [isFinished, textState.invisible]);
 
   return (
-    <div
+    <h1
       className={
         'lg:text-9xl text-6xl ml-[10dvw] text-balance text-white w-2/3'
       }
+      aria-label={fullText}
     >
-      <span className={cn(className)} id={'hero-section'}>
+      <span className={cn(className)} id={'hero-section'} aria-hidden="true">
         {textState.visible}
       </span>
       <span
-        className={`border-l-4 border-white text-transparent ${isFinished ? 'animate-caret-blink' : ''}`}
+        aria-hidden="true"
+        className={`border-l-4 border-white text-transparent ${isFinished ? 'animate-caret-blink motion-reduce:animate-none' : ''}`}
         ref={typewritterRef}
       >
         {textState.invisible}
       </span>
-    </div>
+    </h1>
   );
 };
 const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -77,7 +85,15 @@ const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const targetElement = document.querySelector(targetId);
 
     if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)')
+        .matches
+        ? 'auto'
+        : 'smooth';
+      targetElement.scrollIntoView({ behavior, block: 'center' });
+      if (targetElement instanceof HTMLElement) {
+        targetElement.setAttribute('tabindex', '-1');
+        targetElement.focus({ preventScroll: true });
+      }
     }
   } catch {
     // Ignore invalid CSS selector
@@ -85,6 +101,8 @@ const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
 };
 
 export function Hello() {
+  const { t } = useTranslation();
+
   return (
     <div
       className={'h-[91dvh] w-full grid grid-rows-[1fr_auto] bg-transparent'}
@@ -94,15 +112,14 @@ export function Hello() {
       </section>
       <div className={'flex justify-center items-end mb-20'}>
         <a
-          href={'#about'}
+          href={'#harmonogram'}
           onClick={handleScroll}
           className={
-            'hover:scale-150  hover:-translate-y-1.5 transition duration-200 ease-in-out'
+            'inline-flex items-center justify-center rounded-full p-2 text-white transition duration-200 ease-in-out hover:-translate-y-1.5 hover:scale-125'
           }
-          aria-label={'About'}
-          aria-labelledby={'about'}
+          aria-label={t('Hello.scrollDown', 'Przejdź do harmonogramu')}
         >
-          <RiArrowDownSLine />
+          <RiArrowDownSLine aria-hidden="true" />
         </a>
       </div>
     </div>

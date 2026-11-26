@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute, Link, useLocation } from '@tanstack/react-router';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -22,6 +22,7 @@ export const Route = createFileRoute('/about')({
 
 function About() {
   const { t } = useTranslation();
+  const Heading = useLocation().pathname !== '/' ? 'h1' : 'h2';
   return (
     <div className={'bg-background'}>
       <section
@@ -41,16 +42,19 @@ function About() {
                   variant="secondary"
                   className="px-3 py-1 text-sm font-medium"
                 >
-                  <RiTerminalBoxFill className="mr-2 h-4 w-4" />
+                  <RiTerminalBoxFill
+                    aria-hidden="true"
+                    className="mr-2 h-4 w-4"
+                  />
                   {t('About.badge', 'Kim jesteśmy')}
                 </Badge>
               </div>
 
-              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+              <Heading className="text-3xl font-bold tracking-tight md:text-4xl">
                 {t('About.title', 'O NAS')}
-              </h2>
+              </Heading>
 
-              <p className="text-lg leading-relaxed text-muted-foreground text-justify text-pretty">
+              <p className="text-lg leading-relaxed text-muted-foreground text-pretty">
                 <Trans i18nKey={'About.paragraph'}>
                   <span>
                     Koło Naukowe Programistów i Miłośników Informatyki działa
@@ -58,7 +62,7 @@ function About() {
                     studentów zainteresowanych szeroko rozumianym
                     programowaniem. Organizujemy cotygodniowe zajęcia
                     programowania z{' '}
-                    <strong className="bg-(image:--primary-gradient) bg-clip-text font-bold text-transparent ">
+                    <strong className="bg-(image:--primary-text-gradient) bg-clip-text font-bold text-transparent ">
                       zakresu tworzenia aplikacji internetowych, uczenia
                       maszynowego i analizy danych, cyberbezpieczeństwa oraz
                       programowania niskopoziomowego
@@ -77,11 +81,14 @@ function About() {
                   className="cursor-pointer gap-2"
                   render={
                     <Link to="/identity/2026">
-                      <RiPaletteLine className="h-4 w-4" />
+                      <RiPaletteLine aria-hidden="true" className="h-4 w-4" />
                       <span>
                         {t('About.identityCta', 'Identyfikacja wizualna')}
                       </span>
-                      <RiArrowRightLine className="h-4 w-4" />
+                      <RiArrowRightLine
+                        aria-hidden="true"
+                        className="h-4 w-4"
+                      />
                     </Link>
                   }
                 />

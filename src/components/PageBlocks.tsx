@@ -2,6 +2,7 @@ import type { RiCodeBoxLine } from '@remixicon/react';
 
 import { Badge } from '@/components/ui/badge.tsx';
 import { Card, CardContent } from '@/components/ui/card.tsx';
+import { cn } from '@/lib/utils';
 
 export interface NumberedStepItem {
   step: string;
@@ -20,9 +21,11 @@ export interface TechGroupItem {
 export function NumberedStepCard({
   step,
   iconBoxClassName,
+  stepNumberClassName = 'text-blue-600 dark:text-blue-400',
 }: {
   step: NumberedStepItem;
   iconBoxClassName: string;
+  stepNumberClassName?: string;
 }) {
   const Icon = step.icon;
 
@@ -30,11 +33,13 @@ export function NumberedStepCard({
     <Card className="border border-border/50 bg-muted/40 shadow-sm">
       <CardContent className="flex items-start gap-4 p-5">
         <div className={iconBoxClassName}>
-          <Icon className="h-5 w-5" />
+          <Icon aria-hidden="true" className="h-5 w-5" />
         </div>
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+            <span
+              className={cn('font-mono text-xs font-bold', stepNumberClassName)}
+            >
               {step.step}
             </span>
             <h3 className="text-base font-bold">{step.title}</h3>
