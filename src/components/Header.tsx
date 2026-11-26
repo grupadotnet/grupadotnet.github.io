@@ -5,7 +5,9 @@ import knpimi_w from '/svg/KNPIMI/Logo_KNPiMI_white.svg';
 import knpimi_w_text from '/svg/KNPIMI/Logo_KNPiMI_white_with_text.svg';
 
 import pkSygnet from '/svg/PK/PK_SYGNET_RGB.svg';
+import pkLogo from '/svg/PK/PK_POZIOM_CMYK.svg';
 import pkSygnet_w from '/svg/PK/PK_SYGNET_RGB_inwersyjny.svg';
+import pkLogo_w from '/svg/PK/PK_POZIOM_CMYK_w.svg';
 
 import {
   NavigationMenu,
@@ -49,21 +51,21 @@ const knpimiLogos: Record<string, string> = {
 };
 
 const pkLogos: Record<string, string> = {
-  '0000': pkSygnet,
+  '0000': pkLogo,
   '0010': pkSygnet,
-  '0001': pkSygnet,
+  '0001': pkLogo,
   '0011': pkSygnet,
-  '0100': pkSygnet_w,
+  '0100': pkLogo_w,
   '0110': pkSygnet_w,
-  '0101': pkSygnet,
+  '0101': pkLogo,
   '0111': pkSygnet,
-  '1000': pkSygnet_w,
+  '1000': pkLogo_w,
   '1010': pkSygnet_w,
-  '1001': pkSygnet_w,
+  '1001': pkLogo_w,
   '1011': pkSygnet_w,
-  '1100': pkSygnet_w,
+  '1100': pkLogo_w,
   '1110': pkSygnet_w,
-  '1101': pkSygnet_w,
+  '1101': pkLogo_w,
   '1111': pkSygnet_w,
 };
 
@@ -102,7 +104,7 @@ export default function Header() {
   };
 
   const currentLogo = knpimiLogos[stateString] ?? knpimi_text;
-  const currentPkSygnet = pkLogos[stateString] ?? pkSygnet;
+  const currentPkLogo = pkLogos[stateString] ?? pkLogo;
 
   // 1. Filter top-level routes
   const navRoutes = routes
@@ -130,9 +132,11 @@ export default function Header() {
             className="shrink-0"
           >
             <img
-              src={currentPkSygnet}
+              src={currentPkLogo}
               alt={t('Header.pkLogoAlt', 'Politechnika Krakowska')}
-              className="h-24 w-auto"
+              className={
+                isMobile ? 'h-24 w-auto' : 'h-10 xl:h-12 2xl:h-16 w-auto'
+              }
             />
           </a>
           <Link to={'/'} className="shrink-0">
@@ -142,7 +146,9 @@ export default function Header() {
                 srcSet={currentLogo}
                 src={currentLogo}
                 alt={t('Header.logoAlt', 'KNPiMI Logo')}
-                className="h-24 w-auto"
+                className={
+                  isMobile ? 'h-24 w-auto' : 'h-15 xl:h-18 2xl:h-24 w-auto'
+                }
               />
             </picture>
           </Link>
