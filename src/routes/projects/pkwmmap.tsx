@@ -53,10 +53,7 @@ function PkwmMap() {
     badge: t('PKWMmap.hero.badge', 'Projekt PKWMmap'),
     status: t('PKWMmap.hero.status', 'KMP • Go • 25 planów pięter'),
     titlePrefix: t('PKWMmap.hero.titlePrefix', 'Nawigacja wewnątrz'),
-    titleHighlight: t(
-      'PKWMmap.hero.titleHighlight',
-      'Kampusu PK w Czyżynach'
-    ),
+    titleHighlight: t('PKWMmap.hero.titleHighlight', 'Kampusu PK w Czyżynach'),
     subtitle: t(
       'PKWMmap.hero.subtitle',
       'Interaktywny system nawigacji wewnątrzbudynkowej i kampusowej dla Kampusu PK w Czyżynach. Wykorzystuje sieć nadajników BLE iNode, wieloplatformową aplikację mobilną w Kotlin Multiplatform (Android & iOS) oraz wydajny backend w języku Go.'
