@@ -55,11 +55,11 @@ function PkwmMap() {
     titlePrefix: t('PKWMmap.hero.titlePrefix', 'Nawigacja wewnątrz'),
     titleHighlight: t(
       'PKWMmap.hero.titleHighlight',
-      'Wydziału Mechanicznego PK'
+      'Kampusu PK w Czyżynach'
     ),
     subtitle: t(
       'PKWMmap.hero.subtitle',
-      'Interaktywny system nawigacji wewnątrzbudynkowej i kampusowej dla Wydziału Mechanicznego Politechniki Krakowskiej. Wykorzystuje sieć nadajników BLE iNode, wieloplatformową aplikację mobilną w Kotlin Multiplatform (Android & iOS) oraz wydajny backend w języku Go.'
+      'Interaktywny system nawigacji wewnątrzbudynkowej i kampusowej dla Kampusu PK w Czyżynach. Wykorzystuje sieć nadajników BLE iNode, wieloplatformową aplikację mobilną w Kotlin Multiplatform (Android & iOS) oraz wydajny backend w języku Go.'
     ),
     highlights: [
       {
@@ -250,7 +250,7 @@ function PkwmMap() {
     ],
     ctaTitle: t(
       'PKWMmap.cta.title',
-      'Chcesz współtworzyć mapę Wydziału Mechanicznego?'
+      'Chcesz współtworzyć mapę Kampusu PK w Czyżynach?'
     ),
     ctaDescription: t(
       'PKWMmap.cta.description',

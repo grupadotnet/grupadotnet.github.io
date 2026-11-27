@@ -5,9 +5,9 @@ import knpimi_w from '/svg/KNPIMI/Logo_KNPiMI_white.svg';
 import knpimi_w_text from '/svg/KNPIMI/Logo_KNPiMI_white_with_text.svg';
 
 import pkSygnet from '/svg/PK/PK_SYGNET_RGB.svg';
-import pkLogo from '/svg/PK/PK_POZIOM_CMYK.svg';
+import pkLogo from '/svg/PK/PK_short_RGB.svg';
 import pkSygnet_w from '/svg/PK/PK_SYGNET_RGB_inwersyjny.svg';
-import pkLogo_w from '/svg/PK/PK_POZIOM_CMYK_w.svg';
+import pkLogo_w from '/svg/PK/PK_short_Mono.svg';
 
 import {
   NavigationMenu,
@@ -526,7 +526,7 @@ export default function Header() {
               src={currentPkLogo}
               alt=""
               className={
-                isMobile ? 'h-24 w-auto' : 'h-10 xl:h-12 2xl:h-16 w-auto'
+                isMobile ? 'h-24 w-auto' : 'h-15 xl:h-18 2xl:h-24 w-auto'
               }
             />
           </a>
